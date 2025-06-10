@@ -36,9 +36,6 @@ class SignupRequest {
   String? rePassword;
   int? educationalGradeId;
 
-  var identityImage = UploadFile(nameField: 'identity_image', assetImage: Assets.iconsIdentity);
-  var profileImageUrl = UploadFile(nameField: 'profile_image_url', assetImage: Assets.iconsProfile);
-
   factory SignupRequest.fromJson(Map<String, dynamic> json) {
     return SignupRequest(
       name: json['first_name'] as String?,
@@ -57,18 +54,18 @@ class SignupRequest {
   }
 
   Map<String, dynamic> toJson() => {
-        'first_name': name,
-        "password": password,
-        "educational_grade_id": educationalGradeId,
-        'rePassword': rePassword,
-        'last_name': '.',
-        'phone': phone.fixPhone,
-        'gender': gender?.nameApi ?? 'male',
-        'genderID': gender?.index ?? 0,
-        'birth_date': birthday?.toIso8601String() ?? DateTime(2000).toIso8601String(),
-        'latitude': location?.latitude.toString(),
-        'longitude': location?.longitude.toString(),
-        'locationName': locationName,
-        'governorate_id': governorateId,
-      };
+    'first_name': name,
+    "password": password,
+    "educational_grade_id": educationalGradeId,
+    'rePassword': rePassword,
+    'last_name': '.',
+    'phone': phone.fixPhone,
+    'gender': gender?.nameApi ?? 'male',
+    'genderID': gender?.index ?? 0,
+    'birth_date': birthday?.toIso8601String() ?? DateTime(2000).toIso8601String(),
+    'latitude': location?.latitude.toString(),
+    'longitude': location?.longitude.toString(),
+    'locationName': locationName,
+    'governorate_id': governorateId,
+  };
 }

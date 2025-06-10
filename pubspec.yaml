@@ -73,13 +73,13 @@ flutter:
   fonts:
     - family: regular
       fonts:
-        - asset: assets/fonts/cairo.ttf
+        - asset: assets/fonts/Almarai-Light.ttf
     - family: semeBold
       fonts:
-        - asset: assets/fonts/cairo_semi_bold.ttf
+        - asset: assets/fonts/Almarai-Regular.ttf
     - family: bold
       fonts:
-        - asset: assets/fonts/cairo_bold.ttf
+        - asset: assets/fonts/Almarai-Bold.ttf
 
 flutter_intl:
   enabled: true

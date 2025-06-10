@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                           hint: S.of(context).phoneNumber,
                           initialValue: loginCubit.state.request.phone,
                           keyBordType: TextInputType.phone,
-                          icon: Assets.iconsCall,
+
                           maxLength: 12,
                           onChanged: (val) => loginCubit.setPhone = val,
                         ),
@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                           validator: (p0) => loginCubit.validatePassword,
                           labelText: S.of(context).password,
                           hint: S.of(context).password,
-                          icon: Assets.iconsKey,
+
                           obscureText: true,
                           initialValue: loginCubit.state.request.password,
                           onChanged: (val) => loginCubit.setPassword = val,

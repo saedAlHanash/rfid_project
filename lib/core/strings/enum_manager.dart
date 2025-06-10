@@ -261,16 +261,7 @@ enum ExamType {
     }
   }
 
-  Widget get nameWidget => DrawableText(
-    text: name,
-    color: AppColorManager.mainColor,
-    drawablePadding: 10.0.w,
-    drawableStart: ImageMultiType(
-      url: this == free ? Assets.iconsDoneIcon : Assets.iconsDollar,
-      height: 16.0.h,
-      width: 16.0.w,
-    ),
-  );
+
 
   static ExamType fromName(String name) {
     switch (name) {
@@ -313,17 +304,6 @@ enum QuestionType {
         return S().openEnded;
     }
   }
-
-  Widget get nameWidget => DrawableText(
-    text: name,
-    color: AppColorManager.mainColor,
-    drawablePadding: 10.0.w,
-    drawableStart: ImageMultiType(
-      url: this == trueOrFalse ? Assets.iconsDoneIcon : Assets.iconsDollar,
-      height: 16.0.h,
-      width: 16.0.w,
-    ),
-  );
 
   static QuestionType fromName(String name) {
     switch (name) {

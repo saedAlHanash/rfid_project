@@ -19,7 +19,6 @@ class AuthCardImage extends StatelessWidget {
       width: 1.0.sw,
       child: Stack(
         children: [
-          ImageMultiType(height: 1.0.sh, width: 1.0.sw, fit: BoxFit.fill, url: Assets.imagesAuthBackground),
           PositionedDirectional(
             bottom: 20.0.h,
             start: 20.0.w,

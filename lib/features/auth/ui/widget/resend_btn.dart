@@ -53,7 +53,6 @@ class _ResendBtnState extends State<ResendBtn> {
                 },
               ),
               ListTile(
-                leading: ImageMultiType(url: Assets.iconsWhatsapp, color: AppColorManager.mainColor),
                 title: Text(S.of(context).sendViaWhatsapp),
                 onTap: () {
                   context.pop(); // إغلاق الـ BottomSheet

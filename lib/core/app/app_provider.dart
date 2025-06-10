@@ -94,7 +94,7 @@ class AppProvider {
         ctx!,
         text: 'تأكيد تسجيل الخروج',
         textButton: 'تسجيل الخروج',
-        image: ImageMultiType(url: Assets.iconsLogout, height: 100.0.r, width: 100.0.r),
+        image: ImageMultiType(url: Icons.logout, height: 100.0.r, width: 100.0.r),
         onConfirm: () async {
           await AppSharedPreference.logout();
           await AppSharedPreference.reload();

@@ -30,11 +30,11 @@ class _NavbarState extends State<Navbar> {
           color: AppColorManager.mainColor,
           buttonBackgroundColor: AppColorManager.mainColor,
           items: [
-            ImageMultiType(url: Assets.iconsHome, color: Colors.white, height: 25.0.r, width: 25.0.r),
-            ImageMultiType(url: Assets.iconsMyCourses, color: Colors.white, height: 25.0.r, width: 25.0.r),
+            ImageMultiType(url: Icons.home, color: Colors.white, height: 25.0.r, width: 25.0.r),
+            ImageMultiType(url: Icons.data_array, color: Colors.white, height: 25.0.r, width: 25.0.r),
             if (AppProvider.isLogin)
-              ImageMultiType(url: Assets.iconsExams, color: Colors.white, height: 25.0.r, width: 25.0.r),
-            ImageMultiType(url: Assets.iconsSettings, color: Colors.white, height: 25.0.r, width: 25.0.r),
+              ImageMultiType(url: Icons.notifications, color: Colors.white, height: 25.0.r, width: 25.0.r),
+            ImageMultiType(url: Icons.settings, color: Colors.white, height: 25.0.r, width: 25.0.r),
           ],
           onTap: (index) {
             context.read<HomeCubit>().jumpPage(index);

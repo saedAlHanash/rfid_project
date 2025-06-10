@@ -59,14 +59,6 @@ class SignupCubit extends MCubit<SignupInitial> {
 
   set setEducationalGrade(int? id) => state.request.educationalGradeId = id;
 
-  set setIdentityImage(Uint8List bytes) {
-    state.request.identityImage.fileBytes = bytes;
-  }
-
-  set setProfileImage(Uint8List bytes) {
-    state.request.profileImageUrl.fileBytes = bytes;
-  }
-
   set setBirthday(DateTime? birthday) => state.request.birthday = birthday;
 
   set setPhone(String? phone) => state.request.phone = phone;

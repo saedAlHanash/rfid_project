@@ -66,7 +66,6 @@ class _SignupPageState extends State<SignupPage> {
 
                             //name
                             MyTextFormOutLineWidget(
-                              icon: Assets.iconsUserName,
                               validator: (p0) => signupCubit.validateName,
                               initialValue: signupState.request.name,
                               labelText: S.of(context).fullName,
@@ -77,7 +76,6 @@ class _SignupPageState extends State<SignupPage> {
                             if (!AppProvider.isStoreTest) 10.0.verticalSpace,
                             if (!AppProvider.isStoreTest)
                               SpinnerWidget(
-                                icon: Assets.iconsUserName,
                                 items: GenderEnum.values.getSpinnerItems(
                                   selectedId: signupState.request.gender?.index,
                                 ),
@@ -114,7 +112,6 @@ class _SignupPageState extends State<SignupPage> {
                                   signupCubit.setBirthday = datePicked;
                                   bDateController.text = datePicked.formatDate;
                                 },
-                                icon: const ImageMultiType(url: Assets.iconsCalendar),
                               ),
                             // رقم الهاتف
                             MyTextFormOutLineWidget(
@@ -122,14 +119,13 @@ class _SignupPageState extends State<SignupPage> {
                               initialValue: signupState.request.phone,
                               keyBordType: TextInputType.phone,
                               maxLength: 12,
-                              icon: ImageMultiType(url: Assets.iconsPhone),
+
                               labelText: S.of(context).phoneNumber,
                               hint: S.of(context).phoneNumberMustStartWith07,
                               onChanged: (val) => signupCubit.setPhone = val,
                             ),
                             // كلمة السر
                             MyTextFormOutLineWidget(
-                              icon: Assets.iconsKey,
                               validator: (p0) => signupCubit.validatePassword,
                               labelText: S.of(context).password,
                               hint: S.of(context).password,
@@ -140,7 +136,6 @@ class _SignupPageState extends State<SignupPage> {
                             ),
                             // كلمة السر
                             MyTextFormOutLineWidget(
-                              icon: Assets.iconsKey,
                               validator: (p0) => signupCubit.validateRePassword,
                               labelText: S.of(context).rePassword,
                               hint: S.of(context).rePassword,

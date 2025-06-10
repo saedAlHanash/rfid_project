@@ -62,87 +62,87 @@ class _MenuScreenState extends State<MenuScreen> {
                       child: Column(
                         children: [
                           10.0.verticalSpace,
-                          const ImageMultiType(url: Assets.iconsNotch),
-                          30.0.verticalSpace,
-                          ItemMenu(
-                            onTap: () {
-                              context.pushNamed(RouteName.profile).then((value) {
-                                if (value is bool && value) {
-                                  context.read<GetMeCubit>().getData(newData: true);
-                                }
-                              });
-                            },
-                            name: S.of(context).profile,
-                            subTitle: S.of(context).profile,
-                            image: Assets.iconsProfile,
-                          ),
 
-                          ItemMenu(
-                            onTap: () {},
-                            name: S.of(context).notification,
-                            subTitle: S.of(context).subTitleNotification,
-                            // subTitle: AppProvider.eduGrade.name,
-                            image: Assets.iconsNotifications,
-                            trailing: SwitchWidget(
-                              initialVal: AppSharedPreference.getNotificationState,
-                              onChange: (p0) {
-                                AppSharedPreference.cashNotificationState(p0);
-                              },
-                            ),
-                            withD: false,
-                          ),
-                          30.0.verticalSpace,
-                          ItemMenu(
-                            onTap: () {},
-                            name: S.of(context).password,
-                            subTitle: S.of(context).subTitlePassword,
-                            image: Assets.iconsPassword,
-                          ),
-                          ItemMenu(
-                            onTap: () {
-                              LauncherHelper.openPage(AppProvider.systemParams.communication);
-                            },
-                            name: S.of(context).support,
-                            subTitle: S.of(context).subTitleSupport,
-                            image: Assets.iconsSupport,
-                          ),
-                          ItemMenu(
-                            onTap: () {
-                              LauncherHelper.openPage(AppProvider.systemParams.policyLink);
-                            },
-                            name: S.of(context).policy,
-                            subTitle: S.of(context).subTitlePolicy,
-                            image: Assets.iconsPolicy,
-                          ),
-                          ItemMenu(
-                            onTap: () {
-                              AppProvider.logout();
-                            },
-                            name: S.of(context).logout,
-                            subTitle: '',
-                            image: Assets.iconsLogout,
-                          ),
-                          ItemMenu(
-                            onTap: () {
-                              NoteMessage.showCheckDialog(
-                                context,
-                                text: 'حذف الحساب',
-                                textButton: 'متأكد',
-                                image: ImageMultiType(
-                                  url: Assets.iconsDelete,
-                                  height: 120.0.r,
-                                  width: 120.0.r,
-                                ),
-                                onConfirm: () {
-                                  context.read<DeleteAccountCubit>().deleteAccount(context);
-                                },
-                              );
-                            },
-                            name: S.of(context).deleteAccount,
-                            subTitle: S.of(context).subTitleDeleteAccount,
-                            image: Assets.iconsDelete,
-                            withD: false,
-                          ),
+                          // 30.0.verticalSpace,
+                          // ItemMenu(
+                          //   onTap: () {
+                          //     context.pushNamed(RouteName.profile).then((value) {
+                          //       if (value is bool && value) {
+                          //         context.read<GetMeCubit>().getData(newData: true);
+                          //       }
+                          //     });
+                          //   },
+                          //   name: S.of(context).profile,
+                          //   subTitle: S.of(context).profile,
+                          //   image: Assets.iconsProfile,
+                          // ),
+                          //
+                          // ItemMenu(
+                          //   onTap: () {},
+                          //   name: S.of(context).notification,
+                          //   subTitle: S.of(context).subTitleNotification,
+                          //   // subTitle: AppProvider.eduGrade.name,
+                          //   image: Assets.iconsNotifications,
+                          //   trailing: SwitchWidget(
+                          //     initialVal: AppSharedPreference.getNotificationState,
+                          //     onChange: (p0) {
+                          //       AppSharedPreference.cashNotificationState(p0);
+                          //     },
+                          //   ),
+                          //   withD: false,
+                          // ),
+                          // 30.0.verticalSpace,
+                          // ItemMenu(
+                          //   onTap: () {},
+                          //   name: S.of(context).password,
+                          //   subTitle: S.of(context).subTitlePassword,
+                          //   image: Assets.iconsPassword,
+                          // ),
+                          // ItemMenu(
+                          //   onTap: () {
+                          //     LauncherHelper.openPage(AppProvider.systemParams.communication);
+                          //   },
+                          //   name: S.of(context).support,
+                          //   subTitle: S.of(context).subTitleSupport,
+                          //   image: Assets.iconsSupport,
+                          // ),
+                          // ItemMenu(
+                          //   onTap: () {
+                          //     LauncherHelper.openPage(AppProvider.systemParams.policyLink);
+                          //   },
+                          //   name: S.of(context).policy,
+                          //   subTitle: S.of(context).subTitlePolicy,
+                          //   image: Assets.iconsPolicy,
+                          // ),
+                          // ItemMenu(
+                          //   onTap: () {
+                          //     AppProvider.logout();
+                          //   },
+                          //   name: S.of(context).logout,
+                          //   subTitle: '',
+                          //   image: Assets.iconsLogout,
+                          // ),
+                          // ItemMenu(
+                          //   onTap: () {
+                          //     NoteMessage.showCheckDialog(
+                          //       context,
+                          //       text: 'حذف الحساب',
+                          //       textButton: 'متأكد',
+                          //       image: ImageMultiType(
+                          //         url: Assets.iconsDelete,
+                          //         height: 120.0.r,
+                          //         width: 120.0.r,
+                          //       ),
+                          //       onConfirm: () {
+                          //         context.read<DeleteAccountCubit>().deleteAccount(context);
+                          //       },
+                          //     );
+                          //   },
+                          //   name: S.of(context).deleteAccount,
+                          //   subTitle: S.of(context).subTitleDeleteAccount,
+                          //   image: Assets.iconsDelete,
+                          //   withD: false,
+                          // ),
                           30.0.verticalSpace,
                           ItemMenu(
                             onTap: () {},

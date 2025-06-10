@@ -65,22 +65,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                     appBarColor: imageAppBar ? AppColorManager.black : color ?? AppColorManager.mainColor,
                   )
                 : null),
-        flexibleSpace:
-            imageFromPage ??
-            (imageAppBar
-                ? Column(
-                    children: [
-                      MediaQuery.of(context).padding.top.verticalSpace,
-                      ImageMultiType(
-                        height: 70.h,
-                        width: 1.sw,
-                        fit: BoxFit.fill,
-                        url: Assets.imagesAppBarBack,
-                      ),
-                      // MediaQuery.of(context).padding.top.verticalSpace,
-                    ],
-                  )
-                : null),
+
         centerTitle: true,
         actions: actions,
         elevation: elevation ?? 0.0,

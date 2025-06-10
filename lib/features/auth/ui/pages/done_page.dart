@@ -19,7 +19,7 @@ class DonePage extends StatelessWidget {
       body: Column(
         children: [
           200.0.verticalSpace,
-          ImageMultiType(url: Assets.iconsDone, height: 90.0.r, width: 90.0.r),
+
           20.0.verticalSpace,
           DrawableText(
             text: S.of(context).isSuccess,

@@ -52,14 +52,8 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
           padding: MyStyle.pagePadding,
           child: Column(
             children: [
-              ImageMultiType(url: Assets.iconsCircleKey, height: 150.0.r, width: 150.0.r),
               const Spacer(),
               MyTextFormOutLineWidget(
-                iconWidget: Padding(
-                  padding: const EdgeInsets.all(15.0).r,
-                  child: const ImageMultiType(url: Assets.iconsPhone),
-                ),
-                iconWidgetLift: ImageMultiType(url: Assets.imagesIraqCode, width: 70.0.w),
                 maxLength: 12,
                 hint: '07xxxxxxxxxx',
                 textDirection: TextDirection.ltr,

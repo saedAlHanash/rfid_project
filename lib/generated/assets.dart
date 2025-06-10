@@ -5,4 +5,8 @@ class Assets {
   static const String fontsAlmaraiBold = 'assets/fonts/Almarai-Bold.ttf';
   static const String fontsAlmaraiLight = 'assets/fonts/Almarai-Light.ttf';
   static const String fontsAlmaraiRegular = 'assets/fonts/Almarai-Regular.ttf';
+  static const String iconsLogo = 'assets/icons/logo.svg';
+  static const String imagesBandtechLogo = 'assets/images/bandtech_logo.png';
+  static const String imagesLogo = 'assets/images/logo.svg';
+  static const String imagesTestMode = 'assets/images/test_mode.png';
 }
