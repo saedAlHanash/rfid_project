@@ -76,7 +76,7 @@
 //                           // );
 //                           signupCubit.setEducationalGrade = selectedId;
 //                           signupCubit.signup();
-//                           Navigator.pushNamedAndRemoveUntil(
+//                           context.goNamed(
 //                               context, RouteName.confirmCode);
 //                                                 },
 //

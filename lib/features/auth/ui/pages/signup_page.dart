@@ -9,7 +9,8 @@ import 'package:rfid_project/features/auth/ui/widget/auth_card_image.dart';
 
 import 'package:rfid_project/router/go_router.dart';
 import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
@@ -42,7 +43,7 @@ class _SignupPageState extends State<SignupPage> {
     return BlocListener<SignupCubit, SignupInitial>(
       listenWhen: (p, c) => c.done,
       listener: (context, state) {
-         context.goNamed( , RouteName.confirmCode);
+        context.goNamed(RouteName.confirmCode);
       },
       child: Scaffold(
         body: Column(
@@ -77,7 +78,6 @@ class _SignupPageState extends State<SignupPage> {
                               onChanged: (val) => signupCubit.setName = val,
                             ),
 
-
                             if (!AppProvider.isStoreTest) 10.0.verticalSpace,
                             if (!AppProvider.isStoreTest)
                               SpinnerWidget(
@@ -90,7 +90,6 @@ class _SignupPageState extends State<SignupPage> {
                                 hintLabel: '${S.of(context).choosing} ${S.of(context).gender}',
                               ),
                             20.0.verticalSpace,
-
 
                             DrawableText(
                               text: S.of(context).youCanChangeYourStudyLevelLater,
@@ -127,9 +126,7 @@ class _SignupPageState extends State<SignupPage> {
                               initialValue: signupState.request.phone,
                               keyBordType: TextInputType.phone,
                               maxLength: 12,
-                              icon: ImageMultiType(
-                                url: Assets.iconsPhone,
-                              ),
+                              icon: ImageMultiType(url: Assets.iconsPhone),
                               labelText: S.of(context).phoneNumber,
                               hint: S.of(context).phoneNumberMustStartWith07,
                               onChanged: (val) => signupCubit.setPhone = val,

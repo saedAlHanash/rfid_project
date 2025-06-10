@@ -36,8 +36,7 @@ class DonePage extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 30.0, vertical: 70.0).r,
             child: MyButton(
               onTap: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, RouteName.login);
+                context.goNamed(RouteName.login);
               },
               text: S.of(context).done,
             ),

@@ -4,7 +4,8 @@ import 'package:rfid_project/core/util/my_style.dart';
 import 'package:rfid_project/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:rfid_project/core/widgets/my_button.dart';
 import 'package:rfid_project/core/widgets/my_text_form_widget.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
@@ -46,7 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return BlocListener<UpdateProfileCubit, UpdateProfileInitial>(
       listenWhen: (p, c) => c.statuses == CubitStatuses.done,
-      listener: (context, state) => context.pop(, true),
+      listener: (context, state) => context.pop(true),
       child: Scaffold(
         appBar: AppBarWidget(titleText: S.of(context).profile),
         body: SingleChildScrollView(
@@ -57,19 +58,19 @@ class _ProfilePageState extends State<ProfilePage> {
               builder: (context, state) {
                 locationController.text = updateState.request.locationName ?? '';
 
-
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    StatefulBuilder(builder: (context, setState) {
-                      return ItemImageCreate(
-                        image: updateState.request.profileImageUrl.getImage,
-                        onLoad: (bytes) {
-                          setState(() =>
-                              updateState.request.profileImageUrl.fileBytes = bytes);
-                        },
-                      );
-                    }),
+                    StatefulBuilder(
+                      builder: (context, setState) {
+                        return ItemImageCreate(
+                          image: updateState.request.profileImageUrl.getImage,
+                          onLoad: (bytes) {
+                            setState(() => updateState.request.profileImageUrl.fileBytes = bytes);
+                          },
+                        );
+                      },
+                    ),
                     20.0.verticalSpace,
                     //name
                     MyTextFormOutLineWidget(
@@ -104,6 +105,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     //   },
                     // ),
                     20.0.verticalSpace,
+
                     //birthdate
                     // MyTextFormOutLineWidget(
                     //   validator: (p0) => updateCubit.validateBirthday,
@@ -141,7 +143,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     //     },
                     //   ),
                     // ),
-
                     BlocBuilder<UpdateProfileCubit, UpdateProfileInitial>(
                       builder: (context, state) {
                         if (state.loading) {

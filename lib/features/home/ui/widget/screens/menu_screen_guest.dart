@@ -83,8 +83,8 @@ class MenuScreenGuest extends StatelessWidget {
                     ),
                     ItemMenu(
                       onTap: () {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, RouteName.login);
+                        context.goNamed(
+            RouteName.login);
                       },
                       name: S.of(context).login,
                       subTitle: '',

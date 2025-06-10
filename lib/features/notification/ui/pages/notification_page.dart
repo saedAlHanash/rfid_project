@@ -4,7 +4,8 @@ import 'package:rfid_project/core/util/shared_preferences.dart';
 import 'package:rfid_project/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:rfid_project/core/widgets/refresh_widget/refresh_widget.dart';
 import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/round_image_widget.dart';
@@ -36,9 +37,7 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(
-        titleText: 'الإشعارات',
-      ),
+      appBar: const AppBarWidget(titleText: 'الإشعارات'),
       body: AppProvider.isLogin
           ? BlocBuilder<NotificationCubit, NotificationsInitial>(
               builder: (context, state) {
@@ -50,29 +49,21 @@ class _NotificationPageState extends State<NotificationPage> {
                 return RefreshWidget(
                   isLoading: state.loading,
                   child: state.result.isEmpty
-                      ? const NotFoundWidget(
-                          text: 'لا توجد إشعارات',
-                          icon: Icons.notifications_off_rounded,
-                        )
+                      ? const NotFoundWidget(text: 'لا توجد إشعارات', icon: Icons.notifications_off_rounded)
                       : ListView.separated(
                           padding: const EdgeInsets.symmetric(vertical: 20.0).h,
                           itemBuilder: (_, i) {
                             return Container(
                               width: 1.0.sw,
                               padding: const EdgeInsets.all(15.0).r,
-                              margin:
-                                  const EdgeInsets.symmetric(vertical: 5.0).h,
+                              margin: const EdgeInsets.symmetric(vertical: 5.0).h,
                               color: AppColorManager.lightGray,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   if (list[i].image.isNotEmpty)
-                                    RoundImageWidget(
-                                      url: list[i].image,
-                                      height: 130.0.h,
-                                      width: 370.0.w,
-                                    ),
+                                    RoundImageWidget(url: list[i].image, height: 130.0.h, width: 370.0.w),
                                   DrawableText(
                                     text: list[i].title,
                                     color: AppColorManager.mainColor,
@@ -111,8 +102,7 @@ class _NotificationPageState extends State<NotificationPage> {
                   MyButton(
                     text: 'تسجيل الدخول',
                     onTap: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, RouteName.login);
+                      context.goNamed(RouteName.login);
                     },
                   ),
                 ],

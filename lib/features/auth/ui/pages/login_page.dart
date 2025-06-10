@@ -1,5 +1,6 @@
 import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,7 +19,6 @@ import '../../../notification/bloc/all_notification_cubit/all_notification_cubit
 import '../../../profile/bloc/get_me_cubit/get_me_cubit.dart';
 import '../../bloc/login_cubit/login_cubit.dart';
 
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -34,7 +34,6 @@ class _LoginPageState extends State<LoginPage> {
   void updateData() {
     context.read<GetMeCubit>().getData(newData: true);
     context.read<NotificationCubit>().getData(newData: true);
-
   }
 
   @override
@@ -45,10 +44,9 @@ class _LoginPageState extends State<LoginPage> {
           listenWhen: (p, c) => c.done,
           listener: (context, state) {
             updateData();
-             context.goNamed( , RouteName.home);
+            context.goNamed(RouteName.home);
           },
         ),
-
       ],
       child: Scaffold(
         body: SingleChildScrollView(
@@ -57,10 +55,7 @@ class _LoginPageState extends State<LoginPage> {
             key: _formKey,
             child: Column(
               children: [
-                AuthCardImage(
-                  titleText: S.of(context).login,
-                  description: S.of(context).signInToContinue,
-                ),
+                AuthCardImage(titleText: S.of(context).login, description: S.of(context).signInToContinue),
                 AutofillGroup(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0).r,
@@ -68,10 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         20.0.verticalSpace,
                         MyTextFormOutLineWidget(
-                          autofillHints: const [
-                            AutofillHints.username,
-                            AutofillHints.email,
-                          ],
+                          autofillHints: const [AutofillHints.username, AutofillHints.email],
                           helperText: S.of(context).phoneNumberMustStartWith07,
                           // iconWidgetLift: ImageMultiType(
                           //   url: Assets.imagesIraqCode,
@@ -137,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                 DrawableText(
                   text: S.of(context).doNotHaveAnAccount,
                   drawableEnd: TextButton(
-                    onPressed: () => context.pushNamed( RouteName.signup),
+                    onPressed: () => context.pushNamed(RouteName.signup),
                     child: DrawableText(
                       fontFamily: FontManager.bold.name,
                       text: S.of(context).createNewAccount,
@@ -169,10 +161,7 @@ class _ForgetAndRememberWidgetState extends State<_ForgetAndRememberWidget> {
       children: [
         DrawableText(
           text: S.of(context).rememberMe,
-          drawableEnd: Checkbox(
-            value: true,
-            onChanged: (value) {},
-          ),
+          drawableEnd: Checkbox(value: true, onChanged: (value) {}),
         ),
       ],
     );
