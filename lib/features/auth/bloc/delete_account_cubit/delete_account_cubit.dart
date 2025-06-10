@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:m_cubit/m_cubit.dart';
 import 'package:rfid_project/core/api_manager/api_url.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:rfid_project/core/strings/enum_manager.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
-import 'package:m_cubit/m_cubit.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/app/app_provider.dart';
@@ -30,9 +30,7 @@ class DeleteAccountCubit extends MCubit<DeleteAccountInitial> {
   }
 
   Future<Pair<bool?, String?>> _logoutApi() async {
-    final response = await APIService().callApi(type: ApiType.delete,
-      url: DeleteUrl.deleteMyAccount,
-    );
+    final response = await APIService().callApi(type: ApiType.delete, url: DeleteUrl.deleteMyAccount);
 
     if (response.statusCode == 200) {
       return Pair(true, null);

@@ -1,8 +1,8 @@
-import 'package:rfid_project/core/strings/app_color_manager.dart';
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
+import 'package:rfid_project/core/strings/app_color_manager.dart';
 import 'package:string_similarity/string_similarity.dart';
 
 import '../../generated/assets.dart';
@@ -147,10 +147,7 @@ enum IraqGovernorate {
   }
 
   static IraqGovernorate getByName(String name) {
-    return IraqGovernorate.values.firstWhere(
-      (g) => g.name == name,
-      orElse: () => IraqGovernorate.baghdad,
-    );
+    return IraqGovernorate.values.firstWhere((g) => g.name == name, orElse: () => IraqGovernorate.baghdad);
   }
 
   static IraqGovernorate getByApproximateName(String inputName) {
@@ -176,13 +173,7 @@ enum IraqGovernorate {
   }
 }
 
-enum ApiType {
-  get,
-  post,
-  put,
-  patch,
-  delete,
-}
+enum ApiType { get, post, put, patch, delete }
 
 enum FontManager { regular, semeBold, bold }
 
@@ -270,16 +261,7 @@ enum ExamType {
     }
   }
 
-  Widget get nameWidget => DrawableText(
-        text: name,
-        color: AppColorManager.mainColor,
-        drawablePadding: 10.0.w,
-        drawableStart: ImageMultiType(
-          url: this == free ? Assets.iconsDoneIcon : Assets.iconsDollar,
-          height: 16.0.h,
-          width: 16.0.w,
-        ),
-      );
+
 
   static ExamType fromName(String name) {
     switch (name) {
@@ -304,8 +286,7 @@ enum ExamType {
 enum QuestionType {
   trueOrFalse,
   multipleChoice,
-  openEnded,
-  ;
+  openEnded;
 
   bool get isTrueOrFalse => this == trueOrFalse;
 
@@ -323,17 +304,6 @@ enum QuestionType {
         return S().openEnded;
     }
   }
-
-  Widget get nameWidget => DrawableText(
-        text: name,
-        color: AppColorManager.mainColor,
-        drawablePadding: 10.0.w,
-        drawableStart: ImageMultiType(
-          url: this == trueOrFalse ? Assets.iconsDoneIcon : Assets.iconsDollar,
-          height: 16.0.h,
-          width: 16.0.w,
-        ),
-      );
 
   static QuestionType fromName(String name) {
     switch (name) {

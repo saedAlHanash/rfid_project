@@ -1,11 +1,9 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m_cubit/m_cubit.dart';
 import 'package:rfid_project/core/api_manager/api_url.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:rfid_project/features/auth/data/request/login_request.dart';
-
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m_cubit/m_cubit.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/app/app_provider.dart';
@@ -13,7 +11,6 @@ import '../../../../core/app/app_widget.dart';
 import '../../../../core/error/error_manager.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/pair_class.dart';
-import '../../../../core/util/shared_preferences.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../router/go_router.dart';
 import '../../data/response/login_response.dart';
@@ -32,18 +29,9 @@ class LoginCubit extends Cubit<LoginInitial> {
       showErrorFromApi(state);
     } else {
       if (!pair.first!.user.isConfirmed) {
-        await AppProvider.cachePhone(
-          phone: state.request.phone ?? '',
-          type: StartPage.signupOtp,
-        );
+        await AppProvider.cachePhone(phone: state.request.phone ?? '', type: StartPage.signupOtp);
 
-        if (ctx != null) {
-          Navigator.pushNamedAndRemoveUntil(
-            ctx!,
-            RouteName.confirmCode,
-            (route) => false,
-          );
-        }
+        ctx?.goNamed(RouteName.confirmCode);
       }
 
       await AppProvider.login(response: pair.first!);
@@ -65,12 +53,9 @@ class LoginCubit extends Cubit<LoginInitial> {
       return pair;
     } else {
       if (response.statusCode == 311) {
-        await AppProvider.cachePhone(
-          phone: state.request.phone!,
-          type: StartPage.signupOtp,
-        );
+        await AppProvider.cachePhone(phone: state.request.phone!, type: StartPage.signupOtp);
 
-        ctx?.pushNamed( RouteName.confirmCode);
+        ctx?.pushNamed(RouteName.confirmCode);
       }
       return response.getPairError as Pair<LoginResponse?, String?>;
     }

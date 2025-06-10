@@ -1,16 +1,12 @@
 import 'dart:io';
 
-import 'package:go_router/go_router.dart';
-import 'package:path/path.dart';
-import 'package:rfid_project/core/api_manager/api_service.dart';
-import 'package:rfid_project/core/api_manager/api_url.dart';
-import 'package:rfid_project/core/extensions/extensions.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_multi_type/image_multi_type.dart';
+import 'package:rfid_project/core/api_manager/api_url.dart';
 
 import '../../features/auth/data/response/login_response.dart';
-
 import '../../features/profile/data/response/profile_response.dart';
 import '../../generated/assets.dart';
 import '../../generated/l10n.dart';
@@ -31,7 +27,6 @@ class AppProvider {
   static String get supperFilter => '${getMe.id}${AppSharedPreference.getLocal}';
 
   static bool get isTestMode => baseUrl == test;
-
 
   static int _myId = 0;
 
@@ -58,7 +53,6 @@ class AppProvider {
 
     return systemParams.isIosTest && appBuildNum > systemParams.mainAppVersionIos;
   }
-
 
   static bool get isLogin => AppSharedPreference.getToken.isNotEmpty;
 
@@ -100,24 +94,20 @@ class AppProvider {
         ctx!,
         text: 'تأكيد تسجيل الخروج',
         textButton: 'تسجيل الخروج',
-        image: ImageMultiType(
-          url: Assets.iconsLogout,
-          height: 100.0.r,
-          width: 100.0.r,
-        ),
+        image: ImageMultiType(url: Icons.logout, height: 100.0.r, width: 100.0.r),
         onConfirm: () async {
           await AppSharedPreference.logout();
           await AppSharedPreference.reload();
           _myId = 0;
 
-             ctx?.goNamed(  RouteName.login);
+          ctx?.goNamed(RouteName.login);
         },
       );
     } else {
       await AppSharedPreference.logout();
       await AppSharedPreference.reload();
       _myId = 0;
-       ctx?.goNamed(  RouteName.login);
+      ctx?.goNamed(RouteName.login);
     }
   }
 

@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'intl/messages_all.dart';
 

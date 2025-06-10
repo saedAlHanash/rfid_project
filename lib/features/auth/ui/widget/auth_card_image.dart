@@ -1,5 +1,5 @@
 import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 
@@ -19,12 +19,6 @@ class AuthCardImage extends StatelessWidget {
       width: 1.0.sw,
       child: Stack(
         children: [
-          ImageMultiType(
-            height: 1.0.sh,
-            width: 1.0.sw,
-            fit: BoxFit.fill,
-            url: Assets.imagesAuthBackground,
-          ),
           PositionedDirectional(
             bottom: 20.0.h,
             start: 20.0.w,
@@ -44,12 +38,7 @@ class AuthCardImage extends StatelessWidget {
                   // ),
                 ),
                 10.0.verticalSpace,
-                DrawableText(
-                  text: description,
-                  size: 18.0.spMin,
-                  color: Colors.white,
-                  matchParent: true,
-                ),
+                DrawableText(text: description, size: 18.0.spMin, color: Colors.white, matchParent: true),
               ],
             ),
           ),

@@ -1,5 +1,5 @@
 import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
@@ -23,7 +23,7 @@ class RememberAccount extends StatelessWidget {
         drawableEnd: InkWell(
           onTap: () {
             AppSharedPreference.removePhone().then((value) {
-              ctx?.pushNamed( RouteName.login);
+              ctx?.pushNamed(RouteName.login);
             });
           },
           child: DrawableText(

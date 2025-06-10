@@ -1,6 +1,6 @@
+import 'package:m_cubit/m_cubit.dart';
 import 'package:rfid_project/core/api_manager/api_url.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
-import 'package:m_cubit/m_cubit.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/strings/enum_manager.dart';
@@ -19,16 +19,9 @@ class TempCubit extends MCubit<TempInitial> {
   String get filter => state.filter;
 
   Future<void> getTemp({bool newData = false, required String tempId}) async {
-
     emit(state.copyWith(request: tempId));
 
-    await getDataAbstract(
-      fromJson: Temp.fromJson,
-      state: state,
-      getDataApi: _getTemp,
-      newData: newData,
-    );
-
+    await getDataAbstract(fromJson: Temp.fromJson, state: state, getDataApi: _getTemp, newData: newData);
   }
 
   Future<Pair<Temp?, String?>> _getTemp() async {
@@ -46,9 +39,8 @@ class TempCubit extends MCubit<TempInitial> {
   }
 
   void setTemp(dynamic temp) {
-    if(temp is! Temp)return;
+    if (temp is! Temp) return;
 
     emit(state.copyWith(result: temp));
   }
-
 }

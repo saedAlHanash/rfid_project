@@ -1,7 +1,7 @@
-import 'package:rfid_project/core/api_manager/api_url.dart';
-import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m_cubit/m_cubit.dart';
+import 'package:rfid_project/core/api_manager/api_url.dart';
+import 'package:rfid_project/core/extensions/extensions.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/error/error_manager.dart';
@@ -27,9 +27,9 @@ class ChangePasswordCubit extends Cubit<ChangePasswordInitial> {
     }
   }
 
-  Future<Pair<bool?, String?>> _changePasswordApi(
-      {required ChangePasswordRequest request}) async {
-    final response = await APIService().callApi(type: ApiType.post,
+  Future<Pair<bool?, String?>> _changePasswordApi({required ChangePasswordRequest request}) async {
+    final response = await APIService().callApi(
+      type: ApiType.post,
       url: PostUrl.changePassword,
       body: request.toJson(),
     );
@@ -42,5 +42,4 @@ class ChangePasswordCubit extends Cubit<ChangePasswordInitial> {
       return response.getPairError;
     }
   }
-
 }

@@ -1,7 +1,7 @@
-import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rfid_project/core/strings/enum_manager.dart';
 
 import '../strings/app_color_manager.dart';
 
@@ -41,7 +41,8 @@ class MyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final child = this.child ??
+    final child =
+        this.child ??
         DrawableText(
           text: toUpper ? text.toUpperCase() : text,
           color: textColor ?? AppColorManager.whit,
@@ -68,14 +69,11 @@ class MyButton extends StatelessWidget {
         style: ButtonStyle(
           surfaceTintColor: WidgetStatePropertyAll(color),
           backgroundColor: WidgetStatePropertyAll(
-              enable != false ? color : AppColorManager.mainColor.withValues(alpha: 0.4)),
-          padding: WidgetStatePropertyAll(
-            padding ?? const EdgeInsets.symmetric(vertical: 13.0).r,
+            enable != false ? color : AppColorManager.mainColor.withValues(alpha: 0.4),
           ),
+          padding: WidgetStatePropertyAll(padding ?? const EdgeInsets.symmetric(vertical: 13.0).r),
           shape: WidgetStatePropertyAll(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(radios ?? 8.0.r),
-            ),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(radios ?? 8.0.r)),
           ),
           alignment: Alignment.center,
         ),
@@ -83,8 +81,8 @@ class MyButton extends StatelessWidget {
         onPressed: loading
             ? null
             : !(enable ?? true)
-                ? null
-                : onTap,
+            ? null
+            : onTap,
       ),
     );
   }
@@ -124,7 +122,8 @@ class OutLineButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final child = this.child ??
+    final child =
+        this.child ??
         DrawableText(
           text: toUpper ? text.toUpperCase() : text,
           color: textColor ?? AppColorManager.mainColor,
@@ -151,22 +150,21 @@ class OutLineButton extends StatelessWidget {
           surfaceTintColor: WidgetStatePropertyAll(color ?? AppColorManager.whit),
           backgroundColor: WidgetStatePropertyAll(color ?? AppColorManager.whit),
           padding: WidgetStatePropertyAll(
-            height != null
-                ? EdgeInsets.zero
-                : padding ?? const EdgeInsets.symmetric(vertical: 13.0).r,
+            height != null ? EdgeInsets.zero : padding ?? const EdgeInsets.symmetric(vertical: 13.0).r,
           ),
           shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(radios ?? 8.0.r),
-                side: BorderSide(color: AppColorManager.mainColor)),
+              borderRadius: BorderRadius.circular(radios ?? 8.0.r),
+              side: BorderSide(color: AppColorManager.mainColor),
+            ),
           ),
           alignment: Alignment.center,
         ),
         onPressed: loading
             ? null
             : !(enable ?? true)
-                ? null
-                : onTap,
+            ? null
+            : onTap,
         child: child,
       ),
     );

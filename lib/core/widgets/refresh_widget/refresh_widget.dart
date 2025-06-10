@@ -1,16 +1,10 @@
-import 'package:rfid_project/core/api_manager/api_service.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../strings/app_color_manager.dart';
 
 class RefreshWidget extends StatefulWidget {
-  const RefreshWidget({
-    super.key,
-    required this.child,
-    this.onRefresh,
-    required this.isLoading,
-  });
+  const RefreshWidget({super.key, required this.child, this.onRefresh, required this.isLoading});
 
   final Widget child;
   final Function()? onRefresh;
@@ -36,9 +30,7 @@ class _RefreshWidgetState extends State<RefreshWidget> {
     }
     return SmartRefresher(
       enablePullDown: true,
-      header: const WaterDropHeader(
-        waterDropColor: AppColorManager.mainColor,
-      ),
+      header: const WaterDropHeader(waterDropColor: AppColorManager.mainColor),
       controller: _refreshController,
       onRefresh: _onRefresh,
       child: widget.child,

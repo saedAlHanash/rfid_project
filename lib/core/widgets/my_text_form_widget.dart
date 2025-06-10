@@ -1,8 +1,8 @@
-import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
+import 'package:rfid_project/core/strings/enum_manager.dart';
 
 import '../strings/app_color_manager.dart';
 import '../util/my_style.dart';
@@ -64,8 +64,6 @@ class MyTextFormOutLineWidget extends StatefulWidget {
 }
 
 class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
-
-
   @override
   Widget build(BuildContext context) {
     final padding = widget.innerPadding ?? const EdgeInsets.symmetric(horizontal: 20.0).w;
@@ -90,15 +88,18 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
     }
 
     if (obscureText) {
-      eye = StatefulBuilder(builder: (context, state) {
-        return IconButton(
+      eye = StatefulBuilder(
+        builder: (context, state) {
+          return IconButton(
             splashRadius: 0.01,
             onPressed: () {
               state(() => obscureText = !obscureText);
               if (onChangeObscure != null) onChangeObscure!();
             },
-            icon: Icon(obscureText ? Icons.visibility : Icons.visibility_off));
-      });
+            icon: Icon(obscureText ? Icons.visibility : Icons.visibility_off),
+          );
+        },
+      );
     }
 
     final border = OutlineInputBorder(
@@ -107,10 +108,7 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
     );
 
     final errorBorder = OutlineInputBorder(
-      borderSide: BorderSide(
-        color: AppColorManager.red,
-        width: 1.0.spMin,
-      ),
+      borderSide: BorderSide(color: AppColorManager.red, width: 1.0.spMin),
       borderRadius: BorderRadius.circular(10.0.r),
     );
 
@@ -123,11 +121,7 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
       helperText: widget.helperText,
       helperStyle: const TextStyle(color: Colors.grey),
       fillColor: AppColorManager.f9,
-      label: DrawableText(
-        text: widget.label,
-        color: AppColorManager.gray,
-        size: 16.0.spMin,
-      ),
+      label: DrawableText(text: widget.label, color: AppColorManager.gray, size: 16.0.spMin),
       counter: const SizedBox(),
       hintText: widget.hint,
       floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -149,40 +143,42 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
       color: AppColorManager.black,
     );
 
-    return StatefulBuilder(builder: (context, state) {
-      onChangeObscure = () => state(() {});
-      return Column(
-        children: [
-          if (widget.labelText != null)
-            DrawableText(
-              text: widget.labelText!,
-              // color: AppColorManager.gray,
-              fontFamily: FontManager.semeBold.name,
-              size: 16.0.spMin,
-              padding: EdgeInsets.only(bottom: 10.0).r,
-              matchParent: true,
-            ),
-          TextFormField(
-            autofillHints: widget.autofillHints,
-            onTap: () => widget.onTap?.call(),
-            validator: widget.validator,
-            decoration: inputDecoration,
-            maxLines: widget.maxLines,
-            readOnly: !(widget.enable ?? true),
-            initialValue: widget.initialValue,
-            obscureText: obscureText,
-            textAlign: widget.textAlign,
-            onChanged: widget.onChanged,
-            style: textStyle,
+    return StatefulBuilder(
+      builder: (context, state) {
+        onChangeObscure = () => state(() {});
+        return Column(
+          children: [
+            if (widget.labelText != null)
+              DrawableText(
+                text: widget.labelText!,
+                // color: AppColorManager.gray,
+                fontFamily: FontManager.semeBold.name,
+                size: 16.0.spMin,
+                padding: EdgeInsets.only(bottom: 10.0).r,
+                matchParent: true,
+              ),
+            TextFormField(
+              autofillHints: widget.autofillHints,
+              onTap: () => widget.onTap?.call(),
+              validator: widget.validator,
+              decoration: inputDecoration,
+              maxLines: widget.maxLines,
+              readOnly: !(widget.enable ?? true),
+              initialValue: widget.initialValue,
+              obscureText: obscureText,
+              textAlign: widget.textAlign,
+              onChanged: widget.onChanged,
+              style: textStyle,
 
-            textDirection: widget.textDirection,
-            maxLength: widget.maxLength,
-            controller: widget.controller,
-            keyboardType: widget.keyBordType,
-          ),
-        ],
-      );
-    });
+              textDirection: widget.textDirection,
+              maxLength: widget.maxLength,
+              controller: widget.controller,
+              keyboardType: widget.keyBordType,
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
@@ -233,8 +229,9 @@ class MyEditTextWidget extends StatelessWidget {
     if (icon != null) suffixIcon = icon;
 
     if (obscureText) {
-      suffixIcon = StatefulBuilder(builder: (context, state) {
-        return InkWell(
+      suffixIcon = StatefulBuilder(
+        builder: (context, state) {
+          return InkWell(
             splashColor: Colors.transparent,
             onTap: () {
               state(() => obscureText = !obscureText);
@@ -242,19 +239,17 @@ class MyEditTextWidget extends StatelessWidget {
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0).r,
-              child: Icon(
-                obscureText ? Icons.visibility : Icons.visibility_off,
-                size: 20.0.spMin,
-              ),
-            ));
-      });
+              child: Icon(obscureText ? Icons.visibility : Icons.visibility_off, size: 20.0.spMin),
+            ),
+          );
+        },
+      );
     }
 
     final border = OutlineInputBorder(
-        borderSide: BorderSide(
-          color: backgroundColor ?? AppColorManager.offWhit.withValues(alpha:0.27),
-        ),
-        borderRadius: BorderRadius.circular(radios ?? 10.0.r));
+      borderSide: BorderSide(color: backgroundColor ?? AppColorManager.offWhit.withValues(alpha: 0.27)),
+      borderRadius: BorderRadius.circular(radios ?? 10.0.r),
+    );
 
     final inputDecoration = InputDecoration(
       hintText: hint,
@@ -268,7 +263,7 @@ class MyEditTextWidget extends StatelessWidget {
       errorMaxLines: 0,
       constraints: BoxConstraints(maxWidth: .9.sw, minWidth: .3.sw),
       border: border,
-      fillColor: backgroundColor ?? AppColorManager.offWhit.withValues(alpha:0.27),
+      fillColor: backgroundColor ?? AppColorManager.offWhit.withValues(alpha: 0.27),
       filled: true,
       enabled: enable ?? true,
       prefixIcon: suffixIcon ?? 0.0.verticalSpace,
@@ -352,8 +347,9 @@ class MyEditTextWidgetWhite extends StatelessWidget {
     if (icon != null) suffixIcon = icon;
 
     if (obscureText) {
-      suffixIcon = StatefulBuilder(builder: (context, state) {
-        return InkWell(
+      suffixIcon = StatefulBuilder(
+        builder: (context, state) {
+          return InkWell(
             splashColor: Colors.transparent,
             onTap: () {
               state(() => obscureText = !obscureText);
@@ -361,19 +357,17 @@ class MyEditTextWidgetWhite extends StatelessWidget {
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0).r,
-              child: Icon(
-                obscureText ? Icons.visibility : Icons.visibility_off,
-                size: 20.0.spMin,
-              ),
-            ));
-      });
+              child: Icon(obscureText ? Icons.visibility : Icons.visibility_off, size: 20.0.spMin),
+            ),
+          );
+        },
+      );
     }
 
     final border = OutlineInputBorder(
-        borderSide: BorderSide(
-          color: backgroundColor ?? AppColorManager.offWhit.withValues(alpha:0.27),
-        ),
-        borderRadius: BorderRadius.circular(radios ?? 10.0.r));
+      borderSide: BorderSide(color: backgroundColor ?? AppColorManager.offWhit.withValues(alpha: 0.27)),
+      borderRadius: BorderRadius.circular(radios ?? 10.0.r),
+    );
 
     final inputDecoration = InputDecoration(
       hintText: hint,
@@ -391,7 +385,7 @@ class MyEditTextWidgetWhite extends StatelessWidget {
       errorMaxLines: 0,
       constraints: BoxConstraints(maxWidth: .9.sw, minWidth: .3.sw),
       border: border,
-      fillColor: backgroundColor ?? AppColorManager.offWhit.withValues(alpha:0.27),
+      fillColor: backgroundColor ?? AppColorManager.offWhit.withValues(alpha: 0.27),
       filled: true,
       enabled: enable ?? true,
       prefixIcon: suffixIcon ?? 0.0.verticalSpace,
@@ -407,11 +401,7 @@ class MyEditTextWidgetWhite extends StatelessWidget {
           maxLines: maxLines,
           textAlign: textAlign ?? TextAlign.start,
           onChanged: onChanged,
-          style: TextStyle(
-            fontFamily: FontManager.bold.name,
-            fontSize: 18.0.spMin,
-            color: Colors.white,
-          ),
+          style: TextStyle(fontFamily: FontManager.bold.name, fontSize: 18.0.spMin, color: Colors.white),
           cursorColor: Colors.white,
           focusNode: focusNode,
           maxLength: maxLength,

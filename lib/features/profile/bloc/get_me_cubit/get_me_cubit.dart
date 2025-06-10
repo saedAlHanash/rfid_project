@@ -1,8 +1,8 @@
+import 'package:m_cubit/m_cubit.dart';
 import 'package:rfid_project/core/api_manager/api_url.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:rfid_project/core/util/shared_preferences.dart';
 import 'package:rfid_project/features/profile/data/response/profile_response.dart';
-import 'package:m_cubit/m_cubit.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/strings/enum_manager.dart';
@@ -26,8 +26,7 @@ class GetMeCubit extends MCubit<GetMeInitial> {
   }
 
   Future<Pair<ProfileResponse?, String?>> _getDataApi() async {
-    final response =
-        await APIService().callApi(type: ApiType.get, url: GetUrl.profile);
+    final response = await APIService().callApi(type: ApiType.get, url: GetUrl.profile);
 
     if (response.statusCode.success) {
       final pair = Pair(ProfileResponse.fromJson(response.jsonBodyPure), null);

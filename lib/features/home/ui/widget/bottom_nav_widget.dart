@@ -1,18 +1,16 @@
-import 'package:rfid_project/features/home/bloc/home_cubit/home_cubit.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
+import 'package:rfid_project/features/home/bloc/home_cubit/home_cubit.dart';
 
 import '../../../../core/app/app_provider.dart';
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../generated/assets.dart';
 
 class Navbar extends StatefulWidget {
-  const Navbar({
-    super.key,
-  });
+  const Navbar({super.key});
 
   @override
   State<Navbar> createState() => _NavbarState();
@@ -32,31 +30,11 @@ class _NavbarState extends State<Navbar> {
           color: AppColorManager.mainColor,
           buttonBackgroundColor: AppColorManager.mainColor,
           items: [
-            ImageMultiType(
-              url: Assets.iconsHome,
-              color: Colors.white,
-              height: 25.0.r,
-              width: 25.0.r,
-            ),
-            ImageMultiType(
-              url: Assets.iconsMyCourses,
-              color: Colors.white,
-              height: 25.0.r,
-              width: 25.0.r,
-            ),
+            ImageMultiType(url: Icons.home, color: Colors.white, height: 25.0.r, width: 25.0.r),
+            ImageMultiType(url: Icons.data_array, color: Colors.white, height: 25.0.r, width: 25.0.r),
             if (AppProvider.isLogin)
-              ImageMultiType(
-                url: Assets.iconsExams,
-                color: Colors.white,
-                height: 25.0.r,
-                width: 25.0.r,
-              ),
-            ImageMultiType(
-              url: Assets.iconsSettings,
-              color: Colors.white,
-              height: 25.0.r,
-              width: 25.0.r,
-            ),
+              ImageMultiType(url: Icons.notifications, color: Colors.white, height: 25.0.r, width: 25.0.r),
+            ImageMultiType(url: Icons.settings, color: Colors.white, height: 25.0.r, width: 25.0.r),
           ],
           onTap: (index) {
             context.read<HomeCubit>().jumpPage(index);

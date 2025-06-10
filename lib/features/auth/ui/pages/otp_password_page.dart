@@ -1,13 +1,13 @@
+import 'package:drawable_text/drawable_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m_cubit/m_cubit.dart';
 import 'package:rfid_project/core/app/app_provider.dart';
 import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:rfid_project/core/util/snack_bar_message.dart';
 import 'package:rfid_project/core/widgets/my_button.dart';
-import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:m_cubit/m_cubit.dart';
 
 import '../../../../core/util/my_style.dart';
 import '../../../../core/util/shared_preferences.dart';
@@ -45,9 +45,7 @@ class _OtpPasswordPageState extends State<OtpPasswordPage> {
       listeners: [
         BlocListener<OtpPasswordCubit, OtpPasswordInitial>(
           listenWhen: (p, current) => current.statuses == CubitStatuses.done,
-          listener: (context, state) {
-
-          },
+          listener: (context, state) {},
         ),
         BlocListener<ResendCodeCubit, ResendCodeInitial>(
           listenWhen: (p, current) => current.statuses == CubitStatuses.done,
@@ -66,7 +64,7 @@ class _OtpPasswordPageState extends State<OtpPasswordPage> {
         bottomNavigationBar: TextButton(
           onPressed: () {
             AppSharedPreference.removePhone();
-            context.pushNamed( RouteName.login);
+            context.pushNamed(RouteName.login);
           },
           child: DrawableText(
             size: 18.0.sp,
@@ -99,10 +97,7 @@ class _OtpPasswordPageState extends State<OtpPasswordPage> {
                       if (state.loading) {
                         return MyStyle.loadingWidget();
                       }
-                      return DrawableText(
-                        text: S.of(context).resend,
-                        fontFamily: FontManager.bold.name,
-                      );
+                      return DrawableText(text: S.of(context).resend, fontFamily: FontManager.bold.name);
                     },
                   ),
                 ),
@@ -117,7 +112,7 @@ class _OtpPasswordPageState extends State<OtpPasswordPage> {
                     text: S.of(context).verify,
                     onTap: () {
                       if (AppProvider.getPhoneCached.isEmpty) {
-                        context.pushReplacementNamed( RouteName.login);
+                        context.pushReplacementNamed(RouteName.login);
                         return;
                       }
 

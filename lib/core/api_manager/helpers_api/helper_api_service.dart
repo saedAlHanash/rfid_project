@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:http/http.dart' as http;
 
-import '../../app/app_provider.dart';
 import '../../strings/enum_manager.dart';
 import '../api_url.dart';
 import 'log_api.dart';
@@ -18,8 +17,8 @@ final timeOut = http.Response('connectionTimeOut ', 482);
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 final _rnd = Random();
 
-String getRandomString(int length) => String.fromCharCodes(
-    Iterable.generate(length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+String getRandomString(int length) =>
+    String.fromCharCodes(Iterable.generate(length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
 void fixQuery(Map<String, dynamic>? query) {
   query?.removeWhere((key, value) => (value == null || value.toString().isEmpty));
@@ -62,10 +61,11 @@ Uri getUri({
   final uri = Uri.https((hostName ?? baseUrl), url, query);
 
   logRequest(
-      type: type,
-      url: url,
-      q: {}
-        ..addAll(query ?? {})
-        ..addAll(body ?? {}));
+    type: type,
+    url: url,
+    q: {}
+      ..addAll(query ?? {})
+      ..addAll(body ?? {}),
+  );
   return uri;
 }

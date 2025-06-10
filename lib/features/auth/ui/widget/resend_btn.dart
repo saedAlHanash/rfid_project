@@ -1,14 +1,14 @@
 import 'dart:async';
 
+import 'package:drawable_text/drawable_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 import 'package:rfid_project/core/app/app_provider.dart';
 import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:rfid_project/features/auth/data/request/resend_request.dart';
-import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_multi_type/image_multi_type.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/util/my_style.dart';
@@ -45,10 +45,7 @@ class _ResendBtnState extends State<ResendBtn> {
               ),
               SizedBox(height: 20),
               ListTile(
-                leading: ImageMultiType(
-                  url: Icons.sms,
-                  color: AppColorManager.mainColor,
-                ),
+                leading: ImageMultiType(url: Icons.sms, color: AppColorManager.mainColor),
                 title: Text(S.of(context).sendViaSms),
                 onTap: () {
                   context.pop(); // إغلاق الـ BottomSheet
@@ -56,10 +53,6 @@ class _ResendBtnState extends State<ResendBtn> {
                 },
               ),
               ListTile(
-                leading: ImageMultiType(
-                  url: Assets.iconsWhatsapp,
-                  color: AppColorManager.mainColor,
-                ),
                 title: Text(S.of(context).sendViaWhatsapp),
                 onTap: () {
                   context.pop(); // إغلاق الـ BottomSheet
@@ -75,23 +68,20 @@ class _ResendBtnState extends State<ResendBtn> {
 
   void _handleSendMethod(ResendCodeType method) {
     if (AppSharedPreference.getPhone.isEmpty) {
-      context.pushReplacementNamed( RouteName.login);
+      context.pushReplacementNamed(RouteName.login);
       return;
     }
     context.read<ResendCodeCubit>().resendCode(request: ResendRequest(type: method));
   }
 
   void startTimer() {
-    timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (timer) {
-        if (countRemaining <= 0) {
-          setState(() => timer.cancel());
-          return;
-        }
-        setState(() => countRemaining--);
-      },
-    );
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (countRemaining <= 0) {
+        setState(() => timer.cancel());
+        return;
+      }
+      setState(() => countRemaining--);
+    });
   }
 
   @override

@@ -1,6 +1,6 @@
-import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:m_cubit/m_cubit.dart';
+import 'package:rfid_project/core/extensions/extensions.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/api_manager/api_url.dart';
@@ -29,7 +29,8 @@ class OtpPasswordCubit extends Cubit<OtpPasswordInitial> {
   }
 
   Future<Pair<bool?, String?>> _confirmCodeApi() async {
-    final response = await APIService().callApi(type: ApiType.post,
+    final response = await APIService().callApi(
+      type: ApiType.post,
       url: PostUrl.otpPassword,
       body: await state.request.toJson(),
     );

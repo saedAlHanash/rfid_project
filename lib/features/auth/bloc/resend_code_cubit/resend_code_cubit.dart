@@ -1,8 +1,8 @@
+import 'package:bloc/bloc.dart';
+import 'package:m_cubit/m_cubit.dart';
 import 'package:rfid_project/core/app/app_provider.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:rfid_project/core/util/shared_preferences.dart';
-import 'package:bloc/bloc.dart';
-import 'package:m_cubit/m_cubit.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/api_manager/api_url.dart';
@@ -24,11 +24,7 @@ class ResendCodeCubit extends Cubit<ResendCodeInitial> {
       emit(state.copyWith(statuses: CubitStatuses.error, error: pair.second));
       showErrorFromApi(state);
     } else {
-      emit(state.copyWith(
-        statuses: CubitStatuses.done,
-        result: pair.first,
-        error: pair.first!,
-      ));
+      emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first, error: pair.first!));
     }
   }
 

@@ -59,10 +59,10 @@
 //                         context.read<LessonsCubit>().getData(newData: true);
 //                         context.read<TeachersCubit>().getData(newData: true);
 //
-//                         Navigator.pushNamedAndRemoveUntil(
+//                         context.goNamed(
 //                           context,
 //                           RouteName.splash,
-//                           (route) => false,
+//
 //                         );
 //                       },
 //                       child: Container(

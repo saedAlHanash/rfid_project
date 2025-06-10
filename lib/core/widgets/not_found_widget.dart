@@ -1,14 +1,10 @@
 import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 
 class NotFoundWidget extends StatelessWidget {
-  const NotFoundWidget({
-    super.key,
-    required this.text,
-    required this.icon,
-  });
+  const NotFoundWidget({super.key, required this.text, required this.icon});
   final String text;
   final dynamic icon;
 
@@ -20,11 +16,7 @@ class NotFoundWidget extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ImageMultiType(
-              url: icon,
-              height: 250.0.spMin,
-              width: 250.0.spMin,
-            ),
+            ImageMultiType(url: icon, height: 250.0.spMin, width: 250.0.spMin),
             10.0.verticalSpace,
             DrawableText(
               text: text,
@@ -32,7 +24,7 @@ class NotFoundWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               color: Colors.black,
               size: 20.0.spMin,
-            )
+            ),
           ],
         ),
       ),

@@ -1,14 +1,14 @@
+import 'package:drawable_text/drawable_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:rfid_project/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:rfid_project/core/widgets/my_button.dart';
 import 'package:rfid_project/core/widgets/my_text_form_widget.dart';
 import 'package:rfid_project/generated/assets.dart';
-import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_multi_type/image_multi_type.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/util/my_style.dart';
@@ -44,9 +44,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   Widget build(BuildContext context) {
     return BlocListener<ForgetPasswordCubit, ForgetPasswordInitial>(
       listenWhen: (p, c) => c.done,
-      listener: (context, state) {
-
-      },
+      listener: (context, state) {},
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBarWidget(titleText: S.of(context).forgetPassword),
@@ -54,23 +52,8 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
           padding: MyStyle.pagePadding,
           child: Column(
             children: [
-              ImageMultiType(
-                url: Assets.iconsCircleKey,
-                height: 150.0.r,
-                width: 150.0.r,
-              ),
               const Spacer(),
               MyTextFormOutLineWidget(
-                iconWidget: Padding(
-                  padding: const EdgeInsets.all(15.0).r,
-                  child: const ImageMultiType(
-                    url: Assets.iconsPhone,
-                  ),
-                ),
-                iconWidgetLift: ImageMultiType(
-                  url: Assets.imagesIraqCode,
-                  width: 70.0.w,
-                ),
                 maxLength: 12,
                 hint: '07xxxxxxxxxx',
                 textDirection: TextDirection.ltr,
@@ -96,8 +79,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
               DrawableText(
                 text: S.of(context).rememberPassword,
                 drawableEnd: TextButton(
-                  onPressed: () =>
-                      context.pushReplacementNamed( RouteName.login),
+                  onPressed: () => context.pushReplacementNamed(RouteName.login),
                   child: DrawableText(
                     fontFamily: FontManager.bold.name,
                     text: S.of(context).login,

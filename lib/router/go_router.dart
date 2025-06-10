@@ -1,31 +1,19 @@
-import 'package:go_router/go_router.dart';
-import 'package:rfid_project/core/api_manager/api_service.dart';
-import 'package:rfid_project/core/extensions/extensions.dart';
-
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rfid_project/features/auth/ui/pages/splash_screen_page.dart';
 
-import '../core/app/app_provider.dart';
-import '../core/app/app_widget.dart';
 import '../core/injection/injection_container.dart';
-
 import '../features/auth/bloc/confirm_code_cubit/confirm_code_cubit.dart';
-import '../features/auth/bloc/forget_password_cubit/forget_password_cubit.dart';
 import '../features/auth/bloc/login_cubit/login_cubit.dart';
-
 import '../features/auth/bloc/resend_code_cubit/resend_code_cubit.dart';
 import '../features/auth/bloc/reset_password_cubit/reset_password_cubit.dart';
 import '../features/auth/bloc/signup_cubit/signup_cubit.dart';
-
 import '../features/auth/ui/pages/confirm_code_page.dart';
-
 import '../features/auth/ui/pages/login_page.dart';
 import '../features/auth/ui/pages/reset_password_page.dart';
 import '../features/auth/ui/pages/signup_page.dart';
-
 import '../features/home/ui/pages/home_page.dart';
-
 import 'go_route_observer.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
