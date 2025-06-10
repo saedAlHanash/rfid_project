@@ -1,17 +1,15 @@
 import 'dart:io';
 
-
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:m_cubit/caching_service/caching_service.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rfid_project/core/api_manager/api_service.dart';
 import 'package:rfid_project/core/app/app_provider.dart';
 import 'package:rfid_project/core/error/error_manager.dart';
 import 'package:rfid_project/core/util/checker_helper.dart';
 import 'package:rfid_project/services/app_info_service.dart';
-
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:m_cubit/caching_service/caching_service.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/app/app_widget.dart';
@@ -26,13 +24,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   try {
-
     await SharedPreferences.getInstance().then((value) {
       AppSharedPreference.init(value);
     });
-
-
-
 
     appData = await PackageInfo.fromPlatform();
     await CachingService.initial(
@@ -43,7 +37,6 @@ void main() async {
       supperFilter: AppProvider.supperFilter,
       timeInterval: 60,
     );
-
 
     await Note.initialize();
 
@@ -60,7 +53,7 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => di.sl<NotificationCountCubit>()),
-        BlocProvider(create: (_) => di.sl<HomeCubit>())
+        BlocProvider(create: (_) => di.sl<HomeCubit>()),
       ],
       child: const MyApp(),
     ),
@@ -112,6 +105,10 @@ class Note {
     );
 
     await flutterLocalNotificationsPlugin.show(
-        (DateTime.now().millisecondsSinceEpoch ~/ 1000), title, body, not);
+      (DateTime.now().millisecondsSinceEpoch ~/ 1000),
+      title,
+      body,
+      not,
+    );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import '../strings/app_color_manager.dart';
 import '../util/my_style.dart';
@@ -35,9 +35,7 @@ class MyCardWidget extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       elevation: elevation,
       shadowColor: AppColorManager.lightGray,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(radios ?? MyStyle.cardRadios),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radios ?? MyStyle.cardRadios)),
       child: cardChild,
     );
   }

@@ -1,19 +1,13 @@
-import 'package:rfid_project/core/widgets/spinner_widget.dart';
 import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:group_button/group_button.dart';
+import 'package:rfid_project/core/widgets/spinner_widget.dart';
 
 import '../strings/app_color_manager.dart';
 
 class MyCheckboxWidget extends StatefulWidget {
-  const MyCheckboxWidget({
-    super.key,
-    required this.items,
-    this.buttonBuilder,
-    this.onSelected,
-    this.isRadio,
-  });
+  const MyCheckboxWidget({super.key, required this.items, this.buttonBuilder, this.onSelected, this.isRadio});
 
   final List<SpinnerItem> items;
   final bool? isRadio;
@@ -43,7 +37,8 @@ class _MyCheckboxWidgetState extends State<MyCheckboxWidget> {
     return GroupButton<SpinnerItem>(
       controller: controller,
       buttons: widget.items,
-      buttonBuilder: widget.buttonBuilder ??
+      buttonBuilder:
+          widget.buttonBuilder ??
           (selected, value, context) {
             return SizedBox(
               width: 0.4.sw,
@@ -53,11 +48,7 @@ class _MyCheckboxWidgetState extends State<MyCheckboxWidget> {
                 maxLines: 1,
                 color: selected ? AppColorManager.mainColor : AppColorManager.textColor,
                 size: 16.0.spMin,
-                drawableStart: Radio<bool>(
-                  value: selected,
-                  onChanged: (value) {},
-                  groupValue: true,
-                ),
+                drawableStart: Radio<bool>(value: selected, onChanged: (value) {}, groupValue: true),
               ),
             );
           },

@@ -1,20 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:m_cubit/m_cubit.dart';
 import 'package:rfid_project/core/app/app_provider.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:rfid_project/core/util/my_style.dart';
 import 'package:rfid_project/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:rfid_project/core/widgets/my_button.dart';
 import 'package:rfid_project/core/widgets/my_text_form_widget.dart';
-import 'package:go_router/go_router.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_multi_type/image_multi_type.dart';
-import 'package:m_cubit/m_cubit.dart';
 
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/widgets/item_image_create.dart';
 import '../../../../core/widgets/spinner_widget.dart';
-import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 import '../../bloc/update_profile_cubit/update_profile_cubit.dart';
 

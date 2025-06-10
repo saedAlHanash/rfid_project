@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:m_cubit/m_cubit.dart';
+import 'package:rfid_project/core/extensions/extensions.dart';
 
 import '../strings/enum_manager.dart';
 import '../util/shared_preferences.dart';
@@ -32,20 +32,17 @@ class APIService {
   static final APIService _singleton = APIService._internal();
 
   APIService._internal() {
-    Timer.periodic(
-      Duration(seconds: 30),
-      (t) => serverTime = serverTime.addFromNow(second: 30),
-    );
+    Timer.periodic(Duration(seconds: 30), (t) => serverTime = serverTime.addFromNow(second: 30));
   }
   DateTime serverTime = DateTime.now().toUtc();
   factory APIService() => _singleton;
 
   Map<String, String> get innerHeader => {
-        'Content-Type': 'application/json',
-        'Accept': 'Application/json',
-        'lang': AppSharedPreference.getLocal,
-        'Authorization': 'Bearer ${AppSharedPreference.getToken}',
-      };
+    'Content-Type': 'application/json',
+    'Accept': 'Application/json',
+    'lang': AppSharedPreference.getLocal,
+    'Authorization': 'Bearer ${AppSharedPreference.getToken}',
+  };
 
   Future<http.Response> callApi({
     required String url,
@@ -131,9 +128,9 @@ class APIService {
     request.fields.addAll(fixFields(fields));
 
     final stream = await request.send().timeout(
-          const Duration(seconds: 40),
-          onTimeout: () => http.StreamedResponse(Stream.value([]), 481),
-        );
+      const Duration(seconds: 40),
+      onTimeout: () => http.StreamedResponse(Stream.value([]), 481),
+    );
 
     final response = await http.Response.fromStream(stream);
 
@@ -160,30 +157,17 @@ class UploadFile {
   String? tempId;
   String? type;
 
-  dynamic get getImage =>
-      fileBytes ?? (initialImage.isBlank ? null : initialImage) ?? assetImage;
+  dynamic get getImage => fileBytes ?? (initialImage.isBlank ? null : initialImage) ?? assetImage;
 
-  UploadFile copyWith({
-    Uint8List? fileBytes,
-    String? nameField,
-  }) {
-    return UploadFile(
-      fileBytes: fileBytes ?? this.fileBytes,
-      nameField: nameField ?? this.nameField,
-    );
+  UploadFile copyWith({Uint8List? fileBytes, String? nameField}) {
+    return UploadFile(fileBytes: fileBytes ?? this.fileBytes, nameField: nameField ?? this.nameField);
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'filelBytes': fileBytes,
-      'nameField': nameField,
-    };
+    return {'filelBytes': fileBytes, 'nameField': nameField};
   }
 
   factory UploadFile.fromMap(Map<String, dynamic> map) {
-    return UploadFile(
-      fileBytes: map['filelBytes'] as Uint8List,
-      nameField: map['nameField'] as String,
-    );
+    return UploadFile(fileBytes: map['filelBytes'] as Uint8List, nameField: map['nameField'] as String);
   }
 }

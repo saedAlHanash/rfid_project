@@ -1,10 +1,9 @@
-import 'package:go_router/go_router.dart';
-import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_multi_type/image_multi_type.dart';
-
+import 'package:rfid_project/core/strings/enum_manager.dart';
 
 import '../../../generated/assets.dart';
 import '../../../services/app_info_service.dart';
@@ -49,23 +48,25 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         surfaceTintColor: color ?? AppColorManager.mainColor,
         toolbarHeight: (zeroHeight ?? false) ? 0 : 70.0.h,
         // scrolledUnderElevation: 0,
-        title: title ??
+        title:
+            title ??
             DrawableText(
               text: titleText ?? '',
               size: 18.0.spMin,
               color: Colors.white,
               fontFamily: FontManager.bold.name,
             ),
-        leading: leading ??
+        leading:
+            leading ??
             (context.canPop()
                 ? BackBtnWidget(
                     canPop: canPop,
                     onPopInvoked: onPopInvoked,
-                    appBarColor:
-                        imageAppBar ? AppColorManager.black : color ?? AppColorManager.mainColor,
+                    appBarColor: imageAppBar ? AppColorManager.black : color ?? AppColorManager.mainColor,
                   )
                 : null),
-        flexibleSpace: imageFromPage ??
+        flexibleSpace:
+            imageFromPage ??
             (imageAppBar
                 ? Column(
                     children: [
@@ -94,12 +95,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class BackBtnWidget extends StatelessWidget {
-  const BackBtnWidget({
-    super.key,
-    required this.appBarColor,
-    this.canPop = true,
-    this.onPopInvoked,
-  });
+  const BackBtnWidget({super.key, required this.appBarColor, this.canPop = true, this.onPopInvoked});
 
   final Color appBarColor;
   final bool canPop;

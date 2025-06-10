@@ -1,14 +1,13 @@
 part of 'update_profile_cubit.dart';
 
 class UpdateProfileInitial extends AbstractState<ProfileResponse> {
-  @override
-  final UpdateProfileRequest request;
+  UpdateProfileRequest get mRequest => request;
 
   // final  bool educationalGradeParam;
   const UpdateProfileInitial({
     required super.result,
     super.error,
-    required this.request,
+    super.request,
     // required this.educationalGradeParam,
     super.statuses,
   }); //
@@ -26,11 +25,12 @@ class UpdateProfileInitial extends AbstractState<ProfileResponse> {
   @override
   List<Object> get props => [statuses, result, error];
 
-  UpdateProfileInitial copyWith(
-      {CubitStatuses? statuses,
-      ProfileResponse? result,
-      String? error,
-      UpdateProfileRequest? request}) {
+  UpdateProfileInitial copyWith({
+    CubitStatuses? statuses,
+    ProfileResponse? result,
+    String? error,
+    UpdateProfileRequest? request,
+  }) {
     return UpdateProfileInitial(
       statuses: statuses ?? this.statuses,
       result: result ?? this.result,

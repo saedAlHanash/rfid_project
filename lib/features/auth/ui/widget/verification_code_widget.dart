@@ -1,4 +1,4 @@
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
 class PinCodeWidget extends StatelessWidget {
@@ -8,10 +8,6 @@ class PinCodeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Pinput(
-        length: 6,
-        onCompleted: onCompleted,
-        onChanged: onChange,
-    );
+    return Pinput(length: 6, onCompleted: onCompleted, onChanged: onChange);
   }
 }

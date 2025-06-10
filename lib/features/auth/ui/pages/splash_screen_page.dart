@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_multi_type/image_multi_type.dart';
@@ -22,31 +22,25 @@ class SplashScreenPage extends StatefulWidget {
 class _SplashScreenPageState extends State<SplashScreenPage> {
   @override
   void initState() {
-    Future.delayed(
-      const Duration(seconds: 2),
-      () async {
-        if (await checkForceUpdate()) {
-          showUpdateDialog(
-            ctx!,
-            child: const UpdateDialog(),
-          );
-          return;
-        }
+    Future.delayed(const Duration(seconds: 2), () async {
+      if (await checkForceUpdate()) {
+        showUpdateDialog(ctx!, child: const UpdateDialog());
+        return;
+      }
 
-        switch (getStartPage) {
-          case StartPage.login:
-            ctx?.pushReplacementNamed( RouteName.login);
-            break;
-          case StartPage.home:
-           ctx?.pushReplacementNamed(  RouteName.home);
-            break;
-          case StartPage.signupOtp:
-           ctx?.pushReplacementNamed(  RouteName.confirmCode);
-          case StartPage.passwordOtp:
-            break;
-        }
-      },
-    );
+      switch (getStartPage) {
+        case StartPage.login:
+          ctx?.pushReplacementNamed(RouteName.login);
+          break;
+        case StartPage.home:
+          ctx?.pushReplacementNamed(RouteName.home);
+          break;
+        case StartPage.signupOtp:
+          ctx?.pushReplacementNamed(RouteName.confirmCode);
+        case StartPage.passwordOtp:
+          break;
+      }
+    });
 
     super.initState();
   }
@@ -57,9 +51,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
       body: SizedBox(
         width: 1.0.sw,
         height: 1.0.sh,
-        child: const Center(
-          child: ImageMultiType(url: Assets.imagesLogo),
-        ),
+        child: const Center(child: ImageMultiType(url: Assets.imagesLogo)),
       ),
     );
   }

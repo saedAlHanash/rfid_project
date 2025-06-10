@@ -1,12 +1,12 @@
 import 'dart:ui';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_multi_type/image_multi_type.dart';
+import 'package:rfid_project/core/strings/enum_manager.dart';
 
 import '../../generated/l10n.dart';
 import '../strings/app_color_manager.dart';

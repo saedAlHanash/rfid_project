@@ -1,9 +1,9 @@
-import 'package:rfid_project/core/strings/enum_manager.dart';
-import 'package:rfid_project/router/go_router.dart';
 import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:rfid_project/core/strings/enum_manager.dart';
+import 'package:rfid_project/router/go_router.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
 

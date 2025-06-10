@@ -1,14 +1,14 @@
+import 'package:drawable_text/drawable_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:image_multi_type/round_image_widget.dart';
 import 'package:rfid_project/core/app/app_provider.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:rfid_project/core/util/shared_preferences.dart';
 import 'package:rfid_project/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:rfid_project/core/widgets/refresh_widget/refresh_widget.dart';
-import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_multi_type/round_image_widget.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/util/my_style.dart';

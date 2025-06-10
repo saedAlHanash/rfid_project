@@ -1,13 +1,12 @@
-import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rfid_project/core/strings/enum_manager.dart';
 
 import '../../strings/app_color_manager.dart';
 
 class TextWithListDote extends StatelessWidget {
-  const TextWithListDote(
-      {super.key, this.textWidget, this.matchParent, this.color, this.text = ''});
+  const TextWithListDote({super.key, this.textWidget, this.matchParent, this.color, this.text = ''});
 
   final Widget? textWidget;
   final String text;

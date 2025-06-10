@@ -1,15 +1,14 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:m_cubit/m_cubit.dart';
 import 'package:rfid_project/core/widgets/my_button.dart';
 import 'package:rfid_project/core/widgets/my_text_form_widget.dart';
 import 'package:rfid_project/features/auth/ui/widget/auth_card_image.dart';
 import 'package:rfid_project/features/auth/ui/widget/remember_account.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:m_cubit/m_cubit.dart';
 
 import '../../../../core/util/my_style.dart';
 import '../../../../generated/l10n.dart';
-import '../../../../router/go_router.dart';
 import '../../bloc/reset_password_cubit/reset_password_cubit.dart';
 
 class ResetPasswordPage extends StatefulWidget {
@@ -37,16 +36,14 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   Widget build(BuildContext context) {
     return BlocListener<ResetPasswordCubit, ResetPasswordInitial>(
       listenWhen: (p, c) => c.statuses == CubitStatuses.done,
-      listener: (context, state) {
-
-      },
+      listener: (context, state) {},
       child: Scaffold(
         body: Column(
           children: [
             AuthCardImage(
-                titleText: S.of(context).setANewPassword,
-                description:
-                    S.of(context).thePasswordMustBeMoreThan8CharactersAndNumbers),
+              titleText: S.of(context).setANewPassword,
+              description: S.of(context).thePasswordMustBeMoreThan8CharactersAndNumbers,
+            ),
             Expanded(
               child: ListView(
                 padding: MyStyle.authPagesPadding,
@@ -76,8 +73,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                               obscureText: true,
                               validator: (p0) => resetPassCubit.validateConfirmPassword,
                               label: S.of(context).confirmNewPassword,
-                              initialValue:
-                                  resetPassCubit.state.request.passwordConfirmation,
+                              initialValue: resetPassCubit.state.request.passwordConfirmation,
                               onChanged: (val) => resetPassCubit.setConfirmPassword = val,
                             ),
                           ],

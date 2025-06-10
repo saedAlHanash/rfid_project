@@ -1,6 +1,6 @@
+import 'package:m_cubit/m_cubit.dart';
 import 'package:rfid_project/core/api_manager/api_url.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
-import 'package:m_cubit/m_cubit.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/strings/enum_manager.dart';
@@ -19,19 +19,11 @@ class TempsCubit extends MCubit<TempsInitial> {
   String get filter => state.filter;
 
   Future<void> getTemps({bool newData = false}) async {
-    await getDataAbstract(
-      fromJson: Temp.fromJson,
-      state: state,
-      getDataApi: _getTemps,
-      newData: newData,
-    );
+    await getDataAbstract(fromJson: Temp.fromJson, state: state, getDataApi: _getTemps, newData: newData);
   }
 
   Future<Pair<List<Temp>?, String?>> _getTemps() async {
-    final response = await APIService().callApi(
-      type: ApiType.get,
-      url: PostUrl.temps,
-    );
+    final response = await APIService().callApi(type: ApiType.get, url: PostUrl.temps);
 
     if (response.statusCode.success) {
       return Pair(Temps.fromJson(response.jsonBody).items, null);
@@ -39,7 +31,6 @@ class TempsCubit extends MCubit<TempsInitial> {
       return response.getPairError;
     }
   }
-
 
   Future<void> addTemp(Temp item) async {
     final listJson = await addOrUpdateDate([item]);

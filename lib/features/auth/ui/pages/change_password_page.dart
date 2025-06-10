@@ -1,12 +1,13 @@
+import 'package:drawable_text/drawable_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:m_cubit/m_cubit.dart';
 import 'package:rfid_project/core/util/snack_bar_message.dart';
 import 'package:rfid_project/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:rfid_project/core/widgets/my_button.dart';
 import 'package:rfid_project/core/widgets/my_text_form_widget.dart';
-import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:m_cubit/m_cubit.dart';
 
 import '../../../../core/util/my_style.dart';
 import '../../../../generated/l10n.dart';
@@ -37,9 +38,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         );
       },
       child: Scaffold(
-        appBar: const AppBarWidget(
-          titleText: 'تغيير كلمة المرور',
-        ),
+        appBar: const AppBarWidget(titleText: 'تغيير كلمة المرور'),
         body: Padding(
           padding: const EdgeInsets.all(20.0).r,
           child: Column(
@@ -73,9 +72,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     width: 314.0.w,
                     text: S.of(context).update,
                     onTap: () {
-                      context
-                          .read<ChangePasswordCubit>()
-                          .changePassword(request: request);
+                      context.read<ChangePasswordCubit>().changePassword(request: request);
                     },
                   );
                 },

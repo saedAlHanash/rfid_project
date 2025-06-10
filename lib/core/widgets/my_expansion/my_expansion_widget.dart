@@ -1,9 +1,8 @@
-import 'package:rfid_project/core/strings/app_color_manager.dart';
-import 'package:rfid_project/core/strings/enum_manager.dart';
-import 'package:rfid_project/core/widgets/my_expansion/my_expansion_panal.dart';
 import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rfid_project/core/strings/app_color_manager.dart';
+import 'package:rfid_project/core/widgets/my_expansion/my_expansion_panal.dart';
 
 import 'item_expansion.dart';
 
@@ -30,31 +29,26 @@ class MyExpansionWidget extends StatefulWidget {
 class _MyExpansionWidgetState extends State<MyExpansionWidget> {
   @override
   Widget build(BuildContext context) {
-    final listItem = widget.items.map(
-      (e) {
-        return MyExpansionPanelRadio(
-          canTapOnHeader: true,
-          onTapItem: widget.onTapItem,
-          backgroundColor:
-              (e.isExpanded && e.withSideColor) ? AppColorManager.lightGray : AppColorManager.whit,
-          headerBuilder: (_, isExpanded) {
-            if (e.headerText != null) {
-              return Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0.r),
-                ),
-                alignment: Alignment.center,
-                child: DrawableText(text: e.headerText!),
-              );
-            }
-            return e.header ?? const DrawableText(text: 'header');
-          },
-          body: e.body,
-          enable: e.enable,
-          value: e.id,
-        );
-      },
-    ).toList();
+    final listItem = widget.items.map((e) {
+      return MyExpansionPanelRadio(
+        canTapOnHeader: true,
+        onTapItem: widget.onTapItem,
+        backgroundColor: (e.isExpanded && e.withSideColor) ? AppColorManager.lightGray : AppColorManager.whit,
+        headerBuilder: (_, isExpanded) {
+          if (e.headerText != null) {
+            return Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0.r)),
+              alignment: Alignment.center,
+              child: DrawableText(text: e.headerText!),
+            );
+          }
+          return e.header ?? const DrawableText(text: 'header');
+        },
+        body: e.body,
+        enable: e.enable,
+        value: e.id,
+      );
+    }).toList();
 
     return MyExpansionPanelList.radio(
       elevation: 0.0,

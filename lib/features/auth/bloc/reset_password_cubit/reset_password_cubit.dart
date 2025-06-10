@@ -1,7 +1,7 @@
-import 'package:rfid_project/core/api_manager/api_url.dart';
-import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m_cubit/m_cubit.dart';
+import 'package:rfid_project/core/api_manager/api_url.dart';
+import 'package:rfid_project/core/extensions/extensions.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/error/error_manager.dart';
@@ -31,7 +31,8 @@ class ResetPasswordCubit extends Cubit<ResetPasswordInitial> {
   }
 
   Future<Pair<bool?, String?>> _resetPasswordApi() async {
-    final response = await APIService().callApi(type: ApiType.post,
+    final response = await APIService().callApi(
+      type: ApiType.post,
       url: PostUrl.resetPassword,
       body: state.request.toJson(),
     );
@@ -43,8 +44,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordInitial> {
     }
   }
 
-  set setConfirmPassword(String? phone) =>
-      state.request.passwordConfirmation = phone;
+  set setConfirmPassword(String? phone) => state.request.passwordConfirmation = phone;
 
   set setCode(String? phone) => state.request.code = phone;
 

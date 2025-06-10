@@ -1,4 +1,4 @@
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 class AppColorManager {
   static const mainColor = Color(0xFF31357C);
@@ -35,13 +35,10 @@ class AppColorManager {
   static const f8 = Color(0xFFF8F8F8);
   static const d2 = Color(0xFFD2D2D2);
   static const c1 = Color(0xFF1C1C1C);
-
-
 }
 
 Color getColorFromHex(String hexColor) {
-  String formattedHexColor =
-      hexColor.replaceAll("#", ""); // Remove the '#' character if present
+  String formattedHexColor = hexColor.replaceAll("#", ""); // Remove the '#' character if present
   if (formattedHexColor.length == 6) {
     formattedHexColor = "FF$formattedHexColor"; // Add the alpha value if it's missing
   }
@@ -50,8 +47,7 @@ Color getColorFromHex(String hexColor) {
 }
 
 bool isColorDark(Color color) {
-  final luminance =
-      (0.2126 * color.red + 0.7152 * color.green + 0.0722 * color.blue) / 255;
+  final luminance = (0.2126 * color.red + 0.7152 * color.green + 0.0722 * color.blue) / 255;
   return luminance < 0.5;
 }
 

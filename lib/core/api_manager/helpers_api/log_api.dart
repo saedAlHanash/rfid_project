@@ -20,9 +20,9 @@
 
 import 'dart:convert';
 
-import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
+import 'package:rfid_project/core/extensions/extensions.dart';
 
 import '../../strings/enum_manager.dart';
 import '../api_service.dart';
@@ -73,12 +73,7 @@ String coloring(String url, ApiType type) {
   }
 }
 
-void logRequest({
-  required String url,
-  Map<String, dynamic>? q,
-  String? additional,
-  required ApiType type,
-}) {
+void logRequest({required String url, Map<String, dynamic>? q, String? additional, required ApiType type}) {
   var msg = coloring(url, type);
 
   if (q != null) msg += '\n ${jsonEncode(q)}';
@@ -87,17 +82,13 @@ void logRequest({
   loggerObject.i(msg);
 }
 
-void logResponse({
-  required String url,
-  required Response response,
-  required ApiType type,
-}) {
+void logResponse({required String url, required Response response, required ApiType type}) {
   if (response.body.contains('"trace":')) {
     loggerObject.t(
-        '${coloring(url, type)} [${response.statusCode}] \n error have "${coloring('trace', ApiType.delete)}"');
+      '${coloring(url, type)} [${response.statusCode}] \n error have "${coloring('trace', ApiType.delete)}"',
+    );
     return;
   }
 
-  loggerObject.t(
-      '${coloring(url, type)} [${response.statusCode}] \n ${response.body.logLongMessage}');
+  loggerObject.t('${coloring(url, type)} [${response.statusCode}] \n ${response.body.logLongMessage}');
 }

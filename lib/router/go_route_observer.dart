@@ -1,5 +1,5 @@
-import 'package:rfid_project/core/api_manager/api_service.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:rfid_project/core/api_manager/api_service.dart';
 
 class MyRouteObserver extends NavigatorObserver {
   @override

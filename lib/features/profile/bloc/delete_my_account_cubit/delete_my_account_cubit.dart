@@ -1,10 +1,9 @@
-
-import 'package:rfid_project/core/app/app_provider.dart';
-import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:equatable/equatable.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m_cubit/m_cubit.dart';
+import 'package:rfid_project/core/app/app_provider.dart';
+import 'package:rfid_project/core/extensions/extensions.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/api_manager/api_url.dart';
@@ -17,8 +16,6 @@ part 'delete_my_account_state.dart';
 
 class DeleteMyAccountCubit extends Cubit<DeleteMyAccountInitial> {
   DeleteMyAccountCubit() : super(DeleteMyAccountInitial.initial());
-
-
 
   Future<void> deleteMyAccount(BuildContext context) async {
     emit(state.copyWith(statuses: CubitStatuses.loading));
@@ -36,16 +33,12 @@ class DeleteMyAccountCubit extends Cubit<DeleteMyAccountInitial> {
   }
 
   Future<Pair<bool?, String?>> _deleteMyAccountApi() async {
+    final response = await APIService().callApi(type: ApiType.get, url: DeleteUrl.deleteMyAccount);
 
-      final response = await APIService().callApi(type: ApiType.get,
-        url: DeleteUrl.deleteMyAccount,
-      );
-
-      if (response.statusCode.success) {
-        return Pair(true, null);
-      } else {
-        return Pair(null, ErrorManager.getApiError(response));
-      }
-
+    if (response.statusCode.success) {
+      return Pair(true, null);
+    } else {
+      return Pair(null, ErrorManager.getApiError(response));
+    }
   }
 }

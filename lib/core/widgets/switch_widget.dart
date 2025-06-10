@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:rfid_project/core/strings/app_color_manager.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
 
 class SwitchWidget extends StatefulWidget {
   const SwitchWidget({

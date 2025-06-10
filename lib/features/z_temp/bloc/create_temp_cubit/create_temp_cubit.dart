@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:rfid_project/core/api_manager/api_url.dart';
-import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart';
 import 'package:m_cubit/m_cubit.dart';
+import 'package:rfid_project/core/api_manager/api_url.dart';
+import 'package:rfid_project/core/extensions/extensions.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/error/error_manager.dart';
@@ -60,5 +60,5 @@ class CreateTempCubit extends Cubit<CreateTempInitial> {
     emit(state.copyWith(request: CreateTempRequest.fromTemp(shipment)));
   }
 
-  bool get  updateMode =>!state.mRequest.id.isBlank;
+  bool get updateMode => !state.mRequest.id.isBlank;
 }

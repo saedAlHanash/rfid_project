@@ -1,13 +1,11 @@
 import 'dart:convert';
 
-import 'package:rfid_project/core/api_manager/api_service.dart';
-import 'package:rfid_project/core/app/app_provider.dart';
 import 'package:drawable_text/drawable_text.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_multi_type/image_multi_type.dart';
 import 'package:intl/intl.dart';
+import 'package:rfid_project/core/api_manager/api_service.dart';
 
 import '../../generated/l10n.dart';
 import '../error/error_manager.dart';
@@ -183,18 +181,15 @@ extension MaxInt on num {
   String get formatPrice => oCcy.format(this);
 
   Widget get counterWidget => Container(
-        height: 40.0.r,
-        width: 40.0.r,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: AppColorManager.cardColor,
-        ),
-        alignment: Alignment.center,
-        child: DrawableText(
-          text: this == 0 ? '' : toInt().toString().padLeft(2, '0'),
-          color: AppColorManager.mainColor,
-        ),
-      );
+    height: 40.0.r,
+    width: 40.0.r,
+    decoration: BoxDecoration(shape: BoxShape.circle, color: AppColorManager.cardColor),
+    alignment: Alignment.center,
+    child: DrawableText(
+      text: this == 0 ? '' : toInt().toString().padLeft(2, '0'),
+      color: AppColorManager.mainColor,
+    ),
+  );
 }
 
 extension MaxIntNulable on num? {
@@ -215,13 +210,7 @@ extension ListEnumHelper on List {
   List<SpinnerItem> getSpinnerItems({int? selectedId, Widget? icon}) {
     return List<SpinnerItem>.from(
       map(
-        (e) => SpinnerItem(
-          id: e.index,
-          isSelected: e.index == selectedId,
-          name: e.name,
-          icon: icon,
-          item: e,
-        ),
+        (e) => SpinnerItem(id: e.index, isSelected: e.index == selectedId, name: e.name, icon: icon, item: e),
       ),
     );
   }
@@ -263,7 +252,6 @@ extension ResponseHelper on http.Response {
     return Pair(null, ErrorManager.getApiError(this));
   }
 }
-
 
 extension FormatDuration on Duration {
   String get format {
@@ -383,13 +371,7 @@ extension DateUtcHelper on DateTime {
     final hours = difference.inHours.abs() % 24;
     final minutes = difference.inMinutes.abs() % 60;
     final seconds = difference.inSeconds.abs() % 60;
-    return FormatDateTime(
-      months: months,
-      days: days,
-      hours: hours,
-      minutes: minutes,
-      seconds: seconds,
-    );
+    return FormatDateTime(months: months, days: days, hours: hours, minutes: minutes, seconds: seconds);
   }
 
   String formatDuration({DateTime? serverDate}) {
@@ -474,10 +456,7 @@ extension FirstItem<E> on Iterable<E> {
 }
 
 extension GetDateTimesBetween on DateTime {
-  List<DateTime> getDateTimesBetween({
-    required DateTime end,
-    required Duration period,
-  }) {
+  List<DateTime> getDateTimesBetween({required DateTime end, required Duration period}) {
     var dateTimes = <DateTime>[];
     var current = add(period);
     while (current.isBefore(end)) {
@@ -490,7 +469,6 @@ extension GetDateTimesBetween on DateTime {
     return dateTimes;
   }
 }
-
 
 class FormatDateTime {
   final int months;

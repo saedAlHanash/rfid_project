@@ -1,14 +1,8 @@
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SelectSingeDateScrollWidget extends StatelessWidget {
-  const SelectSingeDateScrollWidget({
-    super.key,
-    this.onSelect,
-    this.initial,
-    this.maxDate,
-    this.minDate,
-  });
+  const SelectSingeDateScrollWidget({super.key, this.onSelect, this.initial, this.maxDate, this.minDate});
 
   final DateTime? initial;
   final DateTime? maxDate;
@@ -25,7 +19,7 @@ class SelectSingeDateScrollWidget extends StatelessWidget {
           firstDate: minDate ?? DateTime(1900),
           lastDate: maxDate ?? DateTime(2052),
           initialDatePickerMode: DatePickerMode.year,
-          initialEntryMode: DatePickerEntryMode.calendarOnly
+          initialEntryMode: DatePickerEntryMode.calendarOnly,
         );
         //
         // var datePicked = await DatePicker.showSimpleDatePicker(
@@ -39,10 +33,7 @@ class SelectSingeDateScrollWidget extends StatelessWidget {
         // );
         if (datePicked != null) onSelect?.call(datePicked);
       },
-      icon: Icon(
-        Icons.date_range,
-        size: 30.0.r,
-      ),
+      icon: Icon(Icons.date_range, size: 30.0.r),
     );
   }
 }

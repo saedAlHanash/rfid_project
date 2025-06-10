@@ -1,13 +1,8 @@
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
 class PinCodeWidget extends StatelessWidget {
-  const PinCodeWidget({
-    super.key,
-    this.onCompleted,
-    this.onChange,
-    this.validator,
-  });
+  const PinCodeWidget({super.key, this.onCompleted, this.onChange, this.validator});
   final Function(String)? onCompleted;
   final Function(String)? onChange;
   final String? Function(String?)? validator;
@@ -29,6 +24,5 @@ class PinCodeWidget extends StatelessWidget {
     );
   }
 }
-
 
 //Big shit

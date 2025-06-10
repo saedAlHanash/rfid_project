@@ -1,12 +1,12 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:rfid_project/core/helper/launcher_helper.dart';
 import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:rfid_project/core/util/pair_class.dart';
 import 'package:rfid_project/core/widgets/my_button.dart';
-import 'package:go_router/go_router.dart';import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 import '../api_manager/api_service.dart';
 import '../app/app_provider.dart';
@@ -32,10 +32,7 @@ Future<bool> checkForceUpdate() async {
 }
 
 Future<Pair<SettingResult?, String?>> _apiSettings() async {
-  final response = await APIService().callApi(
-    type: ApiType.get,
-    url: 'system-parameters',
-  );
+  final response = await APIService().callApi(type: ApiType.get, url: 'system-parameters');
 
   if (response.statusCode == 200) {
     final data = SettingResult.fromJson(response.jsonBodyPure);
@@ -46,12 +43,16 @@ Future<Pair<SettingResult?, String?>> _apiSettings() async {
   }
 }
 
-Future<bool> showUpdateDialog(BuildContext context,
-    {required Widget child, bool? callable, Function(bool b)? omCancel}) async {
-// show the dialog
+Future<bool> showUpdateDialog(
+  BuildContext context, {
+  required Widget child,
+  bool? callable,
+  Function(bool b)? omCancel,
+}) async {
+  // show the dialog
   final result = await showDialog(
     context: context,
-    barrierColor: Colors.black.withValues(alpha:0.3),
+    barrierColor: Colors.black.withValues(alpha: 0.3),
     barrierDismissible: false,
     builder: (BuildContext context) => child,
   );
@@ -123,7 +124,8 @@ class SettingResult {
       mainAppVersionIos: (json["main_app_version_ios"]).toString().tryParseOr(0),
       androidLink: json["app_android_link"] ?? "",
       androidDirectLink: json["app_android_direct_link"] ?? "",
-      policyLink: json["policy_and_privacy_link"] ??
+      policyLink:
+          json["policy_and_privacy_link"] ??
           "https://drive.google.com/file/d/1JzXuo00HdK-Uy-tkRbtCCvjuWcumnk91",
       communication: json["communication_with_support"] ?? 'https://wa.me/9647738000065',
       iosLink: json["app_ios_link"] ?? "",
@@ -136,14 +138,14 @@ class SettingResult {
   }
 
   Map<String, dynamic> toJson() => {
-        "main_app_version": mainAppVersionAndroid,
-        "main_app_version_ios": mainAppVersionIos,
-        "app_android_link": androidLink,
-        "app_android_direct_link": androidDirectLink,
-        "policy_and_privacy_link": policyLink,
-        "communication_with_support": communication,
-        "app_ios_link": iosLink,
-        "directLink": directLink,
-        "ios_test": isIosTest,
-      };
+    "main_app_version": mainAppVersionAndroid,
+    "main_app_version_ios": mainAppVersionIos,
+    "app_android_link": androidLink,
+    "app_android_direct_link": androidDirectLink,
+    "policy_and_privacy_link": policyLink,
+    "communication_with_support": communication,
+    "app_ios_link": iosLink,
+    "directLink": directLink,
+    "ios_test": isIosTest,
+  };
 }

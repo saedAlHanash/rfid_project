@@ -1,16 +1,15 @@
 import 'dart:typed_data';
 
+import 'package:m_cubit/m_cubit.dart';
 import 'package:rfid_project/core/api_manager/api_url.dart';
 import 'package:rfid_project/core/app/app_provider.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
-import 'package:m_cubit/m_cubit.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/error/error_manager.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/pair_class.dart';
 import '../../../../generated/l10n.dart';
-
 import '../../data/request/signup_request.dart';
 
 part 'signup_state.dart';
@@ -32,10 +31,7 @@ class SignupCubit extends MCubit<SignupInitial> {
       emit(state.copyWith(error: pair.second, statuses: CubitStatuses.error));
       showErrorFromApi(state);
     } else {
-      await AppProvider.cachePhone(
-        phone: state.request.phone!,
-        type: StartPage.signupOtp,
-      );
+      await AppProvider.cachePhone(phone: state.request.phone!, type: StartPage.signupOtp);
       emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
     }
   }
@@ -62,8 +58,6 @@ class SignupCubit extends MCubit<SignupInitial> {
   set setGender(GenderEnum? gender) => state.request.gender = gender;
 
   set setEducationalGrade(int? id) => state.request.educationalGradeId = id;
-
-
 
   set setIdentityImage(Uint8List bytes) {
     state.request.identityImage.fileBytes = bytes;
