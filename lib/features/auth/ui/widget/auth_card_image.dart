@@ -19,26 +19,27 @@ class AuthCardImage extends StatelessWidget {
       width: 1.0.sw,
       child: Stack(
         children: [
-          PositionedDirectional(
-            bottom: 20.0.h,
-            start: 20.0.w,
-            end: 35.0.w,
+          ImageMultiType(
+            url: Assets.iconsLoginBack,
+            height: 1.0.sh,
+            width: 1.0.sw,
+            fit: BoxFit.fill,
+          ),
+          Center(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
+                ImageMultiType(
+                  url: Assets.imagesWiteLogo,
+                  height: 75.0.r,
+                  width: 75.0.r,
+                ),
                 DrawableText(
                   text: titleText,
                   size: 28.0.spMin,
                   color: Colors.white,
                   fontFamily: FontManager.bold.name,
-                  matchParent: true,
-                  // drawableEnd: ImageMultiType(
-                  //   url: Assets.imagesLogo,
-                  //   height: 80.0.r,
-                  //   width: 80.0.r,
-                  // ),
                 ),
-                10.0.verticalSpace,
-                DrawableText(text: description, size: 18.0.spMin, color: Colors.white, matchParent: true),
               ],
             ),
           ),

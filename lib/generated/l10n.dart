@@ -2334,6 +2334,71 @@ class S {
       args: [],
     );
   }
+
+  /// `Bandtech`
+  String get bandtech {
+    return Intl.message('Bandtech', name: 'bandtech', desc: '', args: []);
+  }
+
+  /// `Design, programming, property rights and publishing`
+  String get designProgrammingPropertyRightsAndPublishing {
+    return Intl.message(
+      'Design, programming, property rights and publishing',
+      name: 'designProgrammingPropertyRightsAndPublishing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add product`
+  String get addProduct {
+    return Intl.message('Add product', name: 'addProduct', desc: '', args: []);
+  }
+
+  /// `Edit product`
+  String get editProduct {
+    return Intl.message(
+      'Edit product',
+      name: 'editProduct',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove product`
+  String get removeProduct {
+    return Intl.message(
+      'Remove product',
+      name: 'removeProduct',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Transfer product`
+  String get transferProduct {
+    return Intl.message(
+      'Transfer product',
+      name: 'transferProduct',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reports`
+  String get reports {
+    return Intl.message('Reports', name: 'reports', desc: '', args: []);
+  }
+
+  /// `Asset inventory`
+  String get assetInventory {
+    return Intl.message(
+      'Asset inventory',
+      name: 'assetInventory',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

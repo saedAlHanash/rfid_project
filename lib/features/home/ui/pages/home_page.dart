@@ -6,6 +6,7 @@ import 'package:rfid_project/features/home/ui/widget/screens/menu_screen_guest.d
 
 import '../../../../core/util/my_style.dart';
 import '../../../auth/bloc/delete_account_cubit/delete_account_cubit.dart';
+import '../../../profile/bloc/get_me_cubit/get_me_cubit.dart';
 import '../../bloc/home_cubit/home_cubit.dart';
 import '../widget/bottom_nav_widget.dart';
 import '../widget/screens/menu_screen.dart';
@@ -28,6 +29,12 @@ class _HomepageState extends State<Homepage> {
   }
 
   @override
+  void initState() {
+    context.read<GetMeCubit>().getData(newData: true);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
@@ -35,31 +42,28 @@ class _HomepageState extends State<Homepage> {
         onPopInvoked: (isPop, result) => cubit.jumpPage(0),
         canPop: cubit.canPop,
       ),
-      body: BlocBuilder<DeleteAccountCubit, DeleteAccountInitial>(
-        buildWhen: (p, c) => c.done,
-        builder: (context, state) {
-          if (state.loading) {
-            return MyStyle.loadingWidget();
-          }
-          return Stack(
-            children: [
-              BlocBuilder<HomeCubit, HomeInitial>(
-                builder: (context, state) {
-                  return PageView(
-                    controller: state.controller,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      const HomeScreen(),
-
-                const MenuScreen() ,
-                    ],
-                  );
-                },
-              ),
-              Align(alignment: Alignment.bottomCenter, child: Navbar()),
-            ],
-          );
-        },
+      body: BlocListener<GetMeCubit, GetMeInitial>(
+        listener: (context, state) {},
+        child: BlocBuilder<DeleteAccountCubit, DeleteAccountInitial>(
+          buildWhen: (p, c) => c.done,
+          builder: (context, state) {
+            if (state.loading) {
+              return MyStyle.loadingWidget();
+            }
+            return BlocBuilder<HomeCubit, HomeInitial>(
+              builder: (context, state) {
+                return PageView(
+                  controller: state.controller,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    const HomeScreen(),
+                    const MenuScreen(),
+                  ],
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

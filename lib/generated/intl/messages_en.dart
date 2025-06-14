@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "addCorectData": MessageLookupByLibrary.simpleMessage(
       "يجب عليك إدخال بياناتك الصحيحة لتجنب المشاكل والأخطاء",
     ),
+    "addProduct": MessageLookupByLibrary.simpleMessage("Add product"),
     "addReview": MessageLookupByLibrary.simpleMessage("Add Review"),
     "add_to_cart": MessageLookupByLibrary.simpleMessage("Add To Cart"),
     "additional_service": MessageLookupByLibrary.simpleMessage(
@@ -41,8 +42,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "apply": MessageLookupByLibrary.simpleMessage("Apply"),
     "apply_filters": MessageLookupByLibrary.simpleMessage("Apply filters"),
     "ar": MessageLookupByLibrary.simpleMessage("Arabic"),
+    "assetInventory": MessageLookupByLibrary.simpleMessage("Asset inventory"),
     "at": MessageLookupByLibrary.simpleMessage("At"),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
+    "bandtech": MessageLookupByLibrary.simpleMessage("Bandtech"),
     "birthday": MessageLookupByLibrary.simpleMessage("birthday"),
     "blockedByTeacher": MessageLookupByLibrary.simpleMessage(
       "Blocked by teacher",
@@ -120,6 +123,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
     "deliveryDate": MessageLookupByLibrary.simpleMessage("Delivery Date"),
     "description": MessageLookupByLibrary.simpleMessage("Description"),
+    "designProgrammingPropertyRightsAndPublishing":
+        MessageLookupByLibrary.simpleMessage(
+          "Design, programming, property rights and publishing",
+        ),
     "devBy": MessageLookupByLibrary.simpleMessage("تم التطوير بواسطة"),
     "didNotReceiveOTP": MessageLookupByLibrary.simpleMessage(
       "Didn\'t Receive The OTP?",
@@ -153,6 +160,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "duration": MessageLookupByLibrary.simpleMessage("Duration"),
     "ePayment": MessageLookupByLibrary.simpleMessage("E-Payment"),
+    "editProduct": MessageLookupByLibrary.simpleMessage("Edit product"),
     "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
     "educationalGrade": MessageLookupByLibrary.simpleMessage(
       "Educational Grade",
@@ -363,6 +371,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "rememberPassword": MessageLookupByLibrary.simpleMessage(
       "Remember Password",
     ),
+    "removeProduct": MessageLookupByLibrary.simpleMessage("Remove product"),
+    "reports": MessageLookupByLibrary.simpleMessage("Reports"),
     "resend": MessageLookupByLibrary.simpleMessage("Resend"),
     "reset_password": MessageLookupByLibrary.simpleMessage("Reset Password"),
     "returned": MessageLookupByLibrary.simpleMessage("Returned"),
@@ -453,6 +463,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "To get exams, lessons and notes",
     ),
     "trackingOrder": MessageLookupByLibrary.simpleMessage("Tracking Order"),
+    "transferProduct": MessageLookupByLibrary.simpleMessage("Transfer product"),
     "trueOrFalse": MessageLookupByLibrary.simpleMessage("True or false"),
     "unFollow": MessageLookupByLibrary.simpleMessage("Un Follow"),
     "underCorrection": MessageLookupByLibrary.simpleMessage("Under correction"),

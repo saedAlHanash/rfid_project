@@ -1,7 +1,7 @@
 part of 'get_me_cubit.dart';
 
-class GetMeInitial extends AbstractState<ProfileResponse> {
-  // final ProfileResponseRequest request;
+class GetMeInitial extends AbstractState<UserModel> {
+  // final UserModelRequest request;
   // final  bool educationalGradeParam;
   const GetMeInitial({
     required super.result,
@@ -13,10 +13,10 @@ class GetMeInitial extends AbstractState<ProfileResponse> {
 
   factory GetMeInitial.initial() {
     return GetMeInitial(
-      result: ProfileResponse.fromJson({}),
+      result: UserModel.fromJson({}),
       error: '',
       // educationalGradeParam: false,
-      // request: ProfileResponseRequest(),
+      // request: UserModelRequest(),
       statuses: CubitStatuses.init,
     );
   }
@@ -26,7 +26,7 @@ class GetMeInitial extends AbstractState<ProfileResponse> {
 
   GetMeInitial copyWith({
     CubitStatuses? statuses,
-    ProfileResponse? result,
+    UserModel? result,
     String? error,
   }) {
     return GetMeInitial(

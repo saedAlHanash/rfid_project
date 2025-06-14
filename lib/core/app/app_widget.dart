@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
     loggerObject.w(AppSharedPreference.getToken);
     return ScreenUtilInit(
       designSize: MediaQuery.of(context).size,
-      // designSize: const Size(375, 812),
+      // designSize: const Size(390, 862),
       // designSize: const Size(14440, 972),
       minTextAdapt: true,
       // splitScreenMode: true,
@@ -142,4 +142,4 @@ class MyCustomScrollBehavior extends MaterialScrollBehavior {
   Set<PointerDeviceKind> get dragDevices => {PointerDeviceKind.touch, PointerDeviceKind.mouse};
 }
 
-BuildContext? get ctx => sl<GlobalKey<NavigatorState>>().currentContext;
+BuildContext? get ctx => navigatorKey.currentContext;

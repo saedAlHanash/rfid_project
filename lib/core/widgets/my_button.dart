@@ -21,6 +21,7 @@ class MyButton extends StatelessWidget {
     this.enable,
     this.toUpper = true,
     this.padding,
+    this.margin,
     this.loading = false,
   });
 
@@ -35,6 +36,7 @@ class MyButton extends StatelessWidget {
   final double? radios;
   final bool? enable;
   final EdgeInsets? padding;
+  final EdgeInsets? margin;
   final Function()? onTap;
   final bool toUpper;
   final bool loading;
@@ -60,9 +62,10 @@ class MyButton extends StatelessWidget {
           fontWeight: FontWeight.bold,
         );
 
-    return SizedBox(
+    return Container(
       width: width ?? .9.sw,
-      height: height ?? 40.0.h,
+      height: height ?? 50.0.h,
+      padding: margin,
       child: ElevatedButton.icon(
         icon: icon,
         label: child,
@@ -71,7 +74,7 @@ class MyButton extends StatelessWidget {
           backgroundColor: WidgetStatePropertyAll(
             enable != false ? color : AppColorManager.mainColor.withValues(alpha: 0.4),
           ),
-          padding: WidgetStatePropertyAll(padding ?? const EdgeInsets.symmetric(vertical: 13.0).r),
+          padding: WidgetStatePropertyAll(padding ?? const EdgeInsets.symmetric(vertical: 10.0).r),
           shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(radios ?? 8.0.r)),
           ),

@@ -29,9 +29,9 @@ class UpdateProfileRequest {
   int? educationalGradeId;
   int? governorateId;
 
-  var identityImage = UploadFile(nameField: 'identity_image', assetImage: Assets.iconsLogo);
+  var identityImage = UploadFile(nameField: 'identity_image', assetImage: Assets.imagesLogo);
 
-  var profileImageUrl = UploadFile(nameField: 'profile_image_url', assetImage: Assets.iconsLogo);
+  var profileImageUrl = UploadFile(nameField: 'profile_image_url', assetImage: Assets.imagesLogo);
 
   factory UpdateProfileRequest.fromJson(Map<String, dynamic> json) {
     return UpdateProfileRequest(

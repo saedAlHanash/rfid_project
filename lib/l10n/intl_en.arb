@@ -308,5 +308,13 @@
   "chapters": "Chapters",
   "blockedByTeacher": "Blocked by teacher",
   "grades": "Grades",
-  "youCanChangeYourStudyLevelLater": "You can change your study level later."
+  "youCanChangeYourStudyLevelLater": "You can change your study level later.",
+  "bandtech": "Bandtech",
+    "designProgrammingPropertyRightsAndPublishing": "Design, programming, property rights and publishing",
+    "addProduct": "Add product",
+    "editProduct": "Edit product",
+    "removeProduct": "Remove product",
+    "transferProduct": "Transfer product",
+    "reports": "Reports",
+    "assetInventory": "Asset inventory"
 }

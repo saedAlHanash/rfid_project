@@ -57,7 +57,7 @@ class AppSharedPreference {
 
   static bool get getIsLoginToChatApp => _prefs?.getBool(_isLoginToChatApp) ?? false;
 
-  static cashUser(UserModel user) async {
+  static Future<void> cashUser(UserModel user) async {
     final json = user.toJson();
 
     await _prefs?.setString(_user, jsonEncode(json));

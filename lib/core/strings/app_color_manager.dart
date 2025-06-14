@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColorManager {
-  static const mainColor = Color(0xFF31357C);
+  static const mainColor = Color(0xFF272E60);
   static const mainColorDark = Color(0xFF262960);
   static const mainColorLight = Color(0xFF3E439B);
   static const textColor = Color(0xFF606060);
@@ -35,6 +35,7 @@ class AppColorManager {
   static const f8 = Color(0xFFF8F8F8);
   static const d2 = Color(0xFFD2D2D2);
   static const c1 = Color(0xFF1C1C1C);
+  static const cd = Color(0xFFCDCDCD);
 }
 
 Color getColorFromHex(String hexColor) {

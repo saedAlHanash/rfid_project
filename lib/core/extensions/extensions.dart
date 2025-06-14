@@ -153,6 +153,7 @@ extension StringHelper on String? {
   }
 
   String? get fixPhone {
+    return this;
     if (this == null) return null;
     if ((this ?? '').startsWith('+964')) return this ?? '';
     final p = this!

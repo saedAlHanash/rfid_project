@@ -37,7 +37,7 @@ class UpdateProfileCubit extends MCubit<UpdateProfileInitial> {
 
   void setValuesInitial() {}
 
-  Future<Pair<ProfileResponse?, String?>> _updateProfileApi() async {
+  Future<Pair<UserModel?, String?>> _updateProfileApi() async {
     final response = await APIService().uploadMultiPart(
       url: PostUrl.updateProfile,
       fields: state.mRequest.toJson(),
@@ -45,7 +45,7 @@ class UpdateProfileCubit extends MCubit<UpdateProfileInitial> {
     );
 
     if (response.statusCode.success) {
-      return Pair(ProfileResponse.fromJson(response.jsonBody), null);
+      return Pair(UserModel.fromJson(response.jsonBody), null);
     } else {
       return response.getPairError;
     }

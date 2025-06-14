@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "addCorectData": MessageLookupByLibrary.simpleMessage(
       "يجب عليك إدخال بياناتك الصحيحة لتجنب المشاكل والأخطاء",
     ),
+    "addProduct": MessageLookupByLibrary.simpleMessage("إضافة منتج"),
     "addReview": MessageLookupByLibrary.simpleMessage("إضافة تقييم"),
     "add_to_cart": MessageLookupByLibrary.simpleMessage("أضف للسلة"),
     "additional_service": MessageLookupByLibrary.simpleMessage("خدمة إضافية"),
@@ -39,8 +40,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "apply": MessageLookupByLibrary.simpleMessage("تطبيق"),
     "apply_filters": MessageLookupByLibrary.simpleMessage("تطبيق الفلاتر"),
     "ar": MessageLookupByLibrary.simpleMessage("عربي"),
+    "assetInventory": MessageLookupByLibrary.simpleMessage("جرد الأصول"),
     "at": MessageLookupByLibrary.simpleMessage("عند"),
     "back": MessageLookupByLibrary.simpleMessage("عودة"),
+    "bandtech": MessageLookupByLibrary.simpleMessage("الحزمة التقنية"),
     "birthday": MessageLookupByLibrary.simpleMessage("تاريخ الميلاد"),
     "blockedByTeacher": MessageLookupByLibrary.simpleMessage(
       "محظور عن طريق المدرس",
@@ -118,6 +121,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "deleteAccount": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
     "deliveryDate": MessageLookupByLibrary.simpleMessage("تاريخ التسليم "),
     "description": MessageLookupByLibrary.simpleMessage("الوصف"),
+    "designProgrammingPropertyRightsAndPublishing":
+        MessageLookupByLibrary.simpleMessage(
+          "تصميم و برمجة و حقوق الملكية و النشر",
+        ),
     "devBy": MessageLookupByLibrary.simpleMessage("تم التطوير بواسطة"),
     "didNotReceiveOTP": MessageLookupByLibrary.simpleMessage("لم تتلقَ الرمز؟"),
     "didntReceiveTheCode": MessageLookupByLibrary.simpleMessage(
@@ -151,6 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "duration": MessageLookupByLibrary.simpleMessage("المدة"),
     "ePayment": MessageLookupByLibrary.simpleMessage("دفع إلكتروني"),
+    "editProduct": MessageLookupByLibrary.simpleMessage("تعديل منتج"),
     "editProfile": MessageLookupByLibrary.simpleMessage("تعديل الصفحة الشخصية"),
     "educationalGrade": MessageLookupByLibrary.simpleMessage(
       "المرحلة الدراسية",
@@ -339,6 +347,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "rememberPassword": MessageLookupByLibrary.simpleMessage(
       "أتذكر كلمة المرور",
     ),
+    "removeProduct": MessageLookupByLibrary.simpleMessage("إتلاف منتج"),
+    "reports": MessageLookupByLibrary.simpleMessage("التقارير"),
     "resend": MessageLookupByLibrary.simpleMessage("إعادة الإرسال"),
     "reset_password": MessageLookupByLibrary.simpleMessage(
       "إعادة تعيين كلمة المرور",
@@ -431,6 +441,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "للحصول على الامتحانات، الدروس والملاحظات",
     ),
     "trackingOrder": MessageLookupByLibrary.simpleMessage("تتبع الطلب"),
+    "transferProduct": MessageLookupByLibrary.simpleMessage("نقل منتج"),
     "trueOrFalse": MessageLookupByLibrary.simpleMessage("صحيح أو خطأ"),
     "unFollow": MessageLookupByLibrary.simpleMessage("إلغاء متابعة"),
     "underCorrection": MessageLookupByLibrary.simpleMessage("قيد التصحيح"),

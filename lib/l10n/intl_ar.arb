@@ -309,5 +309,13 @@
   "chapters": "الفصول",
   "blockedByTeacher": "محظور عن طريق المدرس",
     "grades": "درجات",
-  "youCanChangeYourStudyLevelLater": "يمكنك تغيير المرحلة الدارسية لاحقا"
+  "youCanChangeYourStudyLevelLater": "يمكنك تغيير المرحلة الدارسية لاحقا",
+  "bandtech": "الحزمة التقنية",
+    "designProgrammingPropertyRightsAndPublishing": "تصميم و برمجة و حقوق الملكية و النشر",
+    "addProduct": "إضافة منتج",
+    "editProduct": "تعديل منتج",
+    "removeProduct": "إتلاف منتج",
+    "transferProduct": "نقل منتج",
+    "reports": "التقارير",
+    "assetInventory": "جرد الأصول"
 }

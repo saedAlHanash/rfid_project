@@ -18,19 +18,19 @@ class GetMeCubit extends MCubit<GetMeInitial> {
 
   Future<void> getData({bool newData = false}) async {
     getDataAbstract(
-      fromJson: ProfileResponse.fromJson,
+      fromJson: UserModel.fromJson,
       state: state,
       getDataApi: _getDataApi,
       newData: newData,
     );
   }
 
-  Future<Pair<ProfileResponse?, String?>> _getDataApi() async {
+  Future<Pair<UserModel?, String?>> _getDataApi() async {
     final response = await APIService().callApi(type: ApiType.get, url: GetUrl.profile);
 
     if (response.statusCode.success) {
-      final pair = Pair(ProfileResponse.fromJson(response.jsonBodyPure), null);
-      await AppSharedPreference.cashUser(pair.first.student);
+      final pair = Pair(UserModel.fromJson(response.jsonBodyPure), null);
+      await AppSharedPreference.cashUser(pair.first);
       return pair;
     } else {
       return response.getPairError;

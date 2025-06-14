@@ -28,12 +28,6 @@ class LoginCubit extends Cubit<LoginInitial> {
       emit(state.copyWith(statuses: CubitStatuses.error, error: pair.second));
       showErrorFromApi(state);
     } else {
-      if (!pair.first!.user.isConfirmed) {
-        await AppProvider.cachePhone(phone: state.request.phone ?? '', type: StartPage.signupOtp);
-
-        ctx?.goNamed(RouteName.confirmCode);
-      }
-
       await AppProvider.login(response: pair.first!);
       CachingService.setSupperFilter(AppProvider.supperFilter);
       emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
@@ -48,12 +42,13 @@ class LoginCubit extends Cubit<LoginInitial> {
     );
 
     if (response.statusCode.success) {
-      final pair = Pair(LoginResponse.fromJson(response.jsonBody), null);
+      final pair = Pair(LoginResponse.fromJson(response.jsonBodyPure), null);
 
       return pair;
     } else {
       if (response.statusCode == 311) {
-        await AppProvider.cachePhone(phone: state.request.phone!, type: StartPage.signupOtp);
+        await AppProvider.cachePhone(
+            phone: state.request.phone!, type: StartPage.signupOtp);
 
         ctx?.pushNamed(RouteName.confirmCode);
       }

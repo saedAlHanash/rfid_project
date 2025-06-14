@@ -112,8 +112,8 @@ class MyStyle {
 
   static final authPagesPadding = const EdgeInsets.only(left: 40.0, right: 40.0, bottom: 30.0).r;
 
-  static final productGridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
+  static SliverGridDelegateWithFixedCrossAxisCount get productGridDelegate => SliverGridDelegateWithFixedCrossAxisCount(
     crossAxisCount: 2,
-    mainAxisExtent: 250.0.h,
+
   );
 }

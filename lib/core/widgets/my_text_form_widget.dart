@@ -103,12 +103,12 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
     }
 
     final border = OutlineInputBorder(
-      borderSide: const BorderSide(color: AppColorManager.f9),
-      borderRadius: BorderRadius.circular(10.0.r),
+      borderSide: const BorderSide(color: AppColorManager.cd),
+      borderRadius: BorderRadius.circular(8.0.r),
     );
 
     final errorBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: AppColorManager.red, width: 1.0.spMin),
+      borderSide: BorderSide(color: AppColorManager.red, width: 1.0.sp),
       borderRadius: BorderRadius.circular(10.0.r),
     );
 
@@ -121,7 +121,8 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
       helperText: widget.helperText,
       helperStyle: const TextStyle(color: Colors.grey),
       fillColor: AppColorManager.f9,
-      label: DrawableText(text: widget.label, color: AppColorManager.gray, size: 16.0.spMin),
+      label: DrawableText(
+          text: widget.label, color: AppColorManager.mainColor, size: 16.0.sp),
       counter: const SizedBox(),
       hintText: widget.hint,
       floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -131,7 +132,7 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
         fontSize: 14.0.sp,
         fontFamily: FontManager.semeBold.name,
       ),
-      filled: true,
+      filled: false,
       labelStyle: TextStyle(color: widget.color),
       prefixIcon: widget.iconWidget ?? suffixIcon,
       suffixIcon: widget.iconWidgetLift ?? eye,
@@ -139,7 +140,7 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
 
     final textStyle = TextStyle(
       fontFamily: FontManager.semeBold.name,
-      fontSize: 16.0.spMin,
+      fontSize: 16.0.sp,
       color: AppColorManager.black,
     );
 
@@ -153,7 +154,7 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
                 text: widget.labelText!,
                 // color: AppColorManager.gray,
                 fontFamily: FontManager.semeBold.name,
-                size: 16.0.spMin,
+                size: 16.0.sp,
                 padding: EdgeInsets.only(bottom: 10.0).r,
                 matchParent: true,
               ),
@@ -169,7 +170,6 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
               textAlign: widget.textAlign,
               onChanged: widget.onChanged,
               style: textStyle,
-
               textDirection: widget.textDirection,
               maxLength: widget.maxLength,
               controller: widget.controller,
@@ -239,7 +239,8 @@ class MyEditTextWidget extends StatelessWidget {
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0).r,
-              child: Icon(obscureText ? Icons.visibility : Icons.visibility_off, size: 20.0.spMin),
+              child: Icon(obscureText ? Icons.visibility : Icons.visibility_off,
+                  size: 20.0.sp),
             ),
           );
         },
@@ -247,7 +248,8 @@ class MyEditTextWidget extends StatelessWidget {
     }
 
     final border = OutlineInputBorder(
-      borderSide: BorderSide(color: backgroundColor ?? AppColorManager.offWhit.withValues(alpha: 0.27)),
+      borderSide: BorderSide(
+          color: backgroundColor ?? AppColorManager.offWhit.withValues(alpha: 0.27)),
       borderRadius: BorderRadius.circular(radios ?? 10.0.r),
     );
 
@@ -267,7 +269,7 @@ class MyEditTextWidget extends StatelessWidget {
       filled: true,
       enabled: enable ?? true,
       prefixIcon: suffixIcon ?? 0.0.verticalSpace,
-      prefixIconConstraints: BoxConstraints(maxWidth: 80.0.spMin, minHeight: 50.0.spMin),
+      prefixIconConstraints: BoxConstraints(maxWidth: 80.0.sp, minHeight: 50.0.sp),
     );
 
     return StatefulBuilder(
@@ -357,7 +359,8 @@ class MyEditTextWidgetWhite extends StatelessWidget {
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0).r,
-              child: Icon(obscureText ? Icons.visibility : Icons.visibility_off, size: 20.0.spMin),
+              child: Icon(obscureText ? Icons.visibility : Icons.visibility_off,
+                  size: 20.0.sp),
             ),
           );
         },
@@ -365,7 +368,8 @@ class MyEditTextWidgetWhite extends StatelessWidget {
     }
 
     final border = OutlineInputBorder(
-      borderSide: BorderSide(color: backgroundColor ?? AppColorManager.offWhit.withValues(alpha: 0.27)),
+      borderSide: BorderSide(
+          color: backgroundColor ?? AppColorManager.offWhit.withValues(alpha: 0.27)),
       borderRadius: BorderRadius.circular(radios ?? 10.0.r),
     );
 
@@ -373,7 +377,7 @@ class MyEditTextWidgetWhite extends StatelessWidget {
       hintText: hint,
       hintStyle: TextStyle(
         fontFamily: FontManager.semeBold.name,
-        fontSize: 18.0.spMin,
+        fontSize: 18.0.sp,
         color: Colors.white54,
       ),
       contentPadding: innerPadding ?? const EdgeInsets.symmetric(horizontal: 10.0).w,
@@ -389,7 +393,7 @@ class MyEditTextWidgetWhite extends StatelessWidget {
       filled: true,
       enabled: enable ?? true,
       prefixIcon: suffixIcon ?? 0.0.verticalSpace,
-      prefixIconConstraints: BoxConstraints(maxWidth: 80.0.spMin, minHeight: 50.0.spMin),
+      prefixIconConstraints: BoxConstraints(maxWidth: 80.0.sp, minHeight: 50.0.sp),
     );
 
     return StatefulBuilder(
@@ -401,7 +405,8 @@ class MyEditTextWidgetWhite extends StatelessWidget {
           maxLines: maxLines,
           textAlign: textAlign ?? TextAlign.start,
           onChanged: onChanged,
-          style: TextStyle(fontFamily: FontManager.bold.name, fontSize: 18.0.spMin, color: Colors.white),
+          style: TextStyle(
+              fontFamily: FontManager.bold.name, fontSize: 18.0.sp, color: Colors.white),
           cursorColor: Colors.white,
           focusNode: focusNode,
           maxLength: maxLength,

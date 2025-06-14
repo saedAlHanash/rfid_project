@@ -1,96 +1,72 @@
-import 'package:rfid_project/core/extensions/extensions.dart';
-
-
 class UserModel {
   UserModel({
     required this.id,
-    required this.firstName,
-    required this.lastName,
+    required this.name,
     required this.phone,
-    required this.email,
-    required this.isConfirmed,
-    required this.fcmToken,
-    required this.profileImageUrl,
-    required this.identityImage,
-    required this.latitude,
-    required this.longitude,
-    required this.gender,
-
+    required this.isActive,
+    required this.expiryDate,
+    required this.createdAt,
+    required this.entity,
+    required this.departmen,
+    required this.division,
   });
 
   final int id;
-  final String firstName;
-  final String lastName;
+  final String name;
   final String phone;
-  final String email;
-  final bool isConfirmed;
-  final String fcmToken;
-  final String profileImageUrl;
-  final String identityImage;
-  final num latitude;
-  final num longitude;
-  final String gender;
-
-
-  String get name => '$firstName $lastName';
+  final bool isActive;
+  final DateTime? expiryDate;
+  final String createdAt;
+  final Entity entity;
+  final dynamic departmen;
+  final dynamic division;
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json["id"].toString().tryParseOrZeroInt,
-      firstName: json["first_name"] ?? "",
-      lastName: json["last_name"] ?? "",
+      id: json["id"] ?? 0,
+      name: json["name"] ?? "",
       phone: json["phone"] ?? "",
-      email: json["email"] ?? "",
-      isConfirmed: json["is_confirmed"] ?? false,
-      fcmToken: json["fcm_token"] ?? "",
-      profileImageUrl: json["profile_image_url"].toString().fixUrl,
-      identityImage: json["identity_image"].toString().fixUrl,
-      latitude: json["latitude"].toString().tryParseOrZero,
-      longitude: json["longitude"].toString().tryParseOrZero,
-      gender: json["gender"] ?? "",
-
+      isActive: json["is_active"] ?? false,
+      expiryDate: DateTime.tryParse(json["expiry_date"] ?? ""),
+      createdAt: json["created_at"] ?? "",
+      entity: Entity.fromJson(json["entity"] ?? {}),
+      departmen: json["departmen"],
+      division: json["division"],
     );
   }
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "first_name": firstName,
-        "last_name": lastName,
+        "name": name,
         "phone": phone,
-        "email": email,
-        "is_confirmed": isConfirmed,
-        "fcm_token": fcmToken,
-        "profile_image_url": profileImageUrl,
-        "identity_image": identityImage,
-        "latitude": latitude,
-        "longitude": longitude,
-        "gender": gender,
-
+        "is_active": isActive,
+        "expiry_date": expiryDate?.toIso8601String(),
+        "created_at": createdAt,
+        "entity": entity?.toJson(),
+        "departmen": departmen,
+        "division": division,
       };
 }
 
-class ProfileResponse {
-  ProfileResponse({
-    required this.completedCourseCount,
-    required this.currentCourseCount,
-    required this.student,
+class Entity {
+  Entity({
+    required this.id,
+    required this.name,
   });
 
-  final num completedCourseCount;
-  final num currentCourseCount;
-  final UserModel student;
+  final int id;
+  final String name;
 
-  factory ProfileResponse.fromJson(Map<String, dynamic> json) {
-    return ProfileResponse(
-      completedCourseCount: json["completed_course_count"] ?? 0,
-      currentCourseCount: json["current_course_count"] ?? 0,
-      student: UserModel.fromJson(json["student"] ?? {}),
+  factory Entity.fromJson(Map<String, dynamic> json) {
+    return Entity(
+      id: json["id"] ?? 0,
+      name: json["name"] ?? "",
     );
   }
 
   Map<String, dynamic> toJson() => {
-        "completed_course_count": completedCourseCount,
-        "current_course_count": currentCourseCount,
-        "student": student.toJson(),
+        "id": id,
+        "name": name,
       };
 }
+

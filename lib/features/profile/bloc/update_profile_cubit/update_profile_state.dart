@@ -1,6 +1,6 @@
 part of 'update_profile_cubit.dart';
 
-class UpdateProfileInitial extends AbstractState<ProfileResponse> {
+class UpdateProfileInitial extends AbstractState<UserModel> {
   UpdateProfileRequest get mRequest => request;
 
   // final  bool educationalGradeParam;
@@ -14,7 +14,7 @@ class UpdateProfileInitial extends AbstractState<ProfileResponse> {
 
   factory UpdateProfileInitial.initial() {
     return UpdateProfileInitial(
-      result: ProfileResponse.fromJson({}),
+      result: UserModel.fromJson({}),
       error: '',
       // educationalGradeParam: false,
       request: UpdateProfileRequest.fromJson(AppProvider.getMe.toJson()),
@@ -27,7 +27,7 @@ class UpdateProfileInitial extends AbstractState<ProfileResponse> {
 
   UpdateProfileInitial copyWith({
     CubitStatuses? statuses,
-    ProfileResponse? result,
+    UserModel? result,
     String? error,
     UpdateProfileRequest? request,
   }) {

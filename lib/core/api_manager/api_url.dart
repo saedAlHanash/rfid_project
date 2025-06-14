@@ -15,8 +15,11 @@ class GetUrl {
 
   static var groups = 'group';
 
-
   static var temps = '';
+
+  static var getAllNotifications = '';
+
+  static var profile = 'profile';
 
   //--------------
 
@@ -30,120 +33,6 @@ class GetUrl {
         return 'course/student-course';
     }
   }
-
-  static const getAllLessons = 'lessons';
-
-  static const getAllLessonsFree = 'lessons/free';
-
-  static const getAllSeasons = 'seasons';
-
-  static const getCourseProgress = 'courses/progress-user';
-
-  static const getMe = 'auth/me';
-
-  static const getAllNotifications = 'notification';
-
-  static const getSocialMedia = 'social-media';
-
-  static const privacyPolicy = 'privacy-policy';
-
-  static const getAnnouncements = 'announcements';
-
-  static const favorite = 'favorites';
-
-  static const productById = 'products';
-  static const products = 'products';
-  static const search = 'search';
-
-  static const offers = 'products/offers';
-  static const bestSeller = 'products/best-seller';
-  static const setting = 'settings';
-
-  static const orders = 'orders';
-
-  static const categoryById = 'category';
-  static const subCategoryById = 'subCategory';
-
-  static const coupon = 'carts/redeem-coupon';
-
-  static const flashDeals = 'products/flash-deals';
-
-  static const categories = 'categories';
-  static const slider = 'ads/sliders';
-
-  static const colors = 'colors';
-
-  static const manufacturers = 'manufacturers';
-
-  static const newArrivalProducts = 'products/new-arrivals';
-
-  static const cart = 'carts';
-
-  static const profile = 'setting/profile';
-
-  static const orderById = 'orders';
-
-  static const subCategories = 'categories/sub';
-
-  static const governors = 'governorate';
-
-  static const orderStatus = 'orders/statues';
-
-  static const driverLocation = 'orders/coordinate';
-
-  static const getMessages = 'drivers/messages';
-
-  static const getSupportMessages = 'conversations';
-
-  static const getRoomMessages = 'messages';
-
-  static const faq = 'questions';
-
-  static const termsAndConditions = 'pages';
-
-  static const educationalGrade = 'educational-grade';
-  static const educationalGradeSection = 'educational-grade/sections';
-
-  static const teachersFilter = 'teacher/filter-teacher';
-
-  static const teacher = 'teacher';
-
-  static String lessons({required LessonsType getType}) {
-    switch (getType) {
-      case LessonsType.nun:
-        return 'lesson/free';
-      case LessonsType.adjacent:
-        return 'lesson/adjacent-lessons';
-      case LessonsType.teacher:
-        return 'lesson/free-by-teacher';
-      case LessonsType.chapter:
-        return 'lesson/lesson-by-chapter';
-      case LessonsType.suggestion:
-        return 'lesson/free-suggestion';
-    }
-  }
-
-  static String subjects({bool withGrad = true}) {
-    return withGrad ? 'subject/by-educational-grade' : 'subject';
-  }
-
-  static String summaries({required Summaries getType}) {
-    switch (getType) {
-      case Summaries.free:
-        return 'summary/free';
-      case Summaries.teacherFree:
-        return 'summary/free-by-teacher';
-      case Summaries.teacher:
-        return 'summary/by-teacher';
-      case Summaries.student:
-        return 'summary/student-summary';
-    }
-  }
-
-  static const exams = 'exam';
-  static const freeExams = 'exam/free-exams';
-
-  static var examCategorized = 'exam/categorized';
 }
 
 class PostUrl {
@@ -242,7 +131,7 @@ class DeleteUrl {
   static var deleteGroup = '';
 }
 
-const additionalConst = '/student/';
+const additionalConst = '/client/v1/';
 
 String get baseUrl {
   return live;
@@ -250,5 +139,5 @@ String get baseUrl {
 }
 
 //
-const live = 'e-learning.testbandtech.com';
-const test = 'test-api.basma-academy.com';
+const live = 'jaradalasul.com';
+const test = 'jaradalasul.com';

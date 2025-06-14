@@ -1,0 +1,13 @@
+{
+  "id": 2,
+  "name": "client1",
+  "phone": "09415454890",
+  "is_active": true,
+  "expiry_date": "2025-06-25",
+  "entity": {
+    "id": 1,
+    "name": "\u0647\u064a\u0626\u0629 \u0627\u0644\u0634\u0624\u0648\u0646 \u0627\u0644\u0645\u0627\u0644\u064a\u0629"
+  },
+  "departmen": null,
+  "division": null
+}

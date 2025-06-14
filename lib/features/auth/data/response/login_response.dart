@@ -11,14 +11,13 @@ class LoginResponse {
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
     return LoginResponse(
-      user: UserModel.fromJson(json["user"] ?? {}),
+      user: UserModel.fromJson(json["data"] ?? {}),
       token: json["token"] ?? "",
     );
   }
 
   Map<String, dynamic> toJson() => {
-        "user": user.toJson(),
+        "data": user?.toJson(),
         "token": token,
       };
 }
-
