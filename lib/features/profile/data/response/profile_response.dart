@@ -36,37 +36,27 @@ class UserModel {
   }
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "phone": phone,
-        "is_active": isActive,
-        "expiry_date": expiryDate?.toIso8601String(),
-        "created_at": createdAt,
-        "entity": entity?.toJson(),
-        "departmen": departmen,
-        "division": division,
-      };
+    "id": id,
+    "name": name,
+    "phone": phone,
+    "is_active": isActive,
+    "expiry_date": expiryDate?.toIso8601String(),
+    "created_at": createdAt,
+    "entity": entity?.toJson(),
+    "departmen": departmen,
+    "division": division,
+  };
 }
 
 class Entity {
-  Entity({
-    required this.id,
-    required this.name,
-  });
+  Entity({required this.id, required this.name});
 
   final int id;
   final String name;
 
   factory Entity.fromJson(Map<String, dynamic> json) {
-    return Entity(
-      id: json["id"] ?? 0,
-      name: json["name"] ?? "",
-    );
+    return Entity(id: json["id"] ?? 0, name: json["name"] ?? "");
   }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-      };
+  Map<String, dynamic> toJson() => {"id": id, "name": name};
 }
-

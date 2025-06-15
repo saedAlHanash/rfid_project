@@ -42,9 +42,7 @@ class _MenuScreenState extends State<MenuScreen> {
           return Container(
             decoration: BoxDecoration(
               color: AppColorManager.whit,
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(20.0.r),
-              ),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20.0.r)),
             ),
             padding: EdgeInsets.all(20.0).r,
             child: Column(
@@ -59,11 +57,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   initialValue: state.result.name,
                   label: 'اسم المستخدم',
                 ),
-                MyTextFormOutLineWidget(
-                  enable: false,
-                  initialValue: state.result.phone,
-                  label: 'رقم الهاتف',
-                ),
+                MyTextFormOutLineWidget(enable: false, initialValue: state.result.phone, label: 'رقم الهاتف'),
                 Row(
                   children: [
                     Expanded(
@@ -75,11 +69,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     ),
                     15.0.horizontalSpace,
                     Expanded(
-                      child: MyTextFormOutLineWidget(
-                        enable: false,
-                        initialValue: '30',
-                        label: 'طاقة الجرد',
-                      ),
+                      child: MyTextFormOutLineWidget(enable: false, initialValue: '30', label: 'طاقة الجرد'),
                     ),
                   ],
                 ),
@@ -91,31 +81,19 @@ class _MenuScreenState extends State<MenuScreen> {
                       20.0.verticalSpace,
                       ListTile(
                         title: DrawableText(text: 'القسم'),
-                        trailing: ImageMultiType(
-                          url: Icons.arrow_forward_ios,
-                          width: 10.0.r,
-                        ),
+                        trailing: ImageMultiType(url: Icons.arrow_forward_ios, width: 10.0.r),
                       ),
                       ListTile(
                         title: DrawableText(text: 'الهيئة'),
-                        trailing: ImageMultiType(
-                          url: Icons.arrow_forward_ios,
-                          width: 10.0.r,
-                        ),
+                        trailing: ImageMultiType(url: Icons.arrow_forward_ios, width: 10.0.r),
                       ),
                       ListTile(
                         title: DrawableText(text: 'الشعبة'),
-                        trailing: ImageMultiType(
-                          url: Icons.arrow_forward_ios,
-                          width: 10.0.r,
-                        ),
+                        trailing: ImageMultiType(url: Icons.arrow_forward_ios, width: 10.0.r),
                       ),
                       ListTile(
                         title: DrawableText(text: 'الغرفة '),
-                        trailing: ImageMultiType(
-                          url: Icons.arrow_forward_ios,
-                          width: 10.0.r,
-                        ),
+                        trailing: ImageMultiType(url: Icons.arrow_forward_ios, width: 10.0.r),
                       ),
                       20.0.verticalSpace,
                     ],
@@ -159,16 +137,8 @@ class Bandtech extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ImageMultiType(
-          url: Assets.imagesBandtechCircle,
-          height: 35.0.r,
-          width: 35.0.r,
-        ),
-        DrawableText(
-          text: S.of(context).bandtech,
-          size: 24.0.sp,
-          fontFamily: FontManager.bold.name,
-        ),
+        ImageMultiType(url: Assets.imagesBandtechCircle, height: 35.0.r, width: 35.0.r),
+        DrawableText(text: S.of(context).bandtech, size: 24.0.sp, fontFamily: FontManager.bold.name),
         DrawableText(
           text: S.of(context).designProgrammingPropertyRightsAndPublishing,
           fontFamily: FontManager.bold.name,

@@ -1,3 +1,19 @@
+import '../features/product/bloc/product_cubit/product_cubit.dart';
+import '../features/product/bloc/products_cubit/products_cubit.dart';
+import '../features/product/ui/pages/add_product_page.dart';
+import '../features/product/ui/pages/product_page.dart';
+import '../features/product/ui/pages/products_page.dart';
+
+import '../features/report/bloc/report_cubit/report_cubit.dart';
+import '../features/report/bloc/reports_cubit/reports_cubit.dart';
+import '../features/report/ui/pages/report_page.dart';
+import '../features/report/ui/pages/reports_page.dart';
+
+import '../features/asset/bloc/asset_cubit/asset_cubit.dart';
+import '../features/asset/bloc/assets_cubit/assets_cubit.dart';
+import '../features/asset/ui/pages/asset_page.dart';
+import '../features/asset/ui/pages/assets_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -18,6 +34,129 @@ final goRouter = GoRouter(
   navigatorKey: navigatorKey,
   observers: [MyRouteObserver()],
   routes: [
+    //region product
+
+    ///product
+    GoRoute(
+      path: RouteName.product,
+      name: RouteName.product,
+      builder: (_, state) {
+        String productId = state.uri.queryParameters['id'] ?? '';
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => sl<ProductCubit>()..getData(productId: productId),
+            ),
+          ],
+          child: ProductPage(),
+        );
+      },
+    ),
+    ///addProduct
+    GoRoute(
+      path: RouteName.addProduct,
+      name: RouteName.addProduct,
+      builder: (_, state) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => sl<ProductsCubit>(),
+            ),
+          ],
+          child: AddProductPage(),
+        );
+      },
+    ),
+
+    ///products
+    GoRoute(
+      path: RouteName.products,
+      name: RouteName.products,
+      builder: (_, state) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => sl<ProductsCubit>()..getData(),
+            ),
+          ],
+          child: ProductsPage(),
+        );
+      },
+    ),
+    //endregion
+
+    //region report
+
+    ///report
+    GoRoute(
+      path: RouteName.report,
+      name: RouteName.report,
+      builder: (_, state) {
+        String reportId = state.uri.queryParameters['id'] ?? '';
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => sl<ReportCubit>()..getData(reportId: reportId),
+            ),
+          ],
+          child: ReportPage(),
+        );
+      },
+    ),
+
+    ///reports
+    GoRoute(
+      path: RouteName.reports,
+      name: RouteName.reports,
+      builder: (_, state) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => sl<ReportsCubit>()..getData(),
+            ),
+          ],
+          child: ReportsPage(),
+        );
+      },
+    ),
+    //endregion
+
+    //region asset
+
+    ///asset
+    GoRoute(
+      path: RouteName.asset,
+      name: RouteName.asset,
+      builder: (_, state) {
+        String assetId = state.uri.queryParameters['id'] ?? '';
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => sl<AssetCubit>()..getData(assetId: assetId),
+            ),
+          ],
+          child: AssetPage(),
+        );
+      },
+    ),
+
+    ///assets
+    GoRoute(
+      path: RouteName.assets,
+      name: RouteName.assets,
+      builder: (_, state) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => sl<AssetsCubit>()..getData(),
+            ),
+          ],
+          child: AssetsPage(),
+        );
+      },
+    ),
+    //endregion
+
     //region splash
     ///Splash
     GoRoute(
@@ -85,6 +224,22 @@ final goRouter = GoRouter(
 );
 
 class RouteName {
+  static const product = '/product';
+  static const products = '/products';
+  static const addProduct = '/addProduct';
+
+  static const report = '/report';
+  static const reports = '/reports';
+
+  static const room = '/room';
+  static const rooms = '/rooms';
+
+  static const department = '/department';
+  static const departments = '/departments';
+
+  static const asset = '/asset';
+  static const assets = '/assets';
+
   static const splash = '/';
   static const welcomeScreen = '/welcomeScreen';
   static const userSurvey = '/userSurvey';

@@ -43,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "apply_filters": MessageLookupByLibrary.simpleMessage("Apply filters"),
     "ar": MessageLookupByLibrary.simpleMessage("Arabic"),
     "assetInventory": MessageLookupByLibrary.simpleMessage("Asset inventory"),
+    "assetName": MessageLookupByLibrary.simpleMessage("Asset name"),
+    "assetSite": MessageLookupByLibrary.simpleMessage("Asset site"),
     "at": MessageLookupByLibrary.simpleMessage("At"),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
     "bandtech": MessageLookupByLibrary.simpleMessage("Bandtech"),
@@ -122,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "days": MessageLookupByLibrary.simpleMessage("Days"),
     "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete Account"),
     "deliveryDate": MessageLookupByLibrary.simpleMessage("Delivery Date"),
+    "department": MessageLookupByLibrary.simpleMessage("department"),
     "description": MessageLookupByLibrary.simpleMessage("Description"),
     "designProgrammingPropertyRightsAndPublishing":
         MessageLookupByLibrary.simpleMessage(
@@ -135,6 +138,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Didn\'t receive the code?",
     ),
     "dinar": MessageLookupByLibrary.simpleMessage("Dinar"),
+    "division": MessageLookupByLibrary.simpleMessage("Division"),
     "doNotHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "Don\'t Have An Account?",
     ),
@@ -378,6 +382,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "returned": MessageLookupByLibrary.simpleMessage("Returned"),
     "reviewOrder": MessageLookupByLibrary.simpleMessage("Review Order"),
     "reviews": MessageLookupByLibrary.simpleMessage("Reviews"),
+    "room": MessageLookupByLibrary.simpleMessage("Room"),
     "saveChange": MessageLookupByLibrary.simpleMessage("save change"),
     "save_for_later": MessageLookupByLibrary.simpleMessage("Save For Later?"),
     "search": MessageLookupByLibrary.simpleMessage("Search"),

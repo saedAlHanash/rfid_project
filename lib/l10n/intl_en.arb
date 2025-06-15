@@ -316,5 +316,10 @@
     "removeProduct": "Remove product",
     "transferProduct": "Transfer product",
     "reports": "Reports",
-    "assetInventory": "Asset inventory"
+    "assetInventory": "Asset inventory",
+  "assetName": "Asset name",
+  "department": "department",
+  "division": "Division",
+  "room": "Room",
+  "assetSite": "Asset site"
 }

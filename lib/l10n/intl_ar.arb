@@ -317,5 +317,10 @@
     "removeProduct": "إتلاف منتج",
     "transferProduct": "نقل منتج",
     "reports": "التقارير",
-    "assetInventory": "جرد الأصول"
+    "assetInventory": "جرد الأصول",
+  "assetName": "Asset name",
+  "department": "department",
+  "division": "Division",
+    "room": "Room",
+  "assetSite": "Asset site"
 }

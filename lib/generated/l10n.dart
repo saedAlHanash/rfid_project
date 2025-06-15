@@ -2399,6 +2399,31 @@ class S {
       args: [],
     );
   }
+
+  /// `Asset name`
+  String get assetName {
+    return Intl.message('Asset name', name: 'assetName', desc: '', args: []);
+  }
+
+  /// `department`
+  String get department {
+    return Intl.message('department', name: 'department', desc: '', args: []);
+  }
+
+  /// `Division`
+  String get division {
+    return Intl.message('Division', name: 'division', desc: '', args: []);
+  }
+
+  /// `Room`
+  String get room {
+    return Intl.message('Room', name: 'room', desc: '', args: []);
+  }
+
+  /// `Asset site`
+  String get assetSite {
+    return Intl.message('Asset site', name: 'assetSite', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -45,22 +45,22 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final child =
         this.child ??
-        DrawableText(
-          text: toUpper ? text.toUpperCase() : text,
-          color: textColor ?? AppColorManager.whit,
-          fontFamily: FontManager.bold.name,
-          drawableEnd: loading
-              ? SizedBox(
-                  height: 15.0.r,
-                  width: 15.0.r,
-                  child: CircularProgressIndicator.adaptive(
-                    backgroundColor: color,
-                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
-                  ),
-                )
-              : null,
-          fontWeight: FontWeight.bold,
-        );
+            DrawableText(
+              text: toUpper ? text.toUpperCase() : text,
+              color: textColor ?? AppColorManager.whit,
+              fontFamily: FontManager.bold.name,
+              drawableEnd: loading
+                  ? SizedBox(
+                height: 15.0.r,
+                width: 15.0.r,
+                child: CircularProgressIndicator.adaptive(
+                  backgroundColor: color,
+                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              )
+                  : null,
+              fontWeight: FontWeight.bold,
+            );
 
     return Container(
       width: width ?? .9.sw,
@@ -127,23 +127,23 @@ class OutLineButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final child =
         this.child ??
-        DrawableText(
-          text: toUpper ? text.toUpperCase() : text,
-          color: textColor ?? AppColorManager.mainColor,
-          fontFamily: FontManager.bold.name,
-          size: 14.0.sp,
-          drawableEnd: loading
-              ? SizedBox(
-                  height: 15.0.r,
-                  width: 15.0.r,
-                  child: CircularProgressIndicator.adaptive(
-                    backgroundColor: color,
-                    valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
-                  ),
-                )
-              : null,
-          fontWeight: FontWeight.bold,
-        );
+            DrawableText(
+              text: toUpper ? text.toUpperCase() : text,
+              color: textColor ?? AppColorManager.mainColor,
+              fontFamily: FontManager.bold.name,
+              size: 14.0.sp,
+              drawableEnd: loading
+                  ? SizedBox(
+                height: 15.0.r,
+                width: 15.0.r,
+                child: CircularProgressIndicator.adaptive(
+                  backgroundColor: color,
+                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              )
+                  : null,
+              fontWeight: FontWeight.bold,
+            );
 
     return SizedBox(
       width: width ?? .9.sw,

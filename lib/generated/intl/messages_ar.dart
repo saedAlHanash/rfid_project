@@ -41,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "apply_filters": MessageLookupByLibrary.simpleMessage("تطبيق الفلاتر"),
     "ar": MessageLookupByLibrary.simpleMessage("عربي"),
     "assetInventory": MessageLookupByLibrary.simpleMessage("جرد الأصول"),
+    "assetName": MessageLookupByLibrary.simpleMessage("Asset name"),
+    "assetSite": MessageLookupByLibrary.simpleMessage("Asset site"),
     "at": MessageLookupByLibrary.simpleMessage("عند"),
     "back": MessageLookupByLibrary.simpleMessage("عودة"),
     "bandtech": MessageLookupByLibrary.simpleMessage("الحزمة التقنية"),
@@ -120,6 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "days": MessageLookupByLibrary.simpleMessage("أيام"),
     "deleteAccount": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
     "deliveryDate": MessageLookupByLibrary.simpleMessage("تاريخ التسليم "),
+    "department": MessageLookupByLibrary.simpleMessage("department"),
     "description": MessageLookupByLibrary.simpleMessage("الوصف"),
     "designProgrammingPropertyRightsAndPublishing":
         MessageLookupByLibrary.simpleMessage(
@@ -131,6 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "لم يصلك الرمز؟",
     ),
     "dinar": MessageLookupByLibrary.simpleMessage("دينار"),
+    "division": MessageLookupByLibrary.simpleMessage("Division"),
     "doNotHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "لا تمتلك حساب؟",
     ),
@@ -356,6 +360,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "returned": MessageLookupByLibrary.simpleMessage("استعادة"),
     "reviewOrder": MessageLookupByLibrary.simpleMessage("عرض الطلب"),
     "reviews": MessageLookupByLibrary.simpleMessage("التقييمات"),
+    "room": MessageLookupByLibrary.simpleMessage("Room"),
     "saveChange": MessageLookupByLibrary.simpleMessage("حفظ التغيير"),
     "save_for_later": MessageLookupByLibrary.simpleMessage("حفظ لاحقًا؟"),
     "search": MessageLookupByLibrary.simpleMessage("بحث"),

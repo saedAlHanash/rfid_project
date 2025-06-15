@@ -22,7 +22,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColorManager.mainColor,
-
       body: Column(
         children: [
           10.0.verticalSpace,
@@ -58,8 +57,18 @@ class HomeScreen extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        _Item(image: Assets.imagesAdd, title: S.of(context).addProduct),
-                        _Item(image: Assets.imagesEdit, title: S.of(context).editProduct),
+                        _Item(
+                          image: Assets.imagesAdd,
+                          title: S.of(context).addProduct,
+                          onTap: () {
+                            context.pushNamed(RouteName.addProduct);
+                          },
+                        ),
+                        _Item(
+                          image: Assets.imagesEdit,
+                          title: S.of(context).editProduct,
+                          onTap: () {},
+                        ),
                       ],
                     ),
                   ),
@@ -68,11 +77,15 @@ class HomeScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         _Item(
-                            image: Assets.imagesTransfare,
-                            title: S.of(context).removeProduct),
+                          image: Assets.imagesTransfare,
+                          title: S.of(context).removeProduct,
+                          onTap: () {},
+                        ),
                         _Item(
-                            image: Assets.imagesDelete,
-                            title: S.of(context).transferProduct),
+                          image: Assets.imagesDelete,
+                          title: S.of(context).transferProduct,
+                          onTap: () {},
+                        ),
                       ],
                     ),
                   ),
@@ -80,10 +93,16 @@ class HomeScreen extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        _Item(image: Assets.imagesReports, title: S.of(context).reports),
                         _Item(
-                            image: Assets.imagesGetReports,
-                            title: S.of(context).assetInventory),
+                          image: Assets.imagesReports,
+                          title: S.of(context).reports,
+                          onTap: () {},
+                        ),
+                        _Item(
+                          image: Assets.imagesGetReports,
+                          title: S.of(context).assetInventory,
+                          onTap: () {},
+                        ),
                       ],
                     ),
                   ),
@@ -98,37 +117,41 @@ class HomeScreen extends StatelessWidget {
 }
 
 class _Item extends StatelessWidget {
-  const _Item({super.key, this.image, required this.title});
+  const _Item({super.key, this.image, required this.title, required this.onTap});
 
   final dynamic image;
   final String title;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 176.0.h,
-        width: 146.0.w,
-        margin: EdgeInsets.all(15.0).r,
-        padding: EdgeInsets.symmetric(horizontal: 23.0.w, vertical: 16.0).r,
-        decoration: BoxDecoration(
-          color: AppColorManager.whit,
-          border: Border.all(color: AppColorManager.cd),
-          borderRadius: BorderRadius.circular(12.0.r),
-        ),
-        child: Column(
-          children: [
-            Spacer(),
-            ImageMultiType(
-              url: image,
-              height: 100.0.h,
-              width: 100.0.w,
-            ),
-            Spacer(),
-            DrawableText(
-              text: title,
-              fontWeight: FontWeight.bold,
-            ),
-          ],
-        ));
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+          height: 176.0.h,
+          width: 146.0.w,
+          margin: EdgeInsets.all(15.0).r,
+          padding: EdgeInsets.symmetric(horizontal: 23.0.w, vertical: 16.0).r,
+          decoration: BoxDecoration(
+            color: AppColorManager.whit,
+            border: Border.all(color: AppColorManager.cd),
+            borderRadius: BorderRadius.circular(12.0.r),
+          ),
+          child: Column(
+            children: [
+              Spacer(),
+              ImageMultiType(
+                url: image,
+                height: 100.0.h,
+                width: 100.0.w,
+              ),
+              Spacer(),
+              DrawableText(
+                text: title,
+                fontWeight: FontWeight.bold,
+              ),
+            ],
+          )),
+    );
   }
 }
