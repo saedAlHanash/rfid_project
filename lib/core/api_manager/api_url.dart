@@ -84,14 +84,13 @@ class PatchUrl {
   //
 }
 
-const additionalConst = '';
-const localUrl = '';
-const liveUrl = '';
-const test = '';
+const additionalConst = '/client/v1/';
 
 String get baseUrl {
-  // return localUrl;
-  return liveUrl;
+  return live;
+  // return test;
 }
 
-String imagePath = 'http://$baseUrl/';
+//
+const live = 'jaradalasul.com';
+const test = 'jaradalasul.com';
