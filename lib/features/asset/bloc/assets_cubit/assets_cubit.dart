@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_multi_type/round_image_widget.dart';
 import 'package:rfid_project/core/api_manager/api_service.dart';
 import 'package:rfid_project/core/api_manager/api_url.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
@@ -9,6 +12,7 @@ import 'package:http/http.dart';
 import 'package:m_cubit/m_cubit.dart';
 
 import '../../../../core/error/error_manager.dart';
+import '../../../../core/widgets/spinner_widget.dart';
 
 part 'assets_state.dart';
 
@@ -38,13 +42,13 @@ class AssetsCubit extends MCubit<AssetsInitial> {
 
   Future<Pair<List<Asset>?, String?>> _getData() async {
     final response = await APIService().callApi(
-      type: ApiType.post,
-      url: PostUrl.assets,
+      type: ApiType.get,
+      url: GetUrl.asset,
       body: state.filterRequest?.toJson() ?? {},
     );
 
     if (response.statusCode.success) {
-      return Pair(Assets.fromJson(response.jsonBody).items, null);
+      return Pair(Assets.fromJson(response.jsonBodyPure).data, null);
     } else {
       return response.getPairError;
     }
@@ -102,7 +106,7 @@ class AssetsCubit extends MCubit<AssetsInitial> {
     );
 
     if (response.statusCode.success) {
-      await deleteAssetFromCache(item.id);
+      await deleteAssetFromCache(item.id.toString());
     } else {
       showErrorFromApi(state);
       state.result.insert(index, item);

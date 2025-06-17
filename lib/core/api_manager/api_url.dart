@@ -3,7 +3,8 @@ class GetUrl {
   static const room = 'room/Get';
   static const department = 'department/Get';
   static const report = 'report/Get';
-  static const asset = 'asset/Get';
+  static const asset = 'asset';
+  static const assets = 'asset';
 
   static var getAllNotifications = '';
 
@@ -36,7 +37,7 @@ class PostUrl {
   static const createDepartment = 'department/Add';
   static const reports = 'report/GetAll';
   static const createReport = 'report/Add';
-  static const assets = 'asset/GetAll';
+  static const assets = 'asset';
   static const createAsset = 'asset/Add';
   static const createExam = 'exam';
   static const addReview = 'reviews';

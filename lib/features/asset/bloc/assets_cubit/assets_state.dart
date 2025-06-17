@@ -13,8 +13,9 @@ class AssetsInitial extends AbstractState<List<Asset>> {
   });
 
   factory AssetsInitial.initial() {
-    return const AssetsInitial(
+    return AssetsInitial(
       result: [],
+      createUpdateRequest: CreateAssetRequest.fromJson({}),
     );
   }
 
@@ -33,6 +34,20 @@ class AssetsInitial extends AbstractState<List<Asset>> {
         if (filterRequest != null) filterRequest!,
         if (createUpdateRequest != null) createUpdateRequest!,
       ];
+
+  List<SpinnerItem> getSpinnerItems({int? selectedId}) {
+    return List<SpinnerItem>.from(
+      result.map(
+        (e) => SpinnerItem(
+          id: e.id,
+          isSelected: e.id == selectedId,
+          name: e.name,
+          icon: RoundImageWidget(url: e.image, width: 24.0.r),
+          item: e,
+        ),
+      ),
+    );
+  }
 
   AssetsInitial copyWith({
     CubitStatuses? statuses,
@@ -56,4 +71,3 @@ class AssetsInitial extends AbstractState<List<Asset>> {
     );
   }
 }
-

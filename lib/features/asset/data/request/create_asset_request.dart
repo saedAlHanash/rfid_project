@@ -15,7 +15,7 @@ class CreateAssetRequest {
 
   factory CreateAssetRequest.fromAsset(Asset asset) {
     return CreateAssetRequest(
-      id: asset.id,
+      id: asset.id.toString(),
     );
   }
 
@@ -23,4 +23,3 @@ class CreateAssetRequest {
         "id": id,
       };
 }
-

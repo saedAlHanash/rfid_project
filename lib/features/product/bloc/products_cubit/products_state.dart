@@ -13,8 +13,9 @@ class ProductsInitial extends AbstractState<List<Product>> {
   });
 
   factory ProductsInitial.initial() {
-    return const ProductsInitial(
+    return ProductsInitial(
       result: [],
+      createUpdateRequest: CreateProductRequest.fromJson({}),
     );
   }
 
@@ -56,4 +57,3 @@ class ProductsInitial extends AbstractState<List<Product>> {
     );
   }
 }
-

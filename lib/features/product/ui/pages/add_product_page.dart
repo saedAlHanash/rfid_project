@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_multi_type/image_multi_type.dart';
+import 'package:image_multi_type/round_image_widget.dart';
 import 'package:rfid_project/core/widgets/my_text_form_widget.dart';
 import 'package:rfid_project/core/widgets/spinner_widget.dart';
 
@@ -9,6 +11,7 @@ import '../../../../core/widgets/app_bar/app_bar_widget.dart';
 import '../../../../core/widgets/refresh_widget/refresh_widget.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../asset/bloc/assets_cubit/assets_cubit.dart';
 import '../../bloc/product_cubit/product_cubit.dart';
 import '../../bloc/products_cubit/products_cubit.dart';
 
@@ -45,9 +48,15 @@ class AddProductPage extends StatelessWidget {
                 child: ListView(
                   shrinkWrap: true,
                   children: [
-                    MyTextFormOutLineWidget(
-                      label: S.of(context).assetName,
-                      hint: S.of(context).assetName,
+                    BlocBuilder<AssetsCubit, AssetsInitial>(
+                      builder: (context, state) {
+                        return SpinnerWidget(
+                          searchable: true,
+                          items: state.getSpinnerItems(),
+                          hintText: S.of(context).assetName,
+                          hintLabel: S.of(context).assetName,
+                        );
+                      },
                     ),
                     SpinnerWidget(
                       items: [],
