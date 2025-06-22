@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,9 +12,11 @@ import 'package:rfid_project/core/app/app_provider.dart';
 import 'package:rfid_project/core/strings/app_color_manager.dart';
 import 'package:rfid_project/core/util/my_style.dart';
 import 'package:rfid_project/core/widgets/app_bar/app_bar_widget.dart';
+import 'package:rfid_project/core/widgets/my_button.dart';
 
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../main.dart';
 import '../../../../router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -66,8 +70,14 @@ class HomeScreen extends StatelessWidget {
                         ),
                         _Item(
                           image: Assets.imagesEdit,
-                          title: S.of(context).editProduct,
-                          onTap: () {},
+                          title: 'اختبار المسح',
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) {
+                                return TestScan();
+                              },
+                            ));
+                          },
                         ),
                       ],
                     ),
@@ -152,6 +162,84 @@ class _Item extends StatelessWidget {
               ),
             ],
           )),
+    );
+  }
+}
+
+class TestScan extends StatefulWidget {
+  const TestScan({super.key});
+
+  @override
+  State<TestScan> createState() => _TestScanState();
+}
+
+class _TestScanState extends State<TestScan> {
+  var l = <String>[];
+  var isInit = false;
+  var isRead = false;
+
+  void getStatus() {
+    RfidReader.getStatus().then(
+      (value) {
+        setState(() {
+          isRead = value;
+        });
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    RfidReader.clear();
+    RfidReader.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    getStatus();
+    RfidReader.init().then(
+      (value) {
+        setState(() {
+          isInit = true;
+        });
+      },
+    );
+    Timer.periodic(
+      Duration(seconds: 1),
+      (timer) async {
+        l = (await RfidReader.getData());
+        setState(() {});
+      },
+    );
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBarWidget(),
+      body: Column(
+        children: [
+          MyButton(
+            onTap: () {
+              RfidReader.readOrStop();
+              getStatus();
+            },
+            text: isRead ? 'ايقاف' : 'بدأ',
+          ),
+          Expanded(
+            child: isInit
+                ? ListView.builder(
+                    itemCount: l.length,
+                    itemBuilder: (context, index) {
+                      return DrawableText(text: l[index]);
+                    },
+                  )
+                : MyStyle.loadingWidget(),
+          ),
+        ],
+      ),
     );
   }
 }

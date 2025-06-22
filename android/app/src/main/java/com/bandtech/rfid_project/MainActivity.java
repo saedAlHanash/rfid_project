@@ -18,8 +18,10 @@ import com.util.Helper.Helper_ThreadPool;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
@@ -52,21 +54,12 @@ public class MainActivity extends FlutterActivity {
                         ReadOrStop();
                         result.success(true);
                         break;
-                    case "clear":
-                        Clear();
-                        result.success(true);
-                        break;
                     case "getStatus":
                         result.success(isRead);
                         break;
                     case "getData":
-                        List<Map<String, String>> data = new ArrayList<>();
-                        Map<String, String> item = new HashMap<>();
-                        item.put("", "");
-                        item.put("1", "");
-                        item.put("2", "");
-                        data.add(item);
-                        result.success(data);
+
+                        result.success( GetData());
                         break;
                     case "setReadType":
                         if (call.arguments instanceof Integer) {
@@ -85,7 +78,6 @@ public class MainActivity extends FlutterActivity {
             }
         });
     }
-
 
 
     public UHF CLReader = UHFReader.getUHFInstance();
@@ -200,7 +192,6 @@ public class MainActivity extends FlutterActivity {
 
     public void Clear() {
         hmList.clear();
-        sendDataToFlutter();
     }
 
     //this <===
@@ -264,7 +255,6 @@ public class MainActivity extends FlutterActivity {
         Helper_ThreadPool.ThreadPool_StartSingle(() -> {
             while (IsFlushList) {
                 try {
-                    sendDataToFlutter();
                     Thread.sleep(1000);
                 } catch (InterruptedException ignored) {
                 }
@@ -288,37 +278,24 @@ public class MainActivity extends FlutterActivity {
     }
 
 
-    //this <===
-    protected void sendDataToFlutter() {
-        if (!isStartPingPong)
-            return;
 
-        List<Map<String, String>> c = GetData();
-
-    }
-
-
-    @SuppressWarnings({"rawtypes", "unused"})
-    protected List<Map<String, String>> GetData() {
-        List<Map<String, String>> rt = new ArrayList<>();
+    protected List<String> GetData() {
+        Set<String> epcSet = new HashSet<>(); // يستخدم لإزالة التكرارات
         synchronized (hmList_Lock) {
             for (var stringEPCModelEntry : hmList.entrySet()) {
-
-                var val = (EPCModel) ((Map.Entry) stringEPCModelEntry).getValue();
-                var map = new HashMap<String, String>();
+                var val = (EPCModel) ((Map.Entry<?, ?>) stringEPCModelEntry).getValue();
+                String epc;
                 if (_ReadType == 0) {
-                    map.put("EPC", val._EPC);
+                    epc = val._EPC;
                 } else if (_ReadType == 1) {
-                    map.put("EPC", val._TID);
+                    epc = val._TID;
                 } else {
-                    map.put("EPC", val._UserData);
+                    epc = val._UserData;
                 }
-                var rc = val._TotalCount;
-                map.put("ReadCount", Long.toString(rc));
-                rt.add(map);
+                epcSet.add(epc); // تُضاف تلقائياً بدون تكرار
             }
         }
-        return rt;
+        return new ArrayList<>(epcSet); // تحويل Set إلى List
     }
 
 

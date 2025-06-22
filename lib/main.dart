@@ -163,10 +163,10 @@ class RfidReader {
     }
   }
 
-  static Future<List<Map<Object?, Object?>>> getData() async {
+  static Future<List<String>> getData() async {
     try {
       final data = await _channel.invokeMethod('getData');
-      final l = List<Map<Object?, Object?>>.from(data);
+      final l = List<String>.from(data);
       loggerObject.w(l);
       return l;
     } on PlatformException catch (e) {
