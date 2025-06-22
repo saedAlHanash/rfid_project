@@ -17,6 +17,7 @@ import 'core/injection/injection_container.dart' as di;
 import 'core/util/shared_preferences.dart';
 import 'features/home/bloc/home_cubit/home_cubit.dart';
 import 'features/notification/bloc/notification_count_cubit/notification_count_cubit.dart';
+import 'package:flutter/services.dart';
 
 final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
@@ -43,6 +44,7 @@ void main() async {
     await AppInfoService.initial();
 
     await di.init();
+    RfidReader.getData();
   } catch (e) {
     loggerObject.e(e);
   }
@@ -110,5 +112,75 @@ class Note {
       body,
       not,
     );
+  }
+}
+
+class RfidReader {
+  static const MethodChannel _channel = MethodChannel('rfid_channel');
+
+  static Future<bool> init() async {
+    try {
+      return await _channel.invokeMethod('init');
+    } on PlatformException catch (e) {
+      loggerObject.f("Failed to init RFID: '${e.message}'.");
+      return false;
+    }
+  }
+
+  static Future<bool> dispose() async {
+    try {
+      return await _channel.invokeMethod('dispose');
+    } on PlatformException catch (e) {
+      loggerObject.f("Failed to dispose RFID: '${e.message}'.");
+      return false;
+    }
+  }
+
+  static Future<bool> readOrStop() async {
+    try {
+      return await _channel.invokeMethod('readOrStop');
+    } on PlatformException catch (e) {
+      loggerObject.f("Failed to toggle read: '${e.message}'.");
+      return false;
+    }
+  }
+
+  static Future<bool> clear() async {
+    try {
+      return await _channel.invokeMethod('clear');
+    } on PlatformException catch (e) {
+      loggerObject.f("Failed to clear: '${e.message}'.");
+      return false;
+    }
+  }
+
+  static Future<bool> getStatus() async {
+    try {
+      return await _channel.invokeMethod('getStatus');
+    } on PlatformException catch (e) {
+      loggerObject.f("Failed to get status: '${e.message}'.");
+      return false;
+    }
+  }
+
+  static Future<List<Map<Object?, Object?>>> getData() async {
+    try {
+      final data = await _channel.invokeMethod('getData');
+      final l = List<Map<Object?, Object?>>.from(data);
+      loggerObject.w(l);
+      return l;
+    } on PlatformException catch (e) {
+      loggerObject.f("Failed to get data: '${e.message}'.");
+      return [];
+    }
+  }
+
+  static Future<bool> setReadType(int type) async {
+    try {
+      return await _channel.invokeMethod('setReadType', type);
+    } on PlatformException catch (e) {
+      loggerObject.f("Failed to set read type: '${e.message}'.");
+      return false;
+    }
   }
 }

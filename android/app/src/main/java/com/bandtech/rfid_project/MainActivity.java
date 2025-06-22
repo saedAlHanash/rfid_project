@@ -5,6 +5,9 @@ import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.pda.rfid.EPCModel;
 import com.pda.rfid.IAsynchronousMessage;
@@ -19,11 +22,71 @@ import java.util.List;
 import java.util.Map;
 
 import io.flutter.embedding.android.FlutterActivity;
+import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.MethodChannel;
 
 
-public class MainActivity extends FlutterActivity{
+public class MainActivity extends FlutterActivity {
+    private static final String CHANNEL = "rfid_channel";
     private MethodChannel channel;
+
+
+    @Override
+    public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
+        super.configureFlutterEngine(flutterEngine);
+
+        channel = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL);
+
+        channel.setMethodCallHandler((call, result) -> {
+            try {
+                switch (call.method) {
+                    case "init":
+                        Init();
+                        result.success(true);
+                        break;
+                    case "dispose":
+                        Dispose();
+                        result.success(true);
+                        break;
+                    case "readOrStop":
+                        ReadOrStop();
+                        result.success(true);
+                        break;
+                    case "clear":
+                        Clear();
+                        result.success(true);
+                        break;
+                    case "getStatus":
+                        result.success(isRead);
+                        break;
+                    case "getData":
+                        List<Map<String, String>> data = new ArrayList<>();
+                        Map<String, String> item = new HashMap<>();
+                        item.put("", "");
+                        item.put("1", "");
+                        item.put("2", "");
+                        data.add(item);
+                        result.success(data);
+                        break;
+                    case "setReadType":
+                        if (call.arguments instanceof Integer) {
+                            _ReadType = (Integer) call.arguments;
+                            result.success(true);
+                        } else {
+                            result.error("INVALID_ARGUMENT", "Argument must be an integer", null);
+                        }
+                        break;
+                    default:
+                        result.notImplemented();
+                        break;
+                }
+            } catch (Exception e) {
+                result.error("ERROR", e.getMessage(), null);
+            }
+        });
+    }
+
+
 
     public UHF CLReader = UHFReader.getUHFInstance();
     static Boolean _UHFSTATE = false;
@@ -120,10 +183,11 @@ public class MainActivity extends FlutterActivity{
         }
     }
 
+    //this <=== need getStatus method
     public boolean isRead = false;
 
-    public void Read() {
-        String controlText = btnRead.getText().toString();
+    //this <===
+    public void ReadOrStop() {
         if (isRead) {
             PingPong_Read();
             isRead = false;
@@ -136,10 +200,10 @@ public class MainActivity extends FlutterActivity{
 
     public void Clear() {
         hmList.clear();
-        showList();
+        sendDataToFlutter();
     }
 
-
+    //this <===
     protected void Init() {
 
         if (!UHF_Init(model -> {
@@ -180,6 +244,17 @@ public class MainActivity extends FlutterActivity{
 
             Refush();
         }
+        Toast.makeText(this, "initialed", Toast.LENGTH_SHORT).show();
+    }
+
+    //this <===
+    protected void Dispose() {
+        isStartPingPong = false;
+        IsFlushList = false;
+        synchronized (beep_Lock) {
+            beep_Lock.notifyAll();
+        }
+        UHF_Dispose();
     }
 
 
@@ -189,7 +264,7 @@ public class MainActivity extends FlutterActivity{
         Helper_ThreadPool.ThreadPool_StartSingle(() -> {
             while (IsFlushList) {
                 try {
-                    showList();
+                    sendDataToFlutter();
                     Thread.sleep(1000);
                 } catch (InterruptedException ignored) {
                 }
@@ -213,17 +288,8 @@ public class MainActivity extends FlutterActivity{
     }
 
 
-    protected void Dispose() {
-        isStartPingPong = false;
-        IsFlushList = false;
-        synchronized (beep_Lock) {
-            beep_Lock.notifyAll();
-        }
-        UHF_Dispose();
-    }
-
-
-    protected void showList() {
+    //this <===
+    protected void sendDataToFlutter() {
         if (!isStartPingPong)
             return;
 
@@ -267,7 +333,7 @@ public class MainActivity extends FlutterActivity{
             if (!isKeyDown) {
                 isKeyDown = true;
                 if (!isStartPingPong) {
-                    Clear(null);
+                    Clear();
                     Pingpong_Stop();
                     isStartPingPong = true;
                     if (PublicData._IsCommand6Cor6B.equals("6C")) {
@@ -289,7 +355,8 @@ public class MainActivity extends FlutterActivity{
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         Log.d("PDADemo", "onKeyUp keyCode = " + keyCode);
-        if ((Adapt.DEVICE_TYPE_HY820 == Adapt.getDeviceType() && (keyCode == KeyEvent.KEYCODE_F9 /* RFID扳机*/ || keyCode == 285  /* 左快捷*/ || keyCode == 286  /* 右快捷*/))
+        if ((Adapt.DEVICE_TYPE_HY820 == Adapt.getDeviceType() &&
+                (keyCode == KeyEvent.KEYCODE_F9 /* RFID扳机*/ || keyCode == 285  /* 左快捷*/ || keyCode == 286  /* 右快捷*/))
                 || ((Adapt.getSN().startsWith("K3")) && (keyCode == KeyEvent.KEYCODE_F1 || keyCode == KeyEvent.KEYCODE_F5))
                 || ((Adapt.getSN().startsWith("K6")) && (keyCode == KeyEvent.KEYCODE_F1 || keyCode == KeyEvent.KEYCODE_F5))) {
 
@@ -308,7 +375,7 @@ public class MainActivity extends FlutterActivity{
         if (isStartPingPong)
             return;
         isStartPingPong = true;
-        Clear(null);
+        Clear();
         Helper_ThreadPool.ThreadPool_StartSingle(() -> {
             try {
                 if (!isPowerLowShow) {
@@ -333,7 +400,6 @@ public class MainActivity extends FlutterActivity{
 
     private void GetEPC_6C() {
 
-
         switch ("EPC") {
             case "EPC" -> UHFReader._Tag6C.GetEPC(_NowAntennaNo, 1);
             case "TID" -> UHFReader._Tag6C.GetEPC_TID(_NowAntennaNo, 1);
@@ -342,25 +408,5 @@ public class MainActivity extends FlutterActivity{
 
     }
 
-    @Override
-    public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-        channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "rfid_lib");
-        channel.setMethodCallHandler(this);
-    }
-
-    @Override
-    public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-        if (call.method.equals("getPlatformVersion")) {
-            Init();
-            result.success("Android " + android.os.Build.VERSION.RELEASE);
-        } else {
-            result.notImplemented();
-        }
-    }
-
-    @Override
-    public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
-        channel.setMethodCallHandler(null);
-    }
 
 }
