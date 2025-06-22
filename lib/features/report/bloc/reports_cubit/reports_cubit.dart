@@ -13,9 +13,7 @@ import '../../../../core/error/error_manager.dart';
 part 'reports_state.dart';
 
 class ReportsCubit extends MCubit<ReportsInitial> {
-  ReportsCubit() : super(ReportsInitial.initial()) {
-    getDataFromCache();
-  }
+  ReportsCubit() : super(ReportsInitial.initial());
 
   @override
   String get nameCache => 'reports';

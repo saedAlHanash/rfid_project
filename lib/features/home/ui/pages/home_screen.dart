@@ -61,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                           image: Assets.imagesAdd,
                           title: S.of(context).addProduct,
                           onTap: () {
-                            context.pushNamed(RouteName.addProduct);
+                            context.pushNamed(RouteName.addAsset);
                           },
                         ),
                         _Item(

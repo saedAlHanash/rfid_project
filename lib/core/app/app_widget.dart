@@ -13,6 +13,7 @@ import 'package:rfid_project/features/auth/bloc/delete_account_cubit/delete_acco
 import 'package:rfid_project/features/profile/bloc/update_profile_cubit/update_profile_cubit.dart';
 
 import '../../features/asset/bloc/assets_cubit/assets_cubit.dart';
+import '../../features/entity/bloc/entities_cubit/entities_cubit.dart';
 import '../../features/notification/bloc/all_notification_cubit/all_notification_cubit.dart';
 import '../../features/profile/bloc/get_me_cubit/get_me_cubit.dart';
 import '../../generated/assets.dart';
@@ -92,6 +93,7 @@ class _MyAppState extends State<MyApp> {
                 BlocProvider(create: (_) => sl<GetMeCubit>()..getData()),
                 BlocProvider(create: (_) => sl<AssetsCubit>()..getData()),
                 BlocProvider(create: (_) => sl<NotificationCubit>()..getData()),
+                BlocProvider(create: (_) => sl<EntitiesCubit>()..getData()),
               ],
               child: MediaQuery(
                 data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(.85)),

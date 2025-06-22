@@ -182,15 +182,15 @@ extension MaxInt on num {
   String get formatPrice => oCcy.format(this);
 
   Widget get counterWidget => Container(
-    height: 40.0.r,
-    width: 40.0.r,
-    decoration: BoxDecoration(shape: BoxShape.circle, color: AppColorManager.cardColor),
-    alignment: Alignment.center,
-    child: DrawableText(
-      text: this == 0 ? '' : toInt().toString().padLeft(2, '0'),
-      color: AppColorManager.mainColor,
-    ),
-  );
+        height: 40.0.r,
+        width: 40.0.r,
+        decoration: BoxDecoration(shape: BoxShape.circle, color: AppColorManager.cardColor),
+        alignment: Alignment.center,
+        child: DrawableText(
+          text: this == 0 ? '' : toInt().toString().padLeft(2, '0'),
+          color: AppColorManager.mainColor,
+        ),
+      );
 }
 
 extension MaxIntNulable on num? {
@@ -220,7 +220,7 @@ extension ListEnumHelper on List {
 extension ResponseHelper on http.Response {
   Map<String, dynamic> get jsonBody {
     try {
-      return jsonDecode(body)['data'] ?? {};
+      return jsonDecode(body) ?? {};
     } catch (e) {
       return jsonDecode('{}');
     }

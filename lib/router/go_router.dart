@@ -1,6 +1,28 @@
+import 'package:rfid_project/features/asset/ui/pages/add_asset_page.dart';
+
+import '../features/asset/ui/pages/scan_page.dart';
+import '../features/entity/bloc/entity_cubit/entity_cubit.dart';
+import '../features/entity/bloc/entities_cubit/entities_cubit.dart';
+import '../features/entity/ui/pages/entity_page.dart';
+import '../features/entity/ui/pages/entities_page.dart';
+
+import '../features/room/bloc/room_cubit/room_cubit.dart';
+import '../features/room/bloc/rooms_cubit/rooms_cubit.dart';
+import '../features/room/ui/pages/room_page.dart';
+import '../features/room/ui/pages/rooms_page.dart';
+
+import '../features/division/bloc/division_cubit/division_cubit.dart';
+import '../features/division/bloc/divisions_cubit/divisions_cubit.dart';
+import '../features/division/ui/pages/division_page.dart';
+import '../features/division/ui/pages/divisions_page.dart';
+
+import '../features/department/bloc/department_cubit/department_cubit.dart';
+import '../features/department/bloc/departments_cubit/departments_cubit.dart';
+import '../features/department/ui/pages/department_page.dart';
+import '../features/department/ui/pages/departments_page.dart';
+
 import '../features/product/bloc/product_cubit/product_cubit.dart';
 import '../features/product/bloc/products_cubit/products_cubit.dart';
-import '../features/product/ui/pages/add_product_page.dart';
 import '../features/product/ui/pages/product_page.dart';
 import '../features/product/ui/pages/products_page.dart';
 
@@ -34,6 +56,150 @@ final goRouter = GoRouter(
   navigatorKey: navigatorKey,
   observers: [MyRouteObserver()],
   routes: [
+    //region entity
+
+    ///entity
+    GoRoute(
+      path: RouteName.entity,
+      name: RouteName.entity,
+      builder: (_, state) {
+        String entityId = state.uri.queryParameters['id'] ?? '';
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => sl<EntityCubit>()..getData(entityId: entityId),
+            ),
+          ],
+          child: EntityPage(),
+        );
+      },
+    ),
+
+    ///entities
+    GoRoute(
+      path: RouteName.entities,
+      name: RouteName.entities,
+      builder: (_, state) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => sl<EntitiesCubit>()..getData(),
+            ),
+          ],
+          child: EntitiesPage(),
+        );
+      },
+    ),
+    //endregion
+
+    //region room
+
+    ///room
+    GoRoute(
+      path: RouteName.room,
+      name: RouteName.room,
+      builder: (_, state) {
+        String roomId = state.uri.queryParameters['id'] ?? '';
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => sl<RoomCubit>()..getData(roomId: roomId),
+            ),
+          ],
+          child: RoomPage(),
+        );
+      },
+    ),
+
+    ///rooms
+    GoRoute(
+      path: RouteName.rooms,
+      name: RouteName.rooms,
+      builder: (_, state) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => sl<RoomsCubit>()..getData(),
+            ),
+          ],
+          child: RoomsPage(),
+        );
+      },
+    ),
+    //endregion
+
+    //region division
+
+    ///division
+    GoRoute(
+      path: RouteName.division,
+      name: RouteName.division,
+      builder: (_, state) {
+        String divisionId = state.uri.queryParameters['id'] ?? '';
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => sl<DivisionCubit>()..getData(divisionId: divisionId),
+            ),
+          ],
+          child: DivisionPage(),
+        );
+      },
+    ),
+
+    ///divisions
+    GoRoute(
+      path: RouteName.divisions,
+      name: RouteName.divisions,
+      builder: (_, state) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => sl<DivisionsCubit>()..getData(),
+            ),
+          ],
+          child: DivisionsPage(),
+        );
+      },
+    ),
+    //endregion
+
+    //region department
+
+    ///department
+    GoRoute(
+      path: RouteName.department,
+      name: RouteName.department,
+      builder: (_, state) {
+        String departmentId = state.uri.queryParameters['id'] ?? '';
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => sl<DepartmentCubit>()..getData(departmentId: departmentId),
+            ),
+          ],
+          child: DepartmentPage(),
+        );
+      },
+    ),
+
+    ///departments
+    GoRoute(
+      path: RouteName.departments,
+      name: RouteName.departments,
+      builder: (_, state) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => sl<DepartmentsCubit>()..getData(),
+            ),
+          ],
+          child: DepartmentsPage(),
+        );
+      },
+    ),
+    //endregion
+
     //region product
 
     ///product
@@ -45,25 +211,10 @@ final goRouter = GoRouter(
         return MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) => sl<ProductCubit>()..getData(productId: productId),
+              create: (_) => sl<ProductCubit>()..getData(productId: productId),
             ),
           ],
           child: ProductPage(),
-        );
-      },
-    ),
-    ///addProduct
-    GoRoute(
-      path: RouteName.addProduct,
-      name: RouteName.addProduct,
-      builder: (_, state) {
-        return MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => sl<ProductsCubit>(),
-            ),
-          ],
-          child: AddProductPage(),
         );
       },
     ),
@@ -76,7 +227,7 @@ final goRouter = GoRouter(
         return MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) => sl<ProductsCubit>()..getData(),
+              create: (_) => sl<ProductsCubit>()..getData(),
             ),
           ],
           child: ProductsPage(),
@@ -96,7 +247,7 @@ final goRouter = GoRouter(
         return MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) => sl<ReportCubit>()..getData(reportId: reportId),
+              create: (_) => sl<ReportCubit>()..getData(reportId: reportId),
             ),
           ],
           child: ReportPage(),
@@ -112,7 +263,7 @@ final goRouter = GoRouter(
         return MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) => sl<ReportsCubit>()..getData(),
+              create: (_) => sl<ReportsCubit>()..getData(),
             ),
           ],
           child: ReportsPage(),
@@ -132,8 +283,22 @@ final goRouter = GoRouter(
         return MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) => sl<AssetCubit>()..getData(assetId: assetId),
+              create: (_) => sl<AssetCubit>()..getData(assetId: assetId),
             ),
+          ],
+          child: AssetPage(),
+        );
+      },
+    ),
+
+    ///scan
+    GoRoute(
+      path: RouteName.scan,
+      name: RouteName.scan,
+      builder: (_, state) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => sl<AssetCubit>()),
           ],
           child: AssetPage(),
         );
@@ -148,10 +313,26 @@ final goRouter = GoRouter(
         return MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) => sl<AssetsCubit>()..getData(),
+              create: (_) => sl<AssetCubit>()..getData(),
             ),
           ],
-          child: AssetsPage(),
+          child: ScanPage(),
+        );
+      },
+    ),
+
+    ///addAsset
+    GoRoute(
+      path: RouteName.addAsset,
+      name: RouteName.addAsset,
+      builder: (_, state) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => sl<DepartmentsCubit>()),
+            BlocProvider(create: (_) => sl<DivisionsCubit>()),
+            BlocProvider(create: (_) => sl<RoomsCubit>()),
+          ],
+          child: AddAssetPage(),
         );
       },
     ),
@@ -224,18 +405,24 @@ final goRouter = GoRouter(
 );
 
 class RouteName {
-  static const product = '/product';
-  static const products = '/products';
-  static const addProduct = '/addProduct';
-
-  static const report = '/report';
-  static const reports = '/reports';
+  static const entity = '/entity';
+  static const entities = '/entities';
 
   static const room = '/room';
   static const rooms = '/rooms';
 
+  static const division = '/division';
+  static const divisions = '/divisions';
+
   static const department = '/department';
   static const departments = '/departments';
+
+  static const product = '/product';
+  static const products = '/products';
+  static const addAsset = '/addAsset';
+
+  static const report = '/report';
+  static const reports = '/reports';
 
   static const asset = '/asset';
   static const assets = '/assets';
@@ -257,4 +444,5 @@ class RouteName {
 
   // static const map = '/map';
   static const settings = '/settings';
+  static const scan = '/scan';
 }

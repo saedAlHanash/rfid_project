@@ -17,9 +17,7 @@ import '../../../../core/widgets/spinner_widget.dart';
 part 'assets_state.dart';
 
 class AssetsCubit extends MCubit<AssetsInitial> {
-  AssetsCubit() : super(AssetsInitial.initial()) {
-    getDataFromCache();
-  }
+  AssetsCubit() : super(AssetsInitial.initial());
 
   @override
   String get nameCache => 'assets';

@@ -321,5 +321,6 @@
   "department": "department",
   "division": "Division",
   "room": "Room",
-  "assetSite": "Asset site"
+  "assetSite": "Asset site",
+  "entity": "Entity"
 }

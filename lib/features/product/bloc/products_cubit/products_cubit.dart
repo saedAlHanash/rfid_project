@@ -13,9 +13,7 @@ import '../../../../core/error/error_manager.dart';
 part 'products_state.dart';
 
 class ProductsCubit extends MCubit<ProductsInitial> {
-  ProductsCubit() : super(ProductsInitial.initial()) {
-    getDataFromCache();
-  }
+  ProductsCubit() : super(ProductsInitial.initial());
 
   @override
   String get nameCache => 'products';
@@ -137,5 +135,3 @@ class ProductsCubit extends MCubit<ProductsInitial> {
     emit(state.copyWith(result: list));
   }
 }
-
-   

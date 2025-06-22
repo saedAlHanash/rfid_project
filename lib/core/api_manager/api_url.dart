@@ -1,7 +1,9 @@
 class GetUrl {
+  static const entity = 'Entity/Get';
+  static const room = 'Room/Get';
+  static const division = 'Division/Get';
+  static const department = 'Department/Get';
   static const product = 'product/Get';
-  static const room = 'room/Get';
-  static const department = 'department/Get';
   static const report = 'report/Get';
   static const asset = 'asset';
   static const assets = 'asset';
@@ -29,16 +31,21 @@ class GetUrl {
 }
 
 class PostUrl {
+  static const entities = 'entity';
+  static const createEntity = 'Entity/Add';
+  static const rooms = 'room';
+  static const createRoom = 'Room/Add';
+  static const divisions = 'division';
+  static const createDivision = 'Division/Add';
+  static const departments = 'department';
+  static const createDepartment = 'Department/Add';
   static const products = 'product/GetAll';
   static const createProduct = 'product/Add';
-  static const rooms = 'room/GetAll';
-  static const createRoom = 'room/Add';
-  static const departments = 'department/GetAll';
-  static const createDepartment = 'department/Add';
+
   static const reports = 'report/GetAll';
   static const createReport = 'report/Add';
   static const assets = 'asset';
-  static const createAsset = 'asset/Add';
+  static const createAsset = 'asset-item';
   static const createExam = 'exam';
   static const addReview = 'reviews';
   static const loginUrl = 'auth/login';
@@ -60,9 +67,12 @@ class PostUrl {
 }
 
 class PutUrl {
+  static const updateEntity = 'Entity/Update';
+  static const updateRoom = 'Room/Update';
+  static const updateDivision = 'Division/Update';
+  static const updateDepartment = 'Department/Update';
   static const updateProduct = 'product/Update';
-  static const updateRoom = 'room/Update';
-  static const updateDepartment = 'department/Update';
+
   static const updateReport = 'report/Update';
   static const updateAsset = 'asset/Update';
 
@@ -70,9 +80,12 @@ class PutUrl {
 }
 
 class DeleteUrl {
+  static const deleteEntity = 'Entity/Delete';
+  static const deleteRoom = 'Room/Delete';
+  static const deleteDivision = 'Division/Delete';
+  static const deleteDepartment = 'Department/Delete';
   static const deleteProduct = 'product/Delete';
-  static const deleteRoom = 'room/Delete';
-  static const deleteDepartment = 'department/Delete';
+
   static const deleteReport = 'report/Delete';
   static const deleteAsset = 'asset/Delete';
 

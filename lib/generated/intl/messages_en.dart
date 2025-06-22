@@ -210,6 +210,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "enter_new_password_and_confirm": MessageLookupByLibrary.simpleMessage(
       "Enter New Password And Confirm.",
     ),
+    "entity": MessageLookupByLibrary.simpleMessage("Entity"),
     "estimatedFor": MessageLookupByLibrary.simpleMessage("Estimated For"),
     "exam": MessageLookupByLibrary.simpleMessage("Exam"),
     "examDuration": MessageLookupByLibrary.simpleMessage("Exam duration:"),

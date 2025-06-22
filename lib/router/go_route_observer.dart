@@ -18,7 +18,5 @@ class MyRouteObserver extends NavigatorObserver {
 
   void _sendScreenView(Route route) {
     final screenName = route.settings.name ?? route.settings.arguments?.toString();
-
-    loggerObject.f(screenName);
   }
 }

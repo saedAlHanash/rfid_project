@@ -6,10 +6,12 @@ class Assets {
   static const String fontsAlmaraiLight = 'assets/fonts/Almarai-Light.ttf';
   static const String fontsAlmaraiRegular = 'assets/fonts/Almarai-Regular.ttf';
   static const String iconsFloppyDisk = 'assets/icons/floppy_disk.svg';
+  static const String iconsHotspot = 'assets/icons/hotspot.svg';
   static const String iconsLoginBack = 'assets/icons/login_back.svg';
   static const String iconsScanWifi = 'assets/icons/scan_wifi.svg';
   static const String iconsSettings = 'assets/icons/settings.svg';
   static const String iconsStopCircle = 'assets/icons/stop_circle.svg';
+  static const String iconsTimes = 'assets/icons/times.svg';
   static const String iconsTrash = 'assets/icons/trash.svg';
   static const String imagesAdd = 'assets/images/add.png';
   static const String imagesBandtechCircle = 'assets/images/bandtech_circle.png';
@@ -22,5 +24,4 @@ class Assets {
   static const String imagesTestMode = 'assets/images/test_mode.png';
   static const String imagesTransfare = 'assets/images/transfare.png';
   static const String imagesWiteLogo = 'assets/images/wite_logo.png';
-
 }

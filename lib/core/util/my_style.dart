@@ -90,11 +90,10 @@ class MyStyle {
     );
   }
 
-  static var outlineBorder = BoxDecoration(
-    border: Border.all(color: Colors.green),
-    borderRadius: BorderRadius.circular(12.0.r),
-    color: AppColorManager.lightGray,
-  );
+  static BoxDecoration get outlineBorder => BoxDecoration(
+        border: Border.all(color: Color(0xFFEDF1F3)),
+        borderRadius: BorderRadius.circular(10.0.r),
+      );
 
   static var lightShadowMainColor = [
     BoxShadow(
@@ -112,8 +111,8 @@ class MyStyle {
 
   static final authPagesPadding = const EdgeInsets.only(left: 40.0, right: 40.0, bottom: 30.0).r;
 
-  static SliverGridDelegateWithFixedCrossAxisCount get productGridDelegate => SliverGridDelegateWithFixedCrossAxisCount(
-    crossAxisCount: 2,
-
-  );
+  static SliverGridDelegateWithFixedCrossAxisCount get productGridDelegate =>
+      SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+      );
 }
