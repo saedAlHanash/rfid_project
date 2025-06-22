@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:rfid_project/core/strings/app_color_manager.dart';
-import 'package:string_similarity/string_similarity.dart';
 
 import '../../generated/assets.dart';
 import '../../generated/l10n.dart';
@@ -149,28 +148,28 @@ enum IraqGovernorate {
   static IraqGovernorate getByName(String name) {
     return IraqGovernorate.values.firstWhere((g) => g.name == name, orElse: () => IraqGovernorate.baghdad);
   }
-
-  static IraqGovernorate getByApproximateName(String inputName) {
-    inputName = inputName.trim();
-
-    IraqGovernorate? bestMatch;
-    double bestScore = 0;
-
-    for (final gov in IraqGovernorate.values) {
-      final score = StringSimilarity.compareTwoStrings(inputName, gov.name);
-      if (score > bestScore) {
-        bestScore = score;
-        bestMatch = gov;
-      }
-    }
-
-    // حدد الحد الأدنى لقبول التشابه (مثلاً 0.6)
-    if (bestScore >= 0.6 && bestMatch != null) {
-      return bestMatch;
-    }
-
-    return IraqGovernorate.baghdad;
-  }
+  //
+  // static IraqGovernorate getByApproximateName(String inputName) {
+  //   inputName = inputName.trim();
+  //
+  //   IraqGovernorate? bestMatch;
+  //   double bestScore = 0;
+  //
+  //   for (final gov in IraqGovernorate.values) {
+  //     final score = StringSimilarity.compareTwoStrings(inputName, gov.name);
+  //     if (score > bestScore) {
+  //       bestScore = score;
+  //       bestMatch = gov;
+  //     }
+  //   }
+  //
+  //   // حدد الحد الأدنى لقبول التشابه (مثلاً 0.6)
+  //   if (bestScore >= 0.6 && bestMatch != null) {
+  //     return bestMatch;
+  //   }
+  //
+  //   return IraqGovernorate.baghdad;
+  // }
 }
 
 enum ApiType { get, post, put, patch, delete }
@@ -260,8 +259,6 @@ enum ExamType {
         return S().paid;
     }
   }
-
-
 
   static ExamType fromName(String name) {
     switch (name) {

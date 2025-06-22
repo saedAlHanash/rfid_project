@@ -72,7 +72,7 @@ class UpdateDialog extends StatelessWidget {
       actions: [
         MyButton(
           onTap: () {
-            LauncherHelper.openPage(AppProvider.systemParams.updateLink);
+            // LauncherHelper.openPage(AppProvider.systemParams.updateLink);
           },
           text: 'تحديث',
         ),
@@ -124,8 +124,7 @@ class SettingResult {
       mainAppVersionIos: (json["main_app_version_ios"]).toString().tryParseOr(0),
       androidLink: json["app_android_link"] ?? "",
       androidDirectLink: json["app_android_direct_link"] ?? "",
-      policyLink:
-          json["policy_and_privacy_link"] ??
+      policyLink: json["policy_and_privacy_link"] ??
           "https://drive.google.com/file/d/1JzXuo00HdK-Uy-tkRbtCCvjuWcumnk91",
       communication: json["communication_with_support"] ?? 'https://wa.me/9647738000065',
       iosLink: json["app_ios_link"] ?? "",
@@ -138,14 +137,14 @@ class SettingResult {
   }
 
   Map<String, dynamic> toJson() => {
-    "main_app_version": mainAppVersionAndroid,
-    "main_app_version_ios": mainAppVersionIos,
-    "app_android_link": androidLink,
-    "app_android_direct_link": androidDirectLink,
-    "policy_and_privacy_link": policyLink,
-    "communication_with_support": communication,
-    "app_ios_link": iosLink,
-    "directLink": directLink,
-    "ios_test": isIosTest,
-  };
+        "main_app_version": mainAppVersionAndroid,
+        "main_app_version_ios": mainAppVersionIos,
+        "app_android_link": androidLink,
+        "app_android_direct_link": androidDirectLink,
+        "policy_and_privacy_link": policyLink,
+        "communication_with_support": communication,
+        "app_ios_link": iosLink,
+        "directLink": directLink,
+        "ios_test": isIosTest,
+      };
 }

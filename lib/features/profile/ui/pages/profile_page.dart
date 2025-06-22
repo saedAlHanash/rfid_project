@@ -59,16 +59,16 @@ class _ProfilePageState extends State<ProfilePage> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    StatefulBuilder(
-                      builder: (context, setState) {
-                        return ItemImageCreate(
-                          image: updateState.request.profileImageUrl.getImage,
-                          onLoad: (bytes) {
-                            setState(() => updateState.request.profileImageUrl.fileBytes = bytes);
-                          },
-                        );
-                      },
-                    ),
+                    // StatefulBuilder(
+                    //   builder: (context, setState) {
+                    //     return ItemImageCreate(
+                    //       image: updateState.request.profileImageUrl.getImage,
+                    //       onLoad: (bytes) {
+                    //         setState(() => updateState.request.profileImageUrl.fileBytes = bytes);
+                    //       },
+                    //     );
+                    //   },
+                    // ),
                     20.0.verticalSpace,
                     //name
                     MyTextFormOutLineWidget(

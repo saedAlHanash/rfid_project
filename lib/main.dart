@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:m_cubit/caching_service/caching_service.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rfid_project/core/api_manager/api_service.dart';
@@ -19,7 +20,7 @@ import 'features/home/bloc/home_cubit/home_cubit.dart';
 import 'features/notification/bloc/notification_count_cubit/notification_count_cubit.dart';
 import 'package:flutter/services.dart';
 
-final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+// final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +40,7 @@ void main() async {
       timeInterval: 60,
     );
 
-    await Note.initialize();
+    // await Note.initialize();
 
     await AppInfoService.initial();
 
@@ -72,48 +73,48 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
-class Note {
-  static Future initialize() async {
-    var androidInitialize = const AndroidInitializationSettings('mipmap/ic_launcher');
-    var iOSInitialize = const DarwinInitializationSettings();
-    var initializationsSettings = InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
-    await flutterLocalNotificationsPlugin.initialize(initializationsSettings);
-  }
-
-  static Future showBigTextNotification({
-    var id = 0,
-    required String title,
-    required String body,
-    var payload,
-  }) async {
-    // var vibrationPattern = Int64List(2);
-    // vibrationPattern[0] = 1000;
-    // vibrationPattern[1] = 1000;
-
-    const androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'Ali Gabory',
-      'Gabory App',
-      playSound: true,
-      // enableVibration: true,
-      // sound: RawResourceAndroidNotificationSound('sound'),
-      // vibrationPattern: vibrationPattern,
-      importance: Importance.defaultImportance,
-      priority: Priority.high,
-    );
-
-    var not = const NotificationDetails(
-      android: androidPlatformChannelSpecifics,
-      iOS: DarwinNotificationDetails(),
-    );
-
-    await flutterLocalNotificationsPlugin.show(
-      (DateTime.now().millisecondsSinceEpoch ~/ 1000),
-      title,
-      body,
-      not,
-    );
-  }
-}
+// class Note {
+//   static Future initialize() async {
+//     var androidInitialize = const AndroidInitializationSettings('mipmap/ic_launcher');
+//     var iOSInitialize = const DarwinInitializationSettings();
+//     var initializationsSettings = InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
+//     await flutterLocalNotificationsPlugin.initialize(initializationsSettings);
+//   }
+//
+//   static Future showBigTextNotification({
+//     var id = 0,
+//     required String title,
+//     required String body,
+//     var payload,
+//   }) async {
+//     // var vibrationPattern = Int64List(2);
+//     // vibrationPattern[0] = 1000;
+//     // vibrationPattern[1] = 1000;
+//
+//     const androidPlatformChannelSpecifics = AndroidNotificationDetails(
+//       'Ali Gabory',
+//       'Gabory App',
+//       playSound: true,
+//       // enableVibration: true,
+//       // sound: RawResourceAndroidNotificationSound('sound'),
+//       // vibrationPattern: vibrationPattern,
+//       importance: Importance.defaultImportance,
+//       priority: Priority.high,
+//     );
+//
+//     var not = const NotificationDetails(
+//       android: androidPlatformChannelSpecifics,
+//       iOS: DarwinNotificationDetails(),
+//     );
+//
+//     await flutterLocalNotificationsPlugin.show(
+//       (DateTime.now().millisecondsSinceEpoch ~/ 1000),
+//       title,
+//       body,
+//       not,
+//     );
+//   }
+// }
 
 class RfidReader {
   static const MethodChannel _channel = MethodChannel('rfid_channel');
