@@ -5,7 +5,6 @@ import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -18,20 +17,17 @@ import com.util.Helper.Helper_ThreadPool;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.MethodChannel;
 
 
-public class MainActivity extends FlutterActivity {
+public class MainActivity extends FlutterActivity implements IAsynchronousMessage {
     private static final String CHANNEL = "rfid_channel";
     private MethodChannel channel;
-
 
     @Override
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
@@ -59,7 +55,7 @@ public class MainActivity extends FlutterActivity {
                         break;
                     case "getData":
 
-                        result.success( GetData());
+                        result.success(GetData());
                         break;
                     case "setReadType":
                         if (call.arguments instanceof Integer) {
@@ -85,7 +81,7 @@ public class MainActivity extends FlutterActivity {
     static int _NowAntennaNo = 1;
     static int _UpDataTime = 0;
 
-
+    boolean isRead = false;
     private static boolean isStartPingPong = false;
     private boolean isKeyDown = false;
     private int keyDownCount = 0;
@@ -100,8 +96,9 @@ public class MainActivity extends FlutterActivity {
 
     private static final boolean isPowerLowShow = false;
 
-    private final int MSG_RESULT_READ = 1;
+    private final int MSG_RESULT_READ = 0 + 1;
 
+    private IAsynchronousMessage log = null;
 
     public void UHF_Dispose() {
         if (_UHFSTATE) {
@@ -175,17 +172,13 @@ public class MainActivity extends FlutterActivity {
         }
     }
 
-    //this <=== need getStatus method
-    public boolean isRead = false;
 
-    //this <===
     public void ReadOrStop() {
-        if (isRead) {
+
+        if (!isRead) {
             PingPong_Read();
-            isRead = false;
         } else {
             Pingpong_Stop();
-            isRead = true;
         }
     }
 
@@ -194,34 +187,10 @@ public class MainActivity extends FlutterActivity {
         hmList.clear();
     }
 
-    //this <===
+
     protected void Init() {
-
-        if (!UHF_Init(model -> {
-            if (!isStartPingPong)
-                return;
-            try {
-                synchronized (hmList_Lock) {
-                    if (hmList.containsKey(model._EPC + model._TID)) {
-                        EPCModel tModel = hmList.get(model._EPC + model._TID);
-                        if (tModel != null) {
-                            tModel._TotalCount++;
-                            model._TotalCount = tModel._TotalCount;
-                        }
-                        hmList.remove(model._EPC + model._TID);
-                        hmList.put(model._EPC + model._TID, model);
-                    } else {
-                        hmList.put(model._EPC + model._TID, model);
-                    }
-                }
-                synchronized (beep_Lock) {
-                    beep_Lock.notify();
-                }
-            } catch (Exception ex) {
-                Log.d("Debug", "Tags output exceptions:" + ex.getMessage());
-            }
-
-        })) {
+        log = this;
+        if (!UHF_Init(log)) {
 
         } else {
             try {
@@ -234,18 +203,8 @@ public class MainActivity extends FlutterActivity {
             }
 
             Refush();
-        }
-        Toast.makeText(this, "initialed", Toast.LENGTH_SHORT).show();
-    }
 
-    //this <===
-    protected void Dispose() {
-        isStartPingPong = false;
-        IsFlushList = false;
-        synchronized (beep_Lock) {
-            beep_Lock.notifyAll();
         }
-        UHF_Dispose();
     }
 
 
@@ -278,24 +237,37 @@ public class MainActivity extends FlutterActivity {
     }
 
 
+    protected void Dispose() {
+        isStartPingPong = false;
+        IsFlushList = false;
+        synchronized (beep_Lock) {
+            beep_Lock.notifyAll();
+        }
+        UHF_Dispose();
+    }
 
-    protected List<String> GetData() {
-        Set<String> epcSet = new HashSet<>(); // يستخدم لإزالة التكرارات
+
+    @SuppressWarnings({"rawtypes", "unused"})
+    protected List<Map<String, String>> GetData() {
+        List<Map<String, String>> rt = new ArrayList<>();
         synchronized (hmList_Lock) {
             for (var stringEPCModelEntry : hmList.entrySet()) {
-                var val = (EPCModel) ((Map.Entry<?, ?>) stringEPCModelEntry).getValue();
-                String epc;
+
+                var val = (EPCModel) ((Map.Entry) stringEPCModelEntry).getValue();
+                var map = new HashMap<String, String>();
                 if (_ReadType == 0) {
-                    epc = val._EPC;
+                    map.put("EPC", val._EPC);
                 } else if (_ReadType == 1) {
-                    epc = val._TID;
+                    map.put("EPC", val._TID);
                 } else {
-                    epc = val._UserData;
+                    map.put("EPC", val._UserData);
                 }
-                epcSet.add(epc); // تُضاف تلقائياً بدون تكرار
+                var rc = val._TotalCount;
+                map.put("ReadCount", Long.toString(rc));
+                rt.add(map);
             }
         }
-        return new ArrayList<>(epcSet); // تحويل Set إلى List
+        return rt;
     }
 
 
@@ -313,7 +285,7 @@ public class MainActivity extends FlutterActivity {
                     Clear();
                     Pingpong_Stop();
                     isStartPingPong = true;
-                    if ( "6C".equals("6C")) {
+                    if ("6C".equals("6C")) {
                         GetEPC_6C();
                     } else {
                         CLReader.Get6B(_NowAntennaNo + "|1" + "|1" + "|"
@@ -347,6 +319,33 @@ public class MainActivity extends FlutterActivity {
         return super.onKeyUp(keyCode, event);
     }
 
+    @Override
+    public void OutPutEPC(EPCModel model) {
+        if (!isStartPingPong)
+            return;
+        try {
+            synchronized (hmList_Lock) {
+                if (hmList.containsKey(model._EPC + model._TID)) {
+                    EPCModel tModel = hmList.get(model._EPC + model._TID);
+                    if (tModel != null) {
+                        tModel._TotalCount++;
+                        model._TotalCount = tModel._TotalCount;
+                    }
+                    hmList.remove(model._EPC + model._TID);
+                    hmList.put(model._EPC + model._TID, model);
+                } else {
+                    hmList.put(model._EPC + model._TID, model);
+                }
+            }
+            synchronized (beep_Lock) {
+                beep_Lock.notify();
+            }
+        } catch (Exception ex) {
+            Log.d("Debug", "Tags output exceptions:" + ex.getMessage());
+        }
+
+    }
+
 
     public void PingPong_Read() {
         if (isStartPingPong)
@@ -356,7 +355,7 @@ public class MainActivity extends FlutterActivity {
         Helper_ThreadPool.ThreadPool_StartSingle(() -> {
             try {
                 if (!isPowerLowShow) {
-                    if ( "6C".equals("6C")) {
+                    if ("6C".equals("6C")) {
                         GetEPC_6C();
                     } else {
                         CLReader.Get6B(_NowAntennaNo + "|1" + "|1" + "|" + "1,000F");
