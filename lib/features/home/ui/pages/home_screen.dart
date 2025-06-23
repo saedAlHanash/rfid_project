@@ -67,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         _Item(
                           image: Assets.imagesEdit,
-                          title: 'اختبار المسح',
+                          title: 'اختبار المسح الجديد',
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(
                               builder: (context) {
@@ -194,18 +194,21 @@ class _TestScanState extends State<TestScan> {
 
   @override
   void initState() {
-    getStatus();
     Future(() async {
       await RfidReader.init();
       setState(() => isInit = true);
     });
+
     Timer.periodic(
       Duration(seconds: 1),
       (timer) async {
+        getStatus();
+        if (!isRead) return;
         l = (await RfidReader.getData());
         setState(() {});
       },
     );
+
     super.initState();
   }
 

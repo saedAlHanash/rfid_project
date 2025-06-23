@@ -135,21 +135,24 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
         var rt = false;
         try {
             if (!_UHFSTATE) {
+                Toast.makeText(this, "Start and waiting 3 sec", Toast.LENGTH_SHORT).show();
+                Thread.sleep(3000);
                 boolean ret = UHFReader.getUHFInstance().OpenConnect(log);
                 if (ret) {
                     rt = true;
                     _UHFSTATE = true;
                 }
+
+                Thread.sleep(500);
             } else {
                 rt = true;
             }
         } catch (Exception ex) {
-            Toast.makeText(this, "Error initial from java", Toast.LENGTH_SHORT).show();
             Log.d("debug", "On the UHF electric abnormal:" + ex.getMessage());
         }
+
         return rt;
     }
-
     protected void UHF_SetTagUpdateParam() {
 
 
@@ -200,10 +203,6 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
         }
         Toast.makeText(this, "Done initial from java", Toast.LENGTH_SHORT).show();
     }
-
-
-
-
 
     protected void Dispose() {
         isStartPingPong = false;

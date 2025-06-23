@@ -44,7 +44,6 @@ void main() async {
     await AppInfoService.initial();
 
     await di.init();
-    RfidReader.getData();
   } catch (e) {
     loggerObject.e(e);
   }
