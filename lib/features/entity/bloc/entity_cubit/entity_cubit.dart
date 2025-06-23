@@ -1,10 +1,10 @@
+import 'package:m_cubit/abstraction.dart';
 import 'package:rfid_project/core/api_manager/api_service.dart';
 import 'package:rfid_project/core/api_manager/api_url.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:rfid_project/core/util/pair_class.dart';
 import 'package:rfid_project/features/entity/data/response/entity_response.dart';
-import 'package:m_cubit/abstraction.dart';
 
 part 'entity_state.dart';
 
@@ -17,7 +17,7 @@ class EntityCubit extends MCubit<EntityInitial> {
   @override
   String get filter => state.filter;
 
-  Future<void> getData({bool newData = false,  String? entityId}) async {
+  Future<void> getData({bool newData = false, String? entityId}) async {
     emit(state.copyWith(request: entityId));
 
     await getDataAbstract(
@@ -48,4 +48,3 @@ class EntityCubit extends MCubit<EntityInitial> {
     emit(state.copyWith(result: entity));
   }
 }
- 

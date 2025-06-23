@@ -8,7 +8,6 @@ import 'package:rfid_project/core/api_manager/api_url.dart';
 
 import '../../features/auth/data/response/login_response.dart';
 import '../../features/profile/data/response/profile_response.dart';
-import '../../generated/assets.dart';
 import '../../generated/l10n.dart';
 import '../../router/go_router.dart';
 import '../strings/enum_manager.dart';

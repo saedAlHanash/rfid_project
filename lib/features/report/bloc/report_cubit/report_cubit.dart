@@ -1,12 +1,10 @@
+import 'package:m_cubit/abstraction.dart';
 import 'package:rfid_project/core/api_manager/api_service.dart';
 import 'package:rfid_project/core/api_manager/api_url.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:rfid_project/core/util/pair_class.dart';
 import 'package:rfid_project/features/report/data/response/report_response.dart';
-import 'package:m_cubit/abstraction.dart';
-
-import '../../data/response/report_response.dart';
 
 part 'report_state.dart';
 

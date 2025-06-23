@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:m_cubit/caching_service/caching_service.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -18,7 +18,6 @@ import 'core/injection/injection_container.dart' as di;
 import 'core/util/shared_preferences.dart';
 import 'features/home/bloc/home_cubit/home_cubit.dart';
 import 'features/notification/bloc/notification_count_cubit/notification_count_cubit.dart';
-import 'package:flutter/services.dart';
 
 // final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 

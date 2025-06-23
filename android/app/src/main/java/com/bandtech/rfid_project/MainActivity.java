@@ -313,7 +313,7 @@ public class MainActivity extends FlutterActivity {
                     Clear();
                     Pingpong_Stop();
                     isStartPingPong = true;
-                    if (PublicData._IsCommand6Cor6B.equals("6C")) {
+                    if ( "6C".equals("6C")) {
                         GetEPC_6C();
                     } else {
                         CLReader.Get6B(_NowAntennaNo + "|1" + "|1" + "|"
@@ -356,7 +356,7 @@ public class MainActivity extends FlutterActivity {
         Helper_ThreadPool.ThreadPool_StartSingle(() -> {
             try {
                 if (!isPowerLowShow) {
-                    if (PublicData._IsCommand6Cor6B.equals("6C")) {
+                    if ( "6C".equals("6C")) {
                         GetEPC_6C();
                     } else {
                         CLReader.Get6B(_NowAntennaNo + "|1" + "|1" + "|" + "1,000F");

@@ -1,3 +1,5 @@
+import 'package:http/http.dart';
+import 'package:m_cubit/m_cubit.dart';
 import 'package:rfid_project/core/api_manager/api_service.dart';
 import 'package:rfid_project/core/api_manager/api_url.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
@@ -5,8 +7,6 @@ import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:rfid_project/core/util/pair_class.dart';
 import 'package:rfid_project/features/department/data/request/create_department_request.dart';
 import 'package:rfid_project/features/department/data/response/department_response.dart';
-import 'package:http/http.dart';
-import 'package:m_cubit/m_cubit.dart';
 
 import '../../../../core/error/error_manager.dart';
 import '../../../../core/widgets/spinner_widget.dart';

@@ -11,7 +11,6 @@ import 'package:rfid_project/core/widgets/my_button.dart';
 import 'package:rfid_project/core/widgets/my_text_form_widget.dart';
 import 'package:rfid_project/features/auth/ui/widget/auth_card_image.dart';
 
-import '../../../../core/util/my_style.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../router/go_router.dart';
 import '../../../notification/bloc/all_notification_cubit/all_notification_cubit.dart';
@@ -53,9 +52,7 @@ class _LoginPageState extends State<LoginPage> {
           key: _formKey,
           child: ListView(
             children: [
-              AuthCardImage(
-                  titleText: S.of(context).login,
-                  description: S.of(context).signInToContinue),
+              AuthCardImage(titleText: S.of(context).login, description: S.of(context).signInToContinue),
               AutofillGroup(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0).r,
@@ -63,10 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       20.0.verticalSpace,
                       MyTextFormOutLineWidget(
-                        autofillHints: const [
-                          AutofillHints.username,
-                          AutofillHints.email
-                        ],
+                        autofillHints: const [AutofillHints.username, AutofillHints.email],
                         helperText: S.of(context).phoneNumberMustStartWith07,
                         validator: (p0) => loginCubit.validatePhone,
                         labelText: S.of(context).phoneNumber,
@@ -108,7 +102,6 @@ class _LoginPageState extends State<LoginPage> {
               10.0.verticalSpace,
               BlocBuilder<LoginCubit, LoginInitial>(
                 builder: (_, state) {
-
                   return MyButton(
                     loading: state.loading,
                     text: S.of(context).login,
@@ -121,7 +114,6 @@ class _LoginPageState extends State<LoginPage> {
                   );
                 },
               ),
-
             ],
           ),
         ),
@@ -129,4 +121,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-

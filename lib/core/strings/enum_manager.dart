@@ -1,10 +1,3 @@
-import 'package:drawable_text/drawable_text.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_multi_type/image_multi_type.dart';
-import 'package:rfid_project/core/strings/app_color_manager.dart';
-
-import '../../generated/assets.dart';
 import '../../generated/l10n.dart';
 import '../util/pair_class.dart';
 

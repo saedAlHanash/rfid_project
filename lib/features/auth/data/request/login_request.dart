@@ -1,4 +1,3 @@
-import 'package:rfid_project/core/app/app_provider.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
 
 class LoginRequest {

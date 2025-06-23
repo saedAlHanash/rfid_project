@@ -7,7 +7,6 @@ import 'package:rfid_project/features/home/bloc/home_cubit/home_cubit.dart';
 
 import '../../../../core/app/app_provider.dart';
 import '../../../../core/strings/app_color_manager.dart';
-import '../../../../generated/assets.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({super.key});

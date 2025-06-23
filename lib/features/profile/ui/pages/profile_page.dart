@@ -11,7 +11,6 @@ import 'package:rfid_project/core/widgets/my_button.dart';
 import 'package:rfid_project/core/widgets/my_text_form_widget.dart';
 
 import '../../../../core/strings/enum_manager.dart';
-import '../../../../core/widgets/item_image_create.dart';
 import '../../../../core/widgets/spinner_widget.dart';
 import '../../../../generated/l10n.dart';
 import '../../bloc/update_profile_cubit/update_profile_cubit.dart';

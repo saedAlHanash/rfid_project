@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
-import 'package:rfid_project/core/helper/launcher_helper.dart';
 import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:rfid_project/core/util/pair_class.dart';
 import 'package:rfid_project/core/widgets/my_button.dart';

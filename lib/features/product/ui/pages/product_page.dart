@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/widgets/app_bar/app_bar_widget.dart';
 import '../../../../core/widgets/refresh_widget/refresh_widget.dart';
-
 import '../../bloc/product_cubit/product_cubit.dart';
 
 class ProductPage extends StatelessWidget {
@@ -38,5 +37,3 @@ class ProductPage extends StatelessWidget {
     );
   }
 }
-
-

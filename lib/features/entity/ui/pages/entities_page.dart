@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/widgets/app_bar/app_bar_widget.dart';
 import '../../../../core/widgets/refresh_widget/refresh_widget.dart';
-import '../../../../generated/l10n.dart';
 import '../../bloc/entities_cubit/entities_cubit.dart';
 import '../widgets/item_entity.dart';
 

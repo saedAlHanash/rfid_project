@@ -1,53 +1,43 @@
-import 'package:rfid_project/features/asset/ui/pages/add_asset_page.dart';
-
-import '../features/asset/ui/pages/scan_page.dart';
-import '../features/entity/bloc/entity_cubit/entity_cubit.dart';
-import '../features/entity/bloc/entities_cubit/entities_cubit.dart';
-import '../features/entity/ui/pages/entity_page.dart';
-import '../features/entity/ui/pages/entities_page.dart';
-
-import '../features/room/bloc/room_cubit/room_cubit.dart';
-import '../features/room/bloc/rooms_cubit/rooms_cubit.dart';
-import '../features/room/ui/pages/room_page.dart';
-import '../features/room/ui/pages/rooms_page.dart';
-
-import '../features/division/bloc/division_cubit/division_cubit.dart';
-import '../features/division/bloc/divisions_cubit/divisions_cubit.dart';
-import '../features/division/ui/pages/division_page.dart';
-import '../features/division/ui/pages/divisions_page.dart';
-
-import '../features/department/bloc/department_cubit/department_cubit.dart';
-import '../features/department/bloc/departments_cubit/departments_cubit.dart';
-import '../features/department/ui/pages/department_page.dart';
-import '../features/department/ui/pages/departments_page.dart';
-
-import '../features/product/bloc/product_cubit/product_cubit.dart';
-import '../features/product/bloc/products_cubit/products_cubit.dart';
-import '../features/product/ui/pages/product_page.dart';
-import '../features/product/ui/pages/products_page.dart';
-
-import '../features/report/bloc/report_cubit/report_cubit.dart';
-import '../features/report/bloc/reports_cubit/reports_cubit.dart';
-import '../features/report/ui/pages/report_page.dart';
-import '../features/report/ui/pages/reports_page.dart';
-
-import '../features/asset/bloc/asset_cubit/asset_cubit.dart';
-import '../features/asset/bloc/assets_cubit/assets_cubit.dart';
-import '../features/asset/ui/pages/asset_page.dart';
-import '../features/asset/ui/pages/assets_page.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rfid_project/features/asset/ui/pages/add_asset_page.dart';
 import 'package:rfid_project/features/auth/ui/pages/splash_screen_page.dart';
 import 'package:rfid_project/features/home/ui/widget/screens/menu_screen.dart';
 
 import '../core/injection/injection_container.dart';
+import '../features/asset/bloc/asset_cubit/asset_cubit.dart';
+import '../features/asset/ui/pages/asset_page.dart';
+import '../features/asset/ui/pages/scan_page.dart';
 import '../features/auth/bloc/login_cubit/login_cubit.dart';
 import '../features/auth/bloc/signup_cubit/signup_cubit.dart';
 import '../features/auth/ui/pages/login_page.dart';
 import '../features/auth/ui/pages/signup_page.dart';
+import '../features/department/bloc/department_cubit/department_cubit.dart';
+import '../features/department/bloc/departments_cubit/departments_cubit.dart';
+import '../features/department/ui/pages/department_page.dart';
+import '../features/department/ui/pages/departments_page.dart';
+import '../features/division/bloc/division_cubit/division_cubit.dart';
+import '../features/division/bloc/divisions_cubit/divisions_cubit.dart';
+import '../features/division/ui/pages/division_page.dart';
+import '../features/division/ui/pages/divisions_page.dart';
+import '../features/entity/bloc/entities_cubit/entities_cubit.dart';
+import '../features/entity/bloc/entity_cubit/entity_cubit.dart';
+import '../features/entity/ui/pages/entities_page.dart';
+import '../features/entity/ui/pages/entity_page.dart';
 import '../features/home/ui/pages/home_page.dart';
+import '../features/product/bloc/product_cubit/product_cubit.dart';
+import '../features/product/bloc/products_cubit/products_cubit.dart';
+import '../features/product/ui/pages/product_page.dart';
+import '../features/product/ui/pages/products_page.dart';
+import '../features/report/bloc/report_cubit/report_cubit.dart';
+import '../features/report/bloc/reports_cubit/reports_cubit.dart';
+import '../features/report/ui/pages/report_page.dart';
+import '../features/report/ui/pages/reports_page.dart';
+import '../features/room/bloc/room_cubit/room_cubit.dart';
+import '../features/room/bloc/rooms_cubit/rooms_cubit.dart';
+import '../features/room/ui/pages/room_page.dart';
+import '../features/room/ui/pages/rooms_page.dart';
 import 'go_route_observer.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();

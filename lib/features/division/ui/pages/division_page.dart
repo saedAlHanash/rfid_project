@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/widgets/app_bar/app_bar_widget.dart';
 import '../../../../core/widgets/refresh_widget/refresh_widget.dart';
-
 import '../../bloc/division_cubit/division_cubit.dart';
 
 class DivisionPage extends StatelessWidget {

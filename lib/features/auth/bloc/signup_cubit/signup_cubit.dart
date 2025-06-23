@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:m_cubit/m_cubit.dart';
 import 'package:rfid_project/core/api_manager/api_url.dart';
 import 'package:rfid_project/core/app/app_provider.dart';

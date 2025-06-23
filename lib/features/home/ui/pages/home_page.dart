@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rfid_project/core/app/app_provider.dart';
 import 'package:rfid_project/core/widgets/app_bar/app_bar_widget.dart';
-import 'package:rfid_project/features/home/ui/widget/screens/menu_screen_guest.dart';
 
 import '../../../../core/util/my_style.dart';
 import '../../../auth/bloc/delete_account_cubit/delete_account_cubit.dart';
 import '../../../profile/bloc/get_me_cubit/get_me_cubit.dart';
 import '../../bloc/home_cubit/home_cubit.dart';
-import '../widget/bottom_nav_widget.dart';
 import '../widget/screens/menu_screen.dart';
 import 'home_screen.dart';
 

@@ -10,7 +10,6 @@ import 'package:rfid_project/core/strings/app_color_manager.dart';
 import '../../../../core/app/app_provider.dart';
 import '../../../../core/app/app_widget.dart';
 import '../../../../core/strings/enum_manager.dart';
-import '../../../../core/util/checker_helper.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../router/go_router.dart';

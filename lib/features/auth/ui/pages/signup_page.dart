@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_multi_type/image_multi_type.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:rfid_project/core/widgets/my_button.dart';
@@ -13,7 +12,6 @@ import 'package:rfid_project/features/auth/ui/widget/auth_card_image.dart';
 import 'package:rfid_project/router/go_router.dart';
 
 import '../../../../core/app/app_provider.dart';
-import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 import '../../bloc/signup_cubit/signup_cubit.dart';
 
@@ -119,7 +117,6 @@ class _SignupPageState extends State<SignupPage> {
                               initialValue: signupState.request.phone,
                               keyBordType: TextInputType.phone,
                               maxLength: 12,
-
                               labelText: S.of(context).phoneNumber,
                               hint: S.of(context).phoneNumberMustStartWith07,
                               onChanged: (val) => signupCubit.setPhone = val,

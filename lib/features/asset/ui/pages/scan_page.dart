@@ -6,8 +6,6 @@ import 'package:image_multi_type/image_multi_type.dart';
 import 'package:rfid_project/core/api_manager/api_service.dart';
 import 'package:rfid_project/core/util/my_style.dart';
 import 'package:rfid_project/core/widgets/my_button.dart';
-import 'package:rfid_project/core/widgets/my_button.dart';
-import 'package:rfid_project/core/widgets/my_button.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/widgets/app_bar/app_bar_widget.dart';
