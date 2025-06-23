@@ -5,6 +5,7 @@ import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -143,6 +144,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
                 rt = true;
             }
         } catch (Exception ex) {
+            Toast.makeText(this, "Error initial from java", Toast.LENGTH_SHORT).show();
             Log.d("debug", "On the UHF electric abnormal:" + ex.getMessage());
         }
         return rt;
@@ -184,7 +186,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
 
     protected void Init() {
         log = this;
-
+        Toast.makeText(this, "start initial from java", Toast.LENGTH_SHORT).show();
         if (!UHF_Init(log)) {
 
         } else {
@@ -196,6 +198,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
             }
 
         }
+        Toast.makeText(this, "Done initial from java", Toast.LENGTH_SHORT).show();
     }
 
 
