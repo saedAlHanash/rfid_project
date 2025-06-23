@@ -195,13 +195,10 @@ class _TestScanState extends State<TestScan> {
   @override
   void initState() {
     getStatus();
-    RfidReader.init().then(
-      (value) {
-        setState(() {
-          isInit = true;
-        });
-      },
-    );
+    Future(() async {
+      await RfidReader.init();
+      setState(() => isInit = true);
+    });
     Timer.periodic(
       Duration(seconds: 1),
       (timer) async {
