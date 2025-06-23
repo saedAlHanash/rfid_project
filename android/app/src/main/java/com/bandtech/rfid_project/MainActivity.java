@@ -24,7 +24,7 @@ import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.MethodChannel;
 
-
+@SuppressLint("HandlerLeak")
 public class MainActivity extends FlutterActivity implements IAsynchronousMessage {
     private static final String CHANNEL = "rfid_channel";
     private MethodChannel channel;
@@ -89,14 +89,10 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
     private static int _ReadType = 0;
     private final HashMap<String, EPCModel> hmList = new HashMap<>();
     private final Object hmList_Lock = new Object();
-    private Boolean IsFlushList = true;
+
     private final Object beep_Lock = new Object();
-    ToneGenerator toneGenerator = new ToneGenerator(AudioManager.STREAM_SYSTEM,
-            ToneGenerator.MAX_VOLUME);
 
     private static final boolean isPowerLowShow = false;
-
-    private final int MSG_RESULT_READ = 0 + 1;
 
     private IAsynchronousMessage log = null;
 
@@ -143,8 +139,6 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
                     rt = true;
                     _UHFSTATE = true;
                 }
-
-                Thread.sleep(500);
             } else {
                 rt = true;
             }
@@ -190,56 +184,27 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
 
     protected void Init() {
         log = this;
+
         if (!UHF_Init(log)) {
 
         } else {
             try {
                 UHF_GetReaderProperty();
-                Thread.sleep(20);
                 CLReader.Stop();
-                Thread.sleep(20);
                 UHF_SetTagUpdateParam();
             } catch (Exception ignored) {
             }
-
-            Refush();
 
         }
     }
 
 
-    protected void Refush() {
-        IsFlushList = true;
 
-        Helper_ThreadPool.ThreadPool_StartSingle(() -> {
-            while (IsFlushList) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ignored) {
-                }
-            }
-        });
-
-        Helper_ThreadPool.ThreadPool_StartSingle(() -> {
-            while (IsFlushList) {
-                synchronized (beep_Lock) {
-                    try {
-                        beep_Lock.wait();
-                    } catch (InterruptedException ignored) {
-                    }
-                }
-                if (IsFlushList) {
-                    toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
-                }
-
-            }
-        });
-    }
 
 
     protected void Dispose() {
         isStartPingPong = false;
-        IsFlushList = false;
+
         synchronized (beep_Lock) {
             beep_Lock.notifyAll();
         }
