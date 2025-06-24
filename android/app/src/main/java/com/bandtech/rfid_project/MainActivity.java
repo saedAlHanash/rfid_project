@@ -135,8 +135,6 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
         var rt = false;
         try {
             if (!_UHFSTATE) {
-                Toast.makeText(this, "Start and waiting 3 sec", Toast.LENGTH_SHORT).show();
-                Thread.sleep(3000);
                 boolean ret = UHFReader.getUHFInstance().OpenConnect(log);
                 if (ret) {
                     rt = true;
@@ -153,6 +151,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
 
         return rt;
     }
+
     protected void UHF_SetTagUpdateParam() {
 
 
@@ -173,11 +172,13 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
 
 
     public void ReadOrStop() {
-
+        Toast.makeText(this, isRead ? "isRead" : "not isRead", Toast.LENGTH_SHORT).show();
         if (!isRead) {
             PingPong_Read();
+            isRead = true;
         } else {
             Pingpong_Stop();
+            isRead = false;
         }
     }
 
@@ -189,7 +190,6 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
 
     protected void Init() {
         log = this;
-        Toast.makeText(this, "start initial from java", Toast.LENGTH_SHORT).show();
         if (!UHF_Init(log)) {
 
         } else {
@@ -198,6 +198,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
                 CLReader.Stop();
                 UHF_SetTagUpdateParam();
             } catch (Exception ignored) {
+                Toast.makeText(this, "error" + ignored.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -329,6 +330,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
                     }
                 }
             } catch (Exception ignored) {
+                Toast.makeText(this, "error" + ignored.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });

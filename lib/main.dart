@@ -1,118 +1,49 @@
-import 'dart:io';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:m_cubit/caching_service/caching_service.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:rfid_project/core/api_manager/api_service.dart';
-import 'package:rfid_project/core/app/app_provider.dart';
-import 'package:rfid_project/core/error/error_manager.dart';
-import 'package:rfid_project/core/util/checker_helper.dart';
-import 'package:rfid_project/services/app_info_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import 'core/app/app_widget.dart';
-import 'core/injection/injection_container.dart' as di;
-import 'core/util/shared_preferences.dart';
-import 'features/home/bloc/home_cubit/home_cubit.dart';
-import 'features/notification/bloc/notification_count_cubit/notification_count_cubit.dart';
-
-// final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  try {
-    await SharedPreferences.getInstance().then((value) {
-      AppSharedPreference.init(value);
-    });
-
-    appData = await PackageInfo.fromPlatform();
-    await CachingService.initial(
-      onError: (second) {
-        showErrorFromApi(second);
-      },
-      version: 2,
-      supperFilter: AppProvider.supperFilter,
-      timeInterval: 60,
-    );
-
-    // await Note.initialize();
-
-    await AppInfoService.initial();
-
-    await di.init();
-  } catch (e) {
-    loggerObject.e(e);
-  }
-
-  HttpOverrides.global = MyHttpOverrides();
-
-  runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => di.sl<NotificationCountCubit>()),
-        BlocProvider(create: (_) => di.sl<HomeCubit>()),
-      ],
-      child: const MyApp(),
-    ),
-  );
+void main() {
+  runApp(const MyApp());
 }
 
-class MyHttpOverrides extends HttpOverrides {
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port) {
-        return true;
-      };
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      ),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
   }
 }
 
-// class Note {
-//   static Future initialize() async {
-//     var androidInitialize = const AndroidInitializationSettings('mipmap/ic_launcher');
-//     var iOSInitialize = const DarwinInitializationSettings();
-//     var initializationsSettings = InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
-//     await flutterLocalNotificationsPlugin.initialize(initializationsSettings);
-//   }
-//
-//   static Future showBigTextNotification({
-//     var id = 0,
-//     required String title,
-//     required String body,
-//     var payload,
-//   }) async {
-//     // var vibrationPattern = Int64List(2);
-//     // vibrationPattern[0] = 1000;
-//     // vibrationPattern[1] = 1000;
-//
-//     const androidPlatformChannelSpecifics = AndroidNotificationDetails(
-//       'Ali Gabory',
-//       'Gabory App',
-//       playSound: true,
-//       // enableVibration: true,
-//       // sound: RawResourceAndroidNotificationSound('sound'),
-//       // vibrationPattern: vibrationPattern,
-//       importance: Importance.defaultImportance,
-//       priority: Priority.high,
-//     );
-//
-//     var not = const NotificationDetails(
-//       android: androidPlatformChannelSpecifics,
-//       iOS: DarwinNotificationDetails(),
-//     );
-//
-//     await flutterLocalNotificationsPlugin.show(
-//       (DateTime.now().millisecondsSinceEpoch ~/ 1000),
-//       title,
-//       body,
-//       not,
-//     );
-//   }
-// }
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return TestScan();
+                },
+              ));
+            },
+            child: Text('Start scan page ')),
+      ),
+    );
+  }
+}
 
 class RfidReader {
   static const MethodChannel _channel = MethodChannel('rfid_channel');
@@ -121,7 +52,7 @@ class RfidReader {
     try {
       return await _channel.invokeMethod('init');
     } on PlatformException catch (e) {
-      loggerObject.f("Failed to init RFID: '${e.message}'.");
+      print("Failed to init RFID: '${e.message}'.");
       return false;
     }
   }
@@ -130,7 +61,7 @@ class RfidReader {
     try {
       return await _channel.invokeMethod('dispose');
     } on PlatformException catch (e) {
-      loggerObject.f("Failed to dispose RFID: '${e.message}'.");
+      print("Failed to dispose RFID: '${e.message}'.");
       return false;
     }
   }
@@ -139,7 +70,7 @@ class RfidReader {
     try {
       return await _channel.invokeMethod('readOrStop');
     } on PlatformException catch (e) {
-      loggerObject.f("Failed to toggle read: '${e.message}'.");
+      print("Failed to toggle read: '${e.message}'.");
       return false;
     }
   }
@@ -148,7 +79,7 @@ class RfidReader {
     try {
       return await _channel.invokeMethod('clear');
     } on PlatformException catch (e) {
-      loggerObject.f("Failed to clear: '${e.message}'.");
+      print("Failed to clear: '${e.message}'.");
       return false;
     }
   }
@@ -157,7 +88,7 @@ class RfidReader {
     try {
       return await _channel.invokeMethod('getStatus');
     } on PlatformException catch (e) {
-      loggerObject.f("Failed to get status: '${e.message}'.");
+      print("Failed to get status: '${e.message}'.");
       return false;
     }
   }
@@ -166,10 +97,9 @@ class RfidReader {
     try {
       final data = await _channel.invokeMethod('getData');
       final l = List<String>.from(data);
-      loggerObject.w(l);
       return l;
     } on PlatformException catch (e) {
-      loggerObject.f("Failed to get data: '${e.message}'.");
+      print("Failed to get data: '${e.message}'.");
       return [];
     }
   }
@@ -178,8 +108,82 @@ class RfidReader {
     try {
       return await _channel.invokeMethod('setReadType', type);
     } on PlatformException catch (e) {
-      loggerObject.f("Failed to set read type: '${e.message}'.");
+      print("Failed to set read type: '${e.message}'.");
       return false;
     }
+  }
+}
+
+class TestScan extends StatefulWidget {
+  const TestScan({super.key});
+
+  @override
+  State<TestScan> createState() => _TestScanState();
+}
+
+class _TestScanState extends State<TestScan> {
+  var l = <String>[];
+  var isInit = false;
+  var isRead = false;
+  Timer? t;
+
+  void getStatus() {
+    RfidReader.getStatus().then((value) {
+      setState(() {
+        isRead = value;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    RfidReader.clear();
+    RfidReader.dispose();
+    t?.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    Future(() async {
+      await RfidReader.init();
+      setState(() => isInit = true);
+    });
+
+    t = Timer.periodic(Duration(seconds: 2), (timer) async {
+      getStatus();
+      if (!isRead) return;
+      l = (await RfidReader.getData());
+      setState(() {});
+    });
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Column(
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              RfidReader.readOrStop();
+            },
+            child: Text(isRead ? 'ايقاف' : 'بدأ'),
+          ),
+          Expanded(
+            child: isInit
+                ? ListView.builder(
+                    itemCount: l.length,
+                    itemBuilder: (context, index) {
+                      return Text(l[index]);
+                    },
+                  )
+                : CircularProgressIndicator.adaptive(),
+          ),
+        ],
+      ),
+    );
   }
 }
