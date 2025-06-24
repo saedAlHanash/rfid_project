@@ -39,7 +39,7 @@ class MyHomePage extends StatelessWidget {
                 },
               ));
             },
-            child: Text('Start scan page ')),
+            child: Text('Go to scan page')),
       ),
     );
   }
@@ -100,7 +100,7 @@ class RfidReader {
       return l;
     } on PlatformException catch (e) {
       print("Failed to get data: '${e.message}'.");
-      return [];
+      return ['error', '${e.message}'];
     }
   }
 
