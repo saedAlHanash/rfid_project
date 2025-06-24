@@ -5,7 +5,7 @@ import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -55,7 +55,6 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
                         result.success(isRead);
                         break;
                     case "getData":
-
                         result.success(GetData());
                         break;
                     case "setReadType":
@@ -135,8 +134,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
         var rt = false;
         try {
             if (!_UHFSTATE) {
-                Toast.makeText(this, "Start and waiting 3 sec", Toast.LENGTH_SHORT).show();
-                Thread.sleep(3000);
+//                Toast.makeText(this, "Start and waiting 3 sec", Toast.LENGTH_SHORT).show();
                 boolean ret = UHFReader.getUHFInstance().OpenConnect(log);
                 if (ret) {
                     rt = true;
@@ -153,6 +151,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
 
         return rt;
     }
+
     protected void UHF_SetTagUpdateParam() {
 
 
@@ -189,19 +188,23 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
 
     protected void Init() {
         log = this;
-        Toast.makeText(this, "start initial from java", Toast.LENGTH_SHORT).show();
-        if (!UHF_Init(log)) {
+        new Thread(() -> {
 
-        } else {
-            try {
-                UHF_GetReaderProperty();
-                CLReader.Stop();
-                UHF_SetTagUpdateParam();
-            } catch (Exception ignored) {
+//        Toast.makeText(this, "start initial from java", Toast.LENGTH_SHORT).show();
+            if (!UHF_Init(log)) {
+
+            } else {
+                try {
+                    UHF_GetReaderProperty();
+                    CLReader.Stop();
+                    UHF_SetTagUpdateParam();
+                } catch (Exception ignored) {
+                }
+
             }
+//        Toast.makeText(this, "Done initial from java", Toast.LENGTH_SHORT).show();
 
-        }
-        Toast.makeText(this, "Done initial from java", Toast.LENGTH_SHORT).show();
+        });
     }
 
     protected void Dispose() {

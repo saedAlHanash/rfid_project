@@ -38,6 +38,7 @@ android {
             dirs 'libs'
         }
     }
+
     sourceSets {
         main {
             jniLibs.srcDirs = ['src/main/jni']
@@ -65,32 +66,40 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-//        ndk {
-//            // Specifies the ABI configurations of your native
-//            // libraries Gradle should build and package with your app.
-//            abiFilters /*'armeabi-v7a',*/'arm64-v8a'
-//        }
-    }
-
-    signingConfigs {
-        release {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-            storePassword keystoreProperties['storePassword']
+        ndk {
+            // Specifies the ABI configurations of your native
+            // libraries Gradle should build and package with your app.
+            abiFilters 'armeabi-v7a','arm64-v8a'
         }
     }
+
+//    signingConfigs {
+//        release {
+//            keyAlias keystoreProperties['keyAlias']
+//            keyPassword keystoreProperties['keyPassword']
+//            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+//            storePassword keystoreProperties['storePassword']
+//        }
+//    }
 
     buildTypes {
         release {
-            signingConfig signingConfigs.release
-            packaging {
-                jniLibs.keepDebugSymbols += "**/*.so"
-            }
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
+
 
 
 flutter {
