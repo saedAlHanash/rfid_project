@@ -9,8 +9,11 @@ class DepartmentsInitial extends AbstractState<List<Department>> {
     super.cubitCrud,
     super.createUpdateRequest,
     super.statuses,
+    this.selectedId,
     super.id,
   });
+
+  final int? selectedId;
 
   factory DepartmentsInitial.initial() {
     return DepartmentsInitial(result: [], createUpdateRequest: CreateDepartmentRequest.fromJson({}));
@@ -23,6 +26,7 @@ class DepartmentsInitial extends AbstractState<List<Department>> {
   @override
   List<Object> get props => [
         statuses,
+        if (selectedId != null) selectedId!,
         result,
         error,
         cubitCrud,
@@ -37,7 +41,7 @@ class DepartmentsInitial extends AbstractState<List<Department>> {
       result.map(
         (e) => SpinnerItem(
           id: e.id,
-          isSelected: e.id == selectedId,
+          isSelected: e.id == (this.selectedId ?? selectedId),
           name: e.name,
           item: e,
         ),
@@ -47,6 +51,7 @@ class DepartmentsInitial extends AbstractState<List<Department>> {
 
   DepartmentsInitial copyWith({
     CubitStatuses? statuses,
+    int? selectedId,
     CubitCrud? cubitCrud,
     List<Department>? result,
     String? error,
@@ -57,6 +62,7 @@ class DepartmentsInitial extends AbstractState<List<Department>> {
   }) {
     return DepartmentsInitial(
       statuses: statuses ?? this.statuses,
+      selectedId: selectedId ?? this.selectedId,
       cubitCrud: cubitCrud ?? this.cubitCrud,
       result: result ?? this.result,
       error: error ?? this.error,

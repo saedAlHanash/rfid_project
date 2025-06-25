@@ -26,14 +26,18 @@ class DivisionsCubit extends MCubit<DivisionsInitial> {
 
   void getDataFromCache() => getFromCache(fromJson: Division.fromJson, state: state);
 
-  Future<void> getData({bool newData = false, int? id}) async {
-    emit(state.copyWith(id: id));
+  Future<void> getData({bool newData = false, int? id, int? selectedId}) async {
+    emit(state.copyWith(id: id, selectedId: selectedId));
     await getDataAbstract(
       fromJson: Division.fromJson,
       state: state,
       getDataApi: _getData,
       newData: newData,
     );
+  }
+
+  void clear() {
+    emit(state.copyWith(result: []));
   }
 
   Future<Pair<List<Division>?, String?>> _getData() async {

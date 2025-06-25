@@ -17,8 +17,11 @@ class ProductCubit extends MCubit<ProductInitial> {
   @override
   String get filter => state.filter;
 
-  Future<void> getData({bool newData = false, String? productId}) async {
-    emit(state.copyWith(request: productId));
+  @override
+  int get timeInterval => 10;
+
+  Future<void> getData({bool newData = false, int? productId, String? tag}) async {
+    emit(state.copyWith(id: productId, request: tag));
 
     await getDataAbstract(
       fromJson: Product.fromJson,
@@ -32,7 +35,14 @@ class ProductCubit extends MCubit<ProductInitial> {
     final response = await APIService().callApi(
       type: ApiType.get,
       url: GetUrl.product,
-      query: {'Id': state.request},
+      query: {
+        if (state.id > 0) ...{
+          'filters[0][name]': 'room_id',
+          'filters[0][operation]': '=',
+          'filters[0][value]': state.id,
+        },
+        'keyword': state.request,
+      },
     );
 
     if (response.statusCode.success) {

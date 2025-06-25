@@ -322,5 +322,8 @@
   "division": "Division",
   "room": "Room",
   "assetSite": "Asset site",
-  "entity": "Entity"
+  "entity": "Entity",
+  "tag": "Tag",
+  "ifYouWishToEnterTheStickerNumberManually": "If you wish to enter the sticker number manually",
+  "searchForProduct": "Search for product"
 }

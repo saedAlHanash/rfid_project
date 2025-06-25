@@ -15,7 +15,7 @@ class CreateProductRequest {
 
   factory CreateProductRequest.fromProduct(Product product) {
     return CreateProductRequest(
-      id: product.id,
+      id: product.id.toString(),
     );
   }
 
@@ -23,4 +23,3 @@ class CreateProductRequest {
         "id": id,
       };
 }
-

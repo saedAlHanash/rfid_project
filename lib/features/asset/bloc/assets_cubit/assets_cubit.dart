@@ -9,6 +9,8 @@ import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:rfid_project/core/util/pair_class.dart';
 import 'package:rfid_project/features/asset/data/request/create_asset_request.dart';
 import 'package:rfid_project/features/asset/data/response/asset_response.dart';
+import 'package:rfid_project/features/entity/data/response/entity_response.dart';
+import 'package:rfid_project/features/product/data/response/product_response.dart';
 
 import '../../../../core/error/error_manager.dart';
 import '../../../../core/widgets/spinner_widget.dart';
@@ -66,19 +68,19 @@ class AssetsCubit extends MCubit<AssetsInitial> {
     await _updateState(response);
   }
 
-  Future<void> update() async {
-    emit(state.copyWith(statuses: CubitStatuses.loading, cubitCrud: CubitCrud.update));
+  Future<void> update(int id) async {
+    emit(state.copyWith(statuses: CubitStatuses.loading, cubitCrud: CubitCrud.update, id: id));
 
     final response = await APIService().callApi(
       type: ApiType.put,
       url: PutUrl.updateAsset,
-      query: {'id': state.cRequest.id},
-      body: state.cRequest.toJson(),
+      body: state.cRequest.toJsonUpdate(),
+      path: state.mId.toString(),
     );
     await _updateState(response);
   }
 
-  Future<void> delete({required String id}) async {
+  Future<void> delete({required int id}) async {
     emit(state.copyWith(statuses: CubitStatuses.loading, cubitCrud: CubitCrud.delete, id: id));
 
     final response = await APIService().callApi(
@@ -90,7 +92,7 @@ class AssetsCubit extends MCubit<AssetsInitial> {
     await _updateState(response, isDelete: true);
   }
 
-  Future<void> deleteNow({required String id}) async {
+  Future<void> deleteNow({required int id}) async {
     final index = state.result.indexWhere((element) => element.id == id);
     final item = state.result.removeAt(index);
 
@@ -120,6 +122,17 @@ class AssetsCubit extends MCubit<AssetsInitial> {
       showErrorFromApi(state);
       emit(state.copyWith(statuses: CubitStatuses.error));
     }
+  }
+
+  void setProduct(Product product) {
+    final request = CreateAssetRequest.fromJson({});
+    request.asset = product.asset;
+    request.room = product.room;
+    request.division = product.room.division;
+    request.department = product.room.division.department;
+    request.entity = product.room.division.department.entity;
+
+    emit(state.copyWith(cRequest: request, product: product));
   }
 
   //endregion

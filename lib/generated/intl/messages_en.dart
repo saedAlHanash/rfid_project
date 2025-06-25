@@ -262,6 +262,10 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "If you exit the application during the exam, the exam will be considered complete.",
         ),
+    "ifYouWishToEnterTheStickerNumberManually":
+        MessageLookupByLibrary.simpleMessage(
+          "If you wish to enter the sticker number manually",
+        ),
     "isSuccess": MessageLookupByLibrary.simpleMessage("Success!"),
     "is_required": MessageLookupByLibrary.simpleMessage("Required"),
     "ku": MessageLookupByLibrary.simpleMessage("Kurdish"),
@@ -388,6 +392,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "save_for_later": MessageLookupByLibrary.simpleMessage("Save For Later?"),
     "search": MessageLookupByLibrary.simpleMessage("Search"),
     "searchAbout": MessageLookupByLibrary.simpleMessage("Search about..."),
+    "searchForProduct": MessageLookupByLibrary.simpleMessage(
+      "Search for product",
+    ),
     "searchResult": MessageLookupByLibrary.simpleMessage("Search Result"),
     "search_In_All": MessageLookupByLibrary.simpleMessage("Search In All"),
     "second": MessageLookupByLibrary.simpleMessage("second"),
@@ -454,6 +461,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "successfully": MessageLookupByLibrary.simpleMessage("Successfully."),
     "summaries": MessageLookupByLibrary.simpleMessage("Summaries"),
     "support": MessageLookupByLibrary.simpleMessage("Support"),
+    "tag": MessageLookupByLibrary.simpleMessage("Tag"),
     "teacher": MessageLookupByLibrary.simpleMessage("Teacher"),
     "teacherOf": MessageLookupByLibrary.simpleMessage("Teacher of:"),
     "teachers": MessageLookupByLibrary.simpleMessage("Teachers"),

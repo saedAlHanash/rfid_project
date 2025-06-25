@@ -318,3 +318,9 @@ enum QuestionType {
     }
   }
 }
+
+enum ActionType {
+  move,
+  update,
+  delete;
+}

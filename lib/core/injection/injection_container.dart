@@ -26,6 +26,7 @@ import '../../features/report/bloc/report_cubit/report_cubit.dart';
 import '../../features/report/bloc/reports_cubit/reports_cubit.dart';
 import '../../features/room/bloc/room_cubit/room_cubit.dart';
 import '../../features/room/bloc/rooms_cubit/rooms_cubit.dart';
+import '../../features/scan/bloc/scan_cubit/scan_cubit.dart';
 import '../../main.dart';
 import '../app/bloc/loading_cubit.dart';
 
@@ -73,7 +74,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GlobalKey<NavigatorState>());
 
   sl.registerLazySingleton(() => HomeCubit());
-  sl.registerSingleton(() => RfidReader());
+  sl.registerFactory(() => ScanCubit());
 
   //endregion
 

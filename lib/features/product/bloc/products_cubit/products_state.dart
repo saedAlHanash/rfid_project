@@ -15,13 +15,14 @@ class ProductsInitial extends AbstractState<List<Product>> {
   factory ProductsInitial.initial() {
     return ProductsInitial(
       result: [],
+      id: 0,
       createUpdateRequest: CreateProductRequest.fromJson({}),
     );
   }
 
   CreateProductRequest get cRequest => createUpdateRequest;
 
-  String get mId => id;
+  int get mId => id;
 
   @override
   List<Object> get props => [

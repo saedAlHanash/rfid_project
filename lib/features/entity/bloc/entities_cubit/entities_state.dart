@@ -9,9 +9,10 @@ class EntitiesInitial extends AbstractState<List<Entity>> {
     super.cubitCrud,
     super.createUpdateRequest,
     super.statuses,
+    this.selectedId,
     super.id,
   });
-
+  final int? selectedId;
   factory EntitiesInitial.initial() {
     return EntitiesInitial(
       result: [],
@@ -26,6 +27,7 @@ class EntitiesInitial extends AbstractState<List<Entity>> {
   @override
   List<Object> get props => [
         statuses,
+        if (selectedId != null) selectedId!,
         result,
         error,
         cubitCrud,
@@ -36,12 +38,11 @@ class EntitiesInitial extends AbstractState<List<Entity>> {
       ];
 
   List<SpinnerItem> getSpinnerItems({int? selectedId}) {
-    loggerObject.w(result.length);
     return List<SpinnerItem>.from(
       result.map(
         (e) => SpinnerItem(
           id: e.id,
-          isSelected: e.id == selectedId,
+          isSelected: e.id == (this.selectedId ?? selectedId),
           name: e.name,
           item: e,
         ),
@@ -51,6 +52,7 @@ class EntitiesInitial extends AbstractState<List<Entity>> {
 
   EntitiesInitial copyWith({
     CubitStatuses? statuses,
+    int? selectedId,
     CubitCrud? cubitCrud,
     List<Entity>? result,
     String? error,
@@ -61,6 +63,7 @@ class EntitiesInitial extends AbstractState<List<Entity>> {
   }) {
     return EntitiesInitial(
       statuses: statuses ?? this.statuses,
+      selectedId: selectedId ?? this.selectedId,
       cubitCrud: cubitCrud ?? this.cubitCrud,
       result: result ?? this.result,
       error: error ?? this.error,
