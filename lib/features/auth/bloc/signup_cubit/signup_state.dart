@@ -19,19 +19,6 @@ class SignupInitial extends AbstractState<bool> {
   }
 
   bool get canSend {
-    loggerObject.w('''
-    request.name: ${!request.name.isBlank}
-request.location: ${request.location != null}
-request.gender: ${request.gender != null}
-request.birthday: ${request.birthday != null}
-request.phone: ${!request.phone.isBlank}
-request.password: ${!request.password.isBlank}
-request.rePassword: ${!request.rePassword.isBlank}
-request.password: ${request.password == request.rePassword}
-request.governorateId: ${request.governorateId != null}
-request.educationalGradeId: ${request.educationalGradeId != null}
-    
-    ''');
     return !request.name.isBlank &&
         request.location != null &&
         request.gender != null &&

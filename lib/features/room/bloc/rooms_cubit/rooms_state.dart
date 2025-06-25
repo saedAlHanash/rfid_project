@@ -9,9 +9,11 @@ class RoomsInitial extends AbstractState<List<Room>> {
     super.cubitCrud,
     super.createUpdateRequest,
     super.statuses,
+    this.selectedId,
     super.id,
   });
 
+  final int? selectedId;
   factory RoomsInitial.initial() {
     return RoomsInitial(result: [], createUpdateRequest: CreateRoomRequest.fromJson({}));
   }
@@ -23,6 +25,7 @@ class RoomsInitial extends AbstractState<List<Room>> {
   @override
   List<Object> get props => [
         statuses,
+        if (selectedId != null) selectedId!,
         result,
         error,
         cubitCrud,
@@ -37,7 +40,7 @@ class RoomsInitial extends AbstractState<List<Room>> {
       result.map(
         (e) => SpinnerItem(
           id: e.id,
-          isSelected: e.id == selectedId,
+          isSelected: e.id == (this.selectedId ?? selectedId),
           name: e.name,
           item: e,
         ),
@@ -47,6 +50,7 @@ class RoomsInitial extends AbstractState<List<Room>> {
 
   RoomsInitial copyWith({
     CubitStatuses? statuses,
+    int? selectedId,
     CubitCrud? cubitCrud,
     List<Room>? result,
     String? error,
@@ -57,6 +61,7 @@ class RoomsInitial extends AbstractState<List<Room>> {
   }) {
     return RoomsInitial(
       statuses: statuses ?? this.statuses,
+      selectedId: selectedId ?? this.selectedId,
       cubitCrud: cubitCrud ?? this.cubitCrud,
       result: result ?? this.result,
       error: error ?? this.error,

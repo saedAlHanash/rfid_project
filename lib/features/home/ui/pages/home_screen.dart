@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_multi_type/image_multi_type.dart';
+import 'package:rfid_project/core/api_manager/api_service.dart';
 import 'package:rfid_project/core/app/app_provider.dart';
 import 'package:rfid_project/core/strings/app_color_manager.dart';
+import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:rfid_project/core/util/my_style.dart';
 import 'package:rfid_project/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:rfid_project/core/widgets/my_button.dart';
@@ -67,13 +69,12 @@ class HomeScreen extends StatelessWidget {
                         ),
                         _Item(
                           image: Assets.imagesEdit,
-                          title: 'اختبار المسح الجديد',
+                          title: S.of(context).editProduct,
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return TestScan();
-                              },
-                            ));
+                            context.pushNamed(
+                              RouteName.findAsset,
+                              queryParameters: {'actionType': ActionType.update.index.toString()},
+                            );
                           },
                         ),
                       ],
@@ -85,13 +86,23 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         _Item(
                           image: Assets.imagesTransfare,
-                          title: S.of(context).removeProduct,
-                          onTap: () {},
+                          title: S.of(context).transferProduct,
+                          onTap: () {
+                            context.pushNamed(
+                              RouteName.findAsset,
+                              queryParameters: {'actionType': ActionType.move.index.toString()},
+                            );
+                          },
                         ),
                         _Item(
                           image: Assets.imagesDelete,
-                          title: S.of(context).transferProduct,
-                          onTap: () {},
+                          title: S.of(context).removeProduct,
+                          onTap: () {
+                            context.pushNamed(
+                              RouteName.findAsset,
+                              queryParameters: {'actionType': ActionType.delete.index.toString()},
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -108,7 +119,9 @@ class HomeScreen extends StatelessWidget {
                         _Item(
                           image: Assets.imagesGetReports,
                           title: S.of(context).assetInventory,
-                          onTap: () {},
+                          onTap: () {
+                            context.pushNamed(RouteName.assets);
+                          },
                         ),
                       ],
                     ),
@@ -175,43 +188,6 @@ class _TestScanState extends State<TestScan> {
   var isInit = false;
   var isRead = false;
 
-  void getStatus() {
-    RfidReader.getStatus().then(
-      (value) {
-        setState(() {
-          isRead = value;
-        });
-      },
-    );
-  }
-
-  @override
-  void dispose() {
-    RfidReader.clear();
-    RfidReader.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    Future(() async {
-      await RfidReader.init();
-      setState(() => isInit = true);
-    });
-
-    Timer.periodic(
-      Duration(seconds: 1),
-      (timer) async {
-        getStatus();
-        if (!isRead) return;
-        l = (await RfidReader.getData());
-        setState(() {});
-      },
-    );
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -219,10 +195,7 @@ class _TestScanState extends State<TestScan> {
       body: Column(
         children: [
           MyButton(
-            onTap: () {
-              RfidReader.readOrStop();
-              getStatus();
-            },
+            onTap: () {},
             text: isRead ? 'ايقاف' : 'بدأ',
           ),
           Expanded(

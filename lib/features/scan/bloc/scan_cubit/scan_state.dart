@@ -1,9 +1,8 @@
-part of 'divisions_cubit.dart';
+part of 'scan_cubit.dart';
 
-class DivisionsInitial extends AbstractState<List<Division>> {
-  const DivisionsInitial({
+class ScanInitial extends AbstractState<List<String>> {
+  const ScanInitial({
     required super.result,
-    this.selectedId,
     super.error,
     super.request,
     super.filterRequest,
@@ -11,20 +10,17 @@ class DivisionsInitial extends AbstractState<List<Division>> {
     super.createUpdateRequest,
     super.statuses,
     super.id,
+    required this.isRead,
   });
 
-  final int? selectedId;
+  final bool isRead;
 
-  factory DivisionsInitial.initial() {
-    return DivisionsInitial(
+  factory ScanInitial.initial() {
+    return const ScanInitial(
       result: [],
-      createUpdateRequest: CreateDivisionRequest.fromJson({}),
+      isRead: false,
     );
   }
-
-  CreateDivisionRequest get cRequest => createUpdateRequest;
-
-  String get mId => id;
 
   @override
   List<Object> get props => [
@@ -32,47 +28,33 @@ class DivisionsInitial extends AbstractState<List<Division>> {
         result,
         error,
         cubitCrud,
+        isRead,
         if (id != null) id,
-        if (selectedId != null) selectedId!,
         if (request != null) request,
         if (filterRequest != null) filterRequest!,
         if (createUpdateRequest != null) createUpdateRequest!,
       ];
 
-  List<SpinnerItem> getSpinnerItems({int? selectedId}) {
-    return List<SpinnerItem>.from(
-      result.map(
-        (e) => SpinnerItem(
-          id: e.id,
-          isSelected: e.id == (this.selectedId ?? selectedId),
-          name: e.name,
-          item: e,
-        ),
-      ),
-    );
-  }
-
-  DivisionsInitial copyWith({
+  ScanInitial copyWith({
     CubitStatuses? statuses,
     CubitCrud? cubitCrud,
-    List<Division>? result,
+    List<String>? result,
+    bool? isRead,
     String? error,
     FilterRequest? filterRequest,
     dynamic request,
     dynamic cRequest,
     dynamic id,
-    int? selectedId,
   }) {
-    return DivisionsInitial(
+    return ScanInitial(
       statuses: statuses ?? this.statuses,
       cubitCrud: cubitCrud ?? this.cubitCrud,
       result: result ?? this.result,
       error: error ?? this.error,
       filterRequest: filterRequest ?? this.filterRequest,
       request: request ?? this.request,
-      createUpdateRequest: cRequest ?? this.cRequest,
+      isRead: isRead ?? this.isRead,
       id: id ?? this.id,
-      selectedId: selectedId ?? this.selectedId,
     );
   }
 }

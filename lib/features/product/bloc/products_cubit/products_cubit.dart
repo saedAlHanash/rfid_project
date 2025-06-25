@@ -25,7 +25,8 @@ class ProductsCubit extends MCubit<ProductsInitial> {
 
   void getDataFromCache() => getFromCache(fromJson: Product.fromJson, state: state);
 
-  Future<void> getData({bool newData = false}) async {
+  Future<void> getData({bool newData = true, int? productId, String? tag}) async {
+    emit(state.copyWith(id: productId, request: tag));
     await getDataAbstract(
       fromJson: Product.fromJson,
       state: state,
@@ -36,13 +37,20 @@ class ProductsCubit extends MCubit<ProductsInitial> {
 
   Future<Pair<List<Product>?, String?>> _getData() async {
     final response = await APIService().callApi(
-      type: ApiType.post,
+      type: ApiType.get,
       url: PostUrl.products,
-      body: state.filterRequest?.toJson() ?? {},
+      query: {
+        if (state.mId > 0) ...{
+          'filters[0][name]': 'room_id',
+          'filters[0][operation]': '=',
+          'filters[0][value]': state.mId,
+        },
+        'keyword': state.request,
+      },
     );
 
     if (response.statusCode.success) {
-      return Pair(Products.fromJson(response.jsonBody).items, null);
+      return Pair(Products.fromJson(response.jsonBody).data, null);
     } else {
       return response.getPairError;
     }
@@ -100,7 +108,7 @@ class ProductsCubit extends MCubit<ProductsInitial> {
     );
 
     if (response.statusCode.success) {
-      await deleteProductFromCache(item.id);
+      await deleteProductFromCache(item.id.toString());
     } else {
       showErrorFromApi(state);
       state.result.insert(index, item);

@@ -3,7 +3,7 @@ class GetUrl {
   static const room = 'Room/Get';
   static const division = 'Division/Get';
   static const department = 'Department/Get';
-  static const product = 'product/Get';
+  static const product = 'asset-item';
   static const report = 'report/Get';
   static const asset = 'asset';
   static const assets = 'asset';
@@ -39,7 +39,7 @@ class PostUrl {
   static const createDivision = 'Division/Add';
   static const departments = 'department';
   static const createDepartment = 'Department/Add';
-  static const products = 'product/GetAll';
+  static const products = 'asset-item';
   static const createProduct = 'product/Add';
 
   static const reports = 'report/GetAll';
@@ -74,7 +74,7 @@ class PutUrl {
   static const updateProduct = 'product/Update';
 
   static const updateReport = 'report/Update';
-  static const updateAsset = 'asset/Update';
+  static const updateAsset = 'asset-item';
 
 //
 }

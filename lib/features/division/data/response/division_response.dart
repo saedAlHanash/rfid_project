@@ -29,7 +29,7 @@ class Division {
 
   final int id;
   final String name;
-  final Department? department;
+  final Department department;
   final num assetsCount;
   final String createdAt;
 
@@ -37,7 +37,7 @@ class Division {
     return Division(
       id: json["id"] ?? 0,
       name: json["name"] ?? "",
-      department: json["department"] == null ? null : Department.fromJson(json["department"]),
+      department:Department.fromJson(json["department"]??{}),
       assetsCount: json["assets_count"] ?? 0,
       createdAt: json["created_at"] ?? "",
     );

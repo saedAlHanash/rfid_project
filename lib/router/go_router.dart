@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rfid_project/features/asset/ui/pages/add_asset_page.dart';
+import 'package:rfid_project/core/api_manager/api_service.dart';
+import 'package:rfid_project/features/product/ui/pages/add_product_page.dart';
+import 'package:rfid_project/features/product/ui/pages/find_product.dart';
 import 'package:rfid_project/features/auth/ui/pages/splash_screen_page.dart';
 import 'package:rfid_project/features/home/ui/widget/screens/menu_screen.dart';
+import 'package:rfid_project/features/product/ui/pages/move_product_page.dart';
 
 import '../core/injection/injection_container.dart';
+import '../core/strings/enum_manager.dart';
 import '../features/asset/bloc/asset_cubit/asset_cubit.dart';
+import '../features/asset/bloc/assets_cubit/assets_cubit.dart';
 import '../features/asset/ui/pages/asset_page.dart';
+import '../features/asset/ui/pages/assets_page.dart';
+import '../features/product/ui/pages/delete_product.dart';
+import '../features/product/ui/pages/edit_product_page.dart';
 import '../features/asset/ui/pages/scan_page.dart';
 import '../features/auth/bloc/login_cubit/login_cubit.dart';
 import '../features/auth/bloc/signup_cubit/signup_cubit.dart';
@@ -28,6 +36,7 @@ import '../features/entity/ui/pages/entity_page.dart';
 import '../features/home/ui/pages/home_page.dart';
 import '../features/product/bloc/product_cubit/product_cubit.dart';
 import '../features/product/bloc/products_cubit/products_cubit.dart';
+import '../features/product/data/response/product_response.dart';
 import '../features/product/ui/pages/product_page.dart';
 import '../features/product/ui/pages/products_page.dart';
 import '../features/report/bloc/report_cubit/report_cubit.dart';
@@ -201,10 +210,74 @@ final goRouter = GoRouter(
         return MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (_) => sl<ProductCubit>()..getData(productId: productId),
+              create: (_) => sl<ProductCubit>()..getData(),
             ),
           ],
           child: ProductPage(),
+        );
+      },
+    ),
+
+    ///deleteProduct
+    GoRoute(
+      path: RouteName.deleteProduct,
+      name: RouteName.deleteProduct,
+      builder: (_, state) {
+        final product = state.extra as Product;
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => sl<ProductsCubit>(),
+            ),
+          ],
+          child: DeleteProduct(product: product),
+        );
+      },
+    ),
+
+    ///moveProduct
+    GoRoute(
+      path: RouteName.moveProduct,
+      name: RouteName.moveProduct,
+      builder: (context, state) {
+        final product = state.extra as Product;
+
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => sl<AssetsCubit>()
+                ..setProduct(product)
+                ..getData(),
+            ),
+            BlocProvider(
+              create: (_) => sl<DepartmentsCubit>()
+                ..getData(
+                  id: product.room.division.department.entity.id,
+                  selectedId: product.room.division.department.id,
+                ),
+            ),
+            BlocProvider(
+              create: (_) => sl<DivisionsCubit>()
+                ..getData(
+                  id: product.room.division.department.id,
+                  selectedId: product.room.division.id,
+                ),
+            ),
+            BlocProvider(
+              create: (_) => sl<RoomsCubit>()
+                ..getData(
+                  id: product.room.division.id,
+                  selectedId: product.room.id,
+                ),
+            ),
+            BlocProvider(
+              create: (_) => sl<EntitiesCubit>()
+                ..getData(
+                  selectedId: product.room.division.department.entity.id,
+                ),
+            ),
+          ],
+          child: MoveProductPage(),
         );
       },
     ),
@@ -283,22 +356,22 @@ final goRouter = GoRouter(
 
     ///scan
     GoRoute(
-      path: RouteName.scan,
-      name: RouteName.scan,
+      path: RouteName.assets,
+      name: RouteName.assets,
       builder: (_, state) {
         return MultiBlocProvider(
           providers: [
             BlocProvider(create: (_) => sl<AssetCubit>()),
           ],
-          child: AssetPage(),
+          child: AssetsPage(),
         );
       },
     ),
 
     ///assets
     GoRoute(
-      path: RouteName.assets,
-      name: RouteName.assets,
+      path: RouteName.scan,
+      name: RouteName.scan,
       builder: (_, state) {
         return MultiBlocProvider(
           providers: [
@@ -322,10 +395,77 @@ final goRouter = GoRouter(
             BlocProvider(create: (_) => sl<DivisionsCubit>()),
             BlocProvider(create: (_) => sl<RoomsCubit>()),
           ],
-          child: AddAssetPage(),
+          child: AddProductPage(),
         );
       },
     ),
+
+    ///findAsset
+    GoRoute(
+      path: RouteName.findAsset,
+      name: RouteName.findAsset,
+      builder: (_, state) {
+        final actionType =
+            ActionType.values[int.tryParse(state.uri.queryParameters['actionType'] ?? '0') ?? 0];
+        loggerObject.w(actionType);
+        loggerObject.w(state.uri.queryParameters['actionType']);
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => sl<AssetsCubit>()),
+            BlocProvider(create: (_) => sl<ProductsCubit>()),
+          ],
+          child: FinedProductPage(actionType: actionType),
+        );
+      },
+    ),
+
+    ///editAsset
+    GoRoute(
+      path: RouteName.editAsset,
+      name: RouteName.editAsset,
+      builder: (context, state) {
+        final product = state.extra as Product;
+
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => sl<AssetsCubit>()
+                ..setProduct(product)
+                ..getData(),
+            ),
+            BlocProvider(
+              create: (_) => sl<DepartmentsCubit>()
+                ..getData(
+                  id: product.room.division.department.entity.id,
+                  selectedId: product.room.division.department.id,
+                ),
+            ),
+            BlocProvider(
+              create: (_) => sl<DivisionsCubit>()
+                ..getData(
+                  id: product.room.division.department.id,
+                  selectedId: product.room.division.id,
+                ),
+            ),
+            BlocProvider(
+              create: (_) => sl<RoomsCubit>()
+                ..getData(
+                  id: product.room.division.id,
+                  selectedId: product.room.id,
+                ),
+            ),
+            BlocProvider(
+              create: (_) => sl<EntitiesCubit>()
+                ..getData(
+                  selectedId: product.room.division.department.entity.id,
+                ),
+            ),
+          ],
+          child: EditProductPage(),
+        );
+      },
+    ),
+
     //endregion
 
     //region splash
@@ -435,4 +575,8 @@ class RouteName {
   // static const map = '/map';
   static const settings = '/settings';
   static const scan = '/scan';
+  static const findAsset = '/findAsset';
+  static const editAsset = '/editAsset';
+  static const deleteProduct = '/deleteProduct';
+  static const moveProduct = '/moveProduct';
 }

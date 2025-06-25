@@ -3,25 +3,32 @@ part of 'assets_cubit.dart';
 class AssetsInitial extends AbstractState<List<Asset>> {
   const AssetsInitial({
     required super.result,
+    required this.product,
     super.error,
     super.request,
     super.filterRequest,
     super.cubitCrud,
     super.createUpdateRequest,
     super.statuses,
-    super.id,
+    required super.id,
   });
+
+  final Product product;
 
   factory AssetsInitial.initial() {
     return AssetsInitial(
       result: [],
+      id: 0,
+      product: Product.fromJson({}),
       createUpdateRequest: CreateAssetRequest.fromJson({}),
     );
   }
 
-  CreateAssetRequest get cRequest => createUpdateRequest;
+  CreateAssetRequest get cRequest {
+    return createUpdateRequest as CreateAssetRequest;
+  }
 
-  String get mId => id;
+  int get mId => id;
 
   @override
   List<Object> get props => [
@@ -29,6 +36,7 @@ class AssetsInitial extends AbstractState<List<Asset>> {
         result,
         error,
         cubitCrud,
+        product,
         if (id != null) id,
         if (request != null) request,
         if (filterRequest != null) filterRequest!,
@@ -40,7 +48,7 @@ class AssetsInitial extends AbstractState<List<Asset>> {
       result.map(
         (e) => SpinnerItem(
           id: e.id,
-          isSelected: e.id == selectedId,
+          isSelected: e.id == (selectedId ?? product.asset.id),
           name: e.name,
           icon: RoundImageWidget(url: e.image, width: 24.0.r),
           item: e,
@@ -56,8 +64,9 @@ class AssetsInitial extends AbstractState<List<Asset>> {
     String? error,
     FilterRequest? filterRequest,
     dynamic request,
-    dynamic cRequest,
-    dynamic id,
+    Product? product,
+    CreateAssetRequest? cRequest,
+    int? id,
   }) {
     return AssetsInitial(
       statuses: statuses ?? this.statuses,
@@ -68,6 +77,7 @@ class AssetsInitial extends AbstractState<List<Asset>> {
       request: request ?? this.request,
       createUpdateRequest: cRequest ?? this.cRequest,
       id: id ?? this.id,
+      product: product ?? this.product,
     );
   }
 }

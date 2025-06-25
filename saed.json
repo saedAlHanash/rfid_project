@@ -1,11 +1,44 @@
 {
-  "entity_id": 3,
-  "department_id": 3,
-  "division_id": 3,
-  "asset_id": 3,
-  "room_id": 5,
-  "labels": [
-    "EB2HZ3KTC5X1BAEGUEALTZOY",
-    "37Z616KE5RGWXFTOO4CATCQ3"
+  "data": [
+    {
+      "id": 3,
+      "name": "\u063a\u0631\u0641\u0629 1",
+      "division": {
+        "id": 2,
+        "name": "\u0634\u0639\u0628\u0629 \u0627\u0644\u062d\u0648\u0627\u0641\u0632 \u0648\u0627\u0644\u0623\u0631\u0628\u0627\u062d",
+        "department": {
+          "id": 1,
+          "name": "\u0642\u0633\u0645 \u062d\u0633\u0627\u0628\u0627\u062a \u0627\u0644\u0623\u0641\u0631\u0627\u062f",
+          "entity": {
+            "id": 1,
+            "name": "\u0647\u064a\u0626\u0629 \u0627\u0644\u0634\u0624\u0648\u0646 \u0627\u0644\u0645\u0627\u0644\u064a\u0629"
+          },
+          "created_at": "2025-06-01 | 1:59 pm"
+        },
+        "assets_count": 0,
+        "created_at": "2025-06-01 | 1:59 pm"
+      },
+      "asset_items_count": 1
+    },
+    {
+      "id": 4,
+      "name": "غرفة 2",
+      "division": {
+        "id": 2,
+        "name": "\u0634\u0639\u0628\u0629 \u0627\u0644\u062d\u0648\u0627\u0641\u0632 \u0648\u0627\u0644\u0623\u0631\u0628\u0627\u062d",
+        "department": {
+          "id": 1,
+          "name": "\u0642\u0633\u0645 \u062d\u0633\u0627\u0628\u0627\u062a \u0627\u0644\u0623\u0641\u0631\u0627\u062f",
+          "entity": {
+            "id": 1,
+            "name": "\u0647\u064a\u0626\u0629 \u0627\u0644\u0634\u0624\u0648\u0646 \u0627\u0644\u0645\u0627\u0644\u064a\u0629"
+          },
+          "created_at": "2025-06-01 | 1:59 pm"
+        },
+        "assets_count": 0,
+        "created_at": "2025-06-01 | 1:59 pm"
+      },
+      "asset_items_count": 1
+    }
   ]
 }

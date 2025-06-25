@@ -26,7 +26,8 @@ class EntitiesCubit extends MCubit<EntitiesInitial> {
 
   void getDataFromCache() => getFromCache(fromJson: Entity.fromJson, state: state);
 
-  Future<void> getData({bool newData = false}) async {
+  Future<void> getData({bool newData = false, int? selectedId}) async {
+    emit(state.copyWith(selectedId: selectedId));
     await getDataAbstract(
       fromJson: Entity.fromJson,
       state: state,

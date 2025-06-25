@@ -2429,6 +2429,31 @@ class S {
   String get entity {
     return Intl.message('Entity', name: 'entity', desc: '', args: []);
   }
+
+  /// `Tag`
+  String get tag {
+    return Intl.message('Tag', name: 'tag', desc: '', args: []);
+  }
+
+  /// `If you wish to enter the sticker number manually`
+  String get ifYouWishToEnterTheStickerNumberManually {
+    return Intl.message(
+      'If you wish to enter the sticker number manually',
+      name: 'ifYouWishToEnterTheStickerNumberManually',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search for product`
+  String get searchForProduct {
+    return Intl.message(
+      'Search for product',
+      name: 'searchForProduct',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

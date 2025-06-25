@@ -16,10 +16,10 @@ class CreateAssetRequest {
   });
 
   int id;
+  Asset asset;
   Entity entity;
   Department department;
   Division division;
-  Asset asset;
   Room room;
   final List<String> labels;
 
@@ -33,16 +33,7 @@ class CreateAssetRequest {
       room: json["room"] ?? Room.fromJson({}),
       labels: json["labels"] == null
           ? [
-              "EB2HZ3KTC5X1BAEGUEALTZOY",
-              "37Z616KE5RGWXFTOO4CATCQ3",
-              "ZQXQOYBTVL4R5WGYRD9SDXTS",
-              "8BG5EQ1US8XUIMPWIRL1LPZ2",
-              "3PJ18WVXWAFP1SFN5NZS6KTB",
-              "4NJLM5XXPK48CQXYMZ7BXVPP",
-              "DDECCKX2H5BMM3G8NMTNA699",
-              "DD2TU8Z3F31LMPY87ME0BGOS",
-              "GX9VK5DC3EGY5QDKBY324DQ7",
-              "NIXG8R44TKT1J9FIOKIFFKC9",
+              'EB23Z3KTC5X1BAEGUEALTZOY',
             ]
           : List<String>.from(json["labels"]!.map((x) => x)),
     );
@@ -56,5 +47,14 @@ class CreateAssetRequest {
         "asset_id": asset.id,
         "room_id": room.id,
         "labels": labels.map((x) => x).toList(),
+      };
+  Map<String, dynamic> toJsonUpdate() => {
+        "id": id,
+        "entity_id": entity.id,
+        "department_id": department.id,
+        "division_id": division.id,
+        "asset_id": asset.id,
+        "room_id": room.id,
+        "label": labels.first,
       };
 }
