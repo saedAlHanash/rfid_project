@@ -45,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "assetInventory": MessageLookupByLibrary.simpleMessage("Asset inventory"),
     "assetName": MessageLookupByLibrary.simpleMessage("Asset name"),
     "assetSite": MessageLookupByLibrary.simpleMessage("Asset site"),
+    "assetStatus": MessageLookupByLibrary.simpleMessage("Asset status"),
     "at": MessageLookupByLibrary.simpleMessage("At"),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
     "bandtech": MessageLookupByLibrary.simpleMessage("Bandtech"),
@@ -77,6 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "choosing": MessageLookupByLibrary.simpleMessage("Choosing"),
     "city": MessageLookupByLibrary.simpleMessage("City"),
+    "clear": MessageLookupByLibrary.simpleMessage("clear"),
     "clickToUpdate": MessageLookupByLibrary.simpleMessage("Click To Update"),
     "closed": MessageLookupByLibrary.simpleMessage("Closed"),
     "codeSentToEmail": MessageLookupByLibrary.simpleMessage(
@@ -282,6 +284,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "minute": MessageLookupByLibrary.simpleMessage("minute"),
     "minutes": MessageLookupByLibrary.simpleMessage("Minutes"),
     "month": MessageLookupByLibrary.simpleMessage("month"),
+    "moveProduct": MessageLookupByLibrary.simpleMessage("Move product"),
     "multipleChoice": MessageLookupByLibrary.simpleMessage("Multiple choice"),
     "myCourses": MessageLookupByLibrary.simpleMessage("My courses"),
     "myInfo": MessageLookupByLibrary.simpleMessage("My Info"),
@@ -388,6 +391,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "reviewOrder": MessageLookupByLibrary.simpleMessage("Review Order"),
     "reviews": MessageLookupByLibrary.simpleMessage("Reviews"),
     "room": MessageLookupByLibrary.simpleMessage("Room"),
+    "save": MessageLookupByLibrary.simpleMessage("save"),
     "saveChange": MessageLookupByLibrary.simpleMessage("save change"),
     "save_for_later": MessageLookupByLibrary.simpleMessage("Save For Later?"),
     "search": MessageLookupByLibrary.simpleMessage("Search"),
@@ -435,9 +439,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "sorryThereAreNoWorkingPapersNow": MessageLookupByLibrary.simpleMessage(
       "Sorry, there are no working papers now.",
     ),
+    "start": MessageLookupByLibrary.simpleMessage("Start"),
     "startExam": MessageLookupByLibrary.simpleMessage("Start exam"),
     "startLesson": MessageLookupByLibrary.simpleMessage("Start lesson"),
     "startedAt": MessageLookupByLibrary.simpleMessage("Started at:"),
+    "stop": MessageLookupByLibrary.simpleMessage("Stop"),
     "subCategories": MessageLookupByLibrary.simpleMessage("Sub Categories"),
     "subTitleDeleteAccount": MessageLookupByLibrary.simpleMessage(
       "سوف يتم حذف الحساب بجميع البيانات والكورسات",

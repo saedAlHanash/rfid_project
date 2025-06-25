@@ -69,7 +69,8 @@ class AssetsCubit extends MCubit<AssetsInitial> {
   }
 
   Future<void> update(int id) async {
-    emit(state.copyWith(statuses: CubitStatuses.loading, cubitCrud: CubitCrud.update, id: id));
+    emit(state.copyWith(
+        statuses: CubitStatuses.loading, cubitCrud: CubitCrud.update, id: id));
 
     final response = await APIService().callApi(
       type: ApiType.put,
@@ -81,12 +82,14 @@ class AssetsCubit extends MCubit<AssetsInitial> {
   }
 
   Future<void> delete({required int id}) async {
-    emit(state.copyWith(statuses: CubitStatuses.loading, cubitCrud: CubitCrud.delete, id: id));
+    emit(state.copyWith(
+        statuses: CubitStatuses.loading, cubitCrud: CubitCrud.delete, id: id));
 
     final response = await APIService().callApi(
-      type: ApiType.delete,
+      type: ApiType.put,
       url: DeleteUrl.deleteAsset,
       query: {'id': state.id},
+      path: state.id.toString(),
     );
 
     await _updateState(response, isDelete: true);
@@ -116,7 +119,9 @@ class AssetsCubit extends MCubit<AssetsInitial> {
   Future<void> _updateState(Response response, {bool isDelete = false}) async {
     if (response.statusCode.success) {
       final item = Asset.fromJson(response.jsonBody);
-      isDelete ? await deleteAssetFromCache(state.id) : await addOrUpdateAssetToCache(item);
+      isDelete
+          ? await deleteAssetFromCache(state.id.toString())
+          : await addOrUpdateAssetToCache(item);
       emit(state.copyWith(statuses: CubitStatuses.done));
     } else {
       showErrorFromApi(state);
@@ -137,6 +142,9 @@ class AssetsCubit extends MCubit<AssetsInitial> {
 
   //endregion
 
+  //region setData
+
+  //endregion
   Future<void> addOrUpdateAssetToCache(Asset item) async {
     final listJson = await addOrUpdateDate([item]);
     if (listJson == null) return;

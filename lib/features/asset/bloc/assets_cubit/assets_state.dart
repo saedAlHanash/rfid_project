@@ -50,7 +50,7 @@ class AssetsInitial extends AbstractState<List<Asset>> {
           id: e.id,
           isSelected: e.id == (selectedId ?? product.asset.id),
           name: e.name,
-          icon: RoundImageWidget(url: e.image, width: 24.0.r),
+          icon: RoundImageWidget(url: e.image, width: 30.0.r, height: 30.0.r),
           item: e,
         ),
       ),

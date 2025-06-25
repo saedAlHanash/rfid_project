@@ -2454,6 +2454,46 @@ class S {
       args: [],
     );
   }
+
+  /// `clear`
+  String get clear {
+    return Intl.message('clear', name: 'clear', desc: '', args: []);
+  }
+
+  /// `Start`
+  String get start {
+    return Intl.message('Start', name: 'start', desc: '', args: []);
+  }
+
+  /// `save`
+  String get save {
+    return Intl.message('save', name: 'save', desc: '', args: []);
+  }
+
+  /// `Stop`
+  String get stop {
+    return Intl.message('Stop', name: 'stop', desc: '', args: []);
+  }
+
+  /// `Asset status`
+  String get assetStatus {
+    return Intl.message(
+      'Asset status',
+      name: 'assetStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Move product`
+  String get moveProduct {
+    return Intl.message(
+      'Move product',
+      name: 'moveProduct',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -87,7 +87,7 @@ class DeleteUrl {
   static const deleteProduct = 'product/Delete';
 
   static const deleteReport = 'report/Delete';
-  static const deleteAsset = 'asset/Delete';
+  static const deleteAsset = 'asset-item/damage';
 
   static var deleteMyAccount = '';
 

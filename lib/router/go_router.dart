@@ -277,7 +277,7 @@ final goRouter = GoRouter(
                 ),
             ),
           ],
-          child: MoveProductPage(),
+          child: MoveProductPage(product: product),
         );
       },
     ),
@@ -405,8 +405,8 @@ final goRouter = GoRouter(
       path: RouteName.findAsset,
       name: RouteName.findAsset,
       builder: (_, state) {
-        final actionType =
-            ActionType.values[int.tryParse(state.uri.queryParameters['actionType'] ?? '0') ?? 0];
+        final actionType = ActionType
+            .values[int.tryParse(state.uri.queryParameters['actionType'] ?? '0') ?? 0];
         loggerObject.w(actionType);
         loggerObject.w(state.uri.queryParameters['actionType']);
         return MultiBlocProvider(

@@ -57,6 +57,10 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
                     case "getData":
 
                         result.success(GetData());
+                    case "clear":
+                        Clear();
+                        result.success(true);
+
                         break;
                     case "setReadType":
                         if (call.arguments instanceof Integer) {

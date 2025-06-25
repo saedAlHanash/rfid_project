@@ -14,7 +14,8 @@ import '../widgets/my_button.dart';
 import '../widgets/snake_bar_widget.dart';
 
 class NoteMessage {
-  static void showSuccessSnackBar({required String message, required BuildContext context}) {
+  static void showSuccessSnackBar(
+      {required String message, required BuildContext context}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message, style: const TextStyle(color: Colors.white)),
@@ -23,7 +24,8 @@ class NoteMessage {
     );
   }
 
-  static void showErrorSnackBar({required String message, required BuildContext context}) {
+  static void showErrorSnackBar(
+      {required String message, required BuildContext context}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message, style: const TextStyle(color: Colors.white)),
@@ -80,7 +82,8 @@ class NoteMessage {
           surfaceTintColor: Colors.white,
           backgroundColor: Colors.white,
           alignment: Alignment.center,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0.r))),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0.r))),
           elevation: 10.0,
           clipBehavior: Clip.hardEdge,
           child: Padding(
@@ -126,7 +129,8 @@ class NoteMessage {
           surfaceTintColor: Colors.white,
           backgroundColor: Colors.white,
           alignment: Alignment.center,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0.r))),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12.0.r))),
           elevation: 10.0,
           clipBehavior: Clip.hardEdge,
           child: Column(
@@ -172,7 +176,8 @@ class NoteMessage {
           surfaceTintColor: Colors.white,
           backgroundColor: Colors.white,
           alignment: Alignment.center,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0.r))),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12.0.r))),
           elevation: 10.0,
           clipBehavior: Clip.hardEdge,
           child: Column(
@@ -216,7 +221,8 @@ class NoteMessage {
           surfaceTintColor: Colors.white,
           backgroundColor: Colors.white,
           alignment: Alignment.center,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0.r))),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0.r))),
           insetPadding: const EdgeInsets.all(20.0).r,
           elevation: 10.0,
           clipBehavior: Clip.hardEdge,
@@ -227,7 +233,8 @@ class NoteMessage {
     return (result ?? false);
   }
 
-  static Future<void> showAwesomeError({required BuildContext context, required String message}) async {
+  static Future<void> showAwesomeError(
+      {required BuildContext context, required String message}) async {
     await AwesomeDialog(
       context: context,
       dialogType: DialogType.error,
@@ -237,7 +244,8 @@ class NoteMessage {
     ).show();
   }
 
-  static showAwesomeDoneDialog(BuildContext context, {required String message, Function()? onCancel}) async {
+  static showAwesomeDoneDialog(BuildContext context,
+      {required String message, Function()? onCancel}) async {
     await AwesomeDialog(
       context: context,
       dialogType: DialogType.success,
@@ -252,7 +260,7 @@ class NoteMessage {
     BuildContext context, {
     required String text,
     required String textButton,
-    required dynamic image,
+    dynamic image,
     Function()? onConfirm,
   }) async {
     // show the dialog
@@ -265,7 +273,8 @@ class NoteMessage {
           child: Dialog(
             surfaceTintColor: Colors.white,
             alignment: Alignment.center,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0.r))),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0.r))),
             elevation: 10.0,
             clipBehavior: Clip.hardEdge,
             child: Column(
@@ -282,15 +291,15 @@ class NoteMessage {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      50.0.verticalSpace,
-                      image is Widget
-                          ? image
-                          : ImageMultiType(
-                              url: image,
-                              height: 60.0.r,
-                              width: 60.0.r,
-                              color: AppColorManager.mainColor,
-                            ),
+                      if (image != null)
+                        image is Widget
+                            ? image
+                            : ImageMultiType(
+                                url: image,
+                                height: 60.0.r,
+                                width: 60.0.r,
+                                color: AppColorManager.mainColor,
+                              ),
                       20.0.verticalSpace,
                       DrawableText(
                         text: text,
@@ -303,37 +312,25 @@ class NoteMessage {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0).r,
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0).r,
                   child: Row(
                     children: [
                       Expanded(
-                        flex: 3,
-                        child: InkWell(
-                          splashColor: Colors.transparent,
+                        child: MyButton(
+                          color: Colors.red,
                           onTap: () {
                             context.pop(true);
                             onConfirm?.call();
                           },
-                          child: DrawableText(
-                            padding: const EdgeInsets.symmetric(vertical: 23.0).r,
-                            text: textButton,
-                            color: AppColorManager.mainColorLight,
-                            fontFamily: FontManager.semeBold.name,
-                            matchParent: true,
-                          ),
+                          text: textButton,
                         ),
                       ),
+                      15.0.horizontalSpace,
                       Expanded(
-                        flex: 1,
-                        child: InkWell(
-                          splashColor: Colors.transparent,
+                        child: OutLineButton(
+
                           onTap: () => context.pop(false),
-                          child: DrawableText(
-                            padding: const EdgeInsets.symmetric(vertical: 23.0).r,
-                            color: Colors.grey,
-                            text: S.of(context).cancel,
-                            matchParent: true,
-                          ),
+                          text: 'No',
                         ),
                       ),
                     ],
@@ -347,7 +344,8 @@ class NoteMessage {
     );
   }
 
-  static showDoneDialog(BuildContext context, {required String text, Function()? onCancel}) {
+  static showDoneDialog(BuildContext context,
+      {required String text, Function()? onCancel}) {
     // show the dialog
     showDialog(
       context: context,
@@ -355,7 +353,8 @@ class NoteMessage {
       builder: (BuildContext context) {
         return Dialog(
           alignment: Alignment.center,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0.r))),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0.r))),
           elevation: 10.0,
           clipBehavior: Clip.hardEdge,
           child: Column(

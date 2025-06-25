@@ -147,7 +147,7 @@ class OutLineButton extends StatelessWidget {
 
     return SizedBox(
       width: width ?? .9.sw,
-      height: height,
+      height: height ?? 50.0.h,
       child: ElevatedButton(
         style: ButtonStyle(
           surfaceTintColor: WidgetStatePropertyAll(color ?? AppColorManager.whit),

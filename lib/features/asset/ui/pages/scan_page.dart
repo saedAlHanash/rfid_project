@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,16 +7,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:m_cubit/abstraction.dart';
-import 'package:rfid_project/core/api_manager/api_service.dart';
 import 'package:rfid_project/core/util/my_style.dart';
 import 'package:rfid_project/core/widgets/my_button.dart';
 import 'package:rfid_project/features/asset/ui/widgets/add_asset_info.dart';
+import 'package:rfid_project/features/scan/ui/widgets/scan_buttons.dart';
 import 'package:rfid_project/router/go_router.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/widgets/app_bar/app_bar_widget.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
+import '../../../scan/bloc/scan_cubit/scan_cubit.dart';
 import '../../bloc/assets_cubit/assets_cubit.dart';
 
 class ScanPage extends StatefulWidget {
@@ -25,14 +28,40 @@ class ScanPage extends StatefulWidget {
 }
 
 class _ScanPageState extends State<ScanPage> {
+  late final ScanCubit cubit;
+
+  Timer? t;
+
+  @override
+  void dispose() {
+    cubit.clear();
+    cubit.dispose();
+    t?.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    cubit = context.read<ScanCubit>();
+
+    t = Timer.periodic(
+      Duration(seconds: 1),
+      (timer) => cubit
+        ..getStatus()
+        ..getData(),
+    );
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
         BlocListener<AssetsCubit, AssetsInitial>(
-          listenWhen: (p, c) => c.done && c.cubitCrud == CubitCrud.create,
+          listenWhen: (p, c) => c.done,
           listener: (context, state) {
-            context.pushNamed(RouteName.assets);
+            context.pushReplacementNamed(RouteName.assets);
           },
         ),
       ],
@@ -54,80 +83,64 @@ class _ScanPageState extends State<ScanPage> {
                   AddAssetInfo(data: cState.cRequest),
                   20.0.verticalSpace,
                   DrawableText.title(text: 'Tag id'),
-                  ...cState.cRequest.labels.map(
-                    (e) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 15.0).r,
-                        margin: EdgeInsets.symmetric(vertical: 7.0).r,
-                        decoration: MyStyle.outlineBorder,
-                        child: DrawableText(
-                          text: e,
-                          matchParent: true,
-                          drawableEnd: InkWell(
-                            onTap: () {
-                              setState(() {
-                                cState.cRequest.labels.remove(e);
-                              });
+                  BlocBuilder<ScanCubit, ScanInitial>(
+                    builder: (context, state) {
+                      return Column(
+                        children: [
+                          ...state.result.map(
+                            (e) {
+                              return Container(
+                                padding: EdgeInsetsDirectional.only(start: 10.0),
+                                margin: EdgeInsets.symmetric(vertical: 7.0).r,
+                                decoration: MyStyle.outlineBorder,
+                                child: DrawableText(
+                                  text: e,
+                                  matchParent: true,
+                                  drawableEnd: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        cState.cRequest.labels.remove(e);
+                                      });
+                                    },
+                                    icon: ImageMultiType(
+                                      url: Assets.iconsTimes,
+                                    ),
+                                  ),
+                                ),
+                              );
                             },
-                            child: ImageMultiType(
-                              url: Assets.iconsTimes,
-                            ),
                           ),
-                        ),
+                        ],
                       );
                     },
                   ),
                   ImageMultiType(
                     url: Assets.iconsHotspot,
+                    height: 150.0.r,
+                    width: 150.0.r,
                   ),
                 ],
               );
             },
           ),
         ),
-        bottomNavigationBar: Container(
-          color: Colors.white,
-          padding: EdgeInsets.all(20.0).r,
-          child: Row(
-            children: [
-              Expanded(
-                flex: 5,
-                child: BlocBuilder<AssetsCubit, AssetsInitial>(
-                  builder: (context, state) {
-                    return MyButton(
-                      loading: state.loading,
-                      elevation: 0.0,
-                      onTap: () {
-                        context.read<AssetsCubit>().create();
-                      },
-                      icon: ImageMultiType(url: Assets.iconsFloppyDisk, height: 24.0, color: Colors.white),
-                      text: 'save',
-                    );
-                  },
-                ),
-              ),
-              15.0.horizontalSpace,
-              Expanded(
-                flex: 7,
-                child: MyButton(
-                  elevation: 0.0,
-                  onTap: () {},
-                  icon: ImageMultiType(url: Assets.iconsTrash, height: 24.0, color: Colors.white),
-                  text: 'clear',
-                ),
-              ),
-              15.0.horizontalSpace,
-              Expanded(
-                flex: 4,
-                child: MyButton(
-                  elevation: 0.0,
-                  color: Colors.red,
-                  onTap: () {},
-                  icon: ImageMultiType(url: Assets.iconsStopCircle, height: 24.0, color: Colors.white),
-                  text: 'Start',
-                ),
-              ),
-            ],
+        bottomNavigationBar: ScanButtons(
+          save: BlocBuilder<AssetsCubit, AssetsInitial>(
+            builder: (context, state) {
+              return MyButton(
+                loading: state.loading,
+                elevation: 0.0,
+                onTap: () {
+                  context.read<AssetsCubit>()
+                    ..state.cRequest.labels.clear()
+                    ..state.cRequest.labels.addAll(cubit.state.result)
+                    ..create();
+                },
+                icon: ImageMultiType(
+                    url: Assets.iconsFloppyDisk, height: 24.0, color: Colors.white),
+                text: S.of(context).save,
+              );
+            },
           ),
         ),
       ),

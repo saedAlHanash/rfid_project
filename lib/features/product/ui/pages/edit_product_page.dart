@@ -18,12 +18,69 @@ import '../../../department/data/response/department_response.dart';
 import '../../../division/bloc/divisions_cubit/divisions_cubit.dart';
 import '../../../division/data/response/division_response.dart';
 import '../../../entity/bloc/entities_cubit/entities_cubit.dart';
+import '../../../entity/data/response/entity_response.dart';
 import '../../../room/bloc/rooms_cubit/rooms_cubit.dart';
 import '../../../room/data/response/room_response.dart';
 import '../../../asset/bloc/assets_cubit/assets_cubit.dart';
 
-class EditProductPage extends StatelessWidget {
+class EditProductPage extends StatefulWidget {
   const EditProductPage({super.key});
+
+  @override
+  State<EditProductPage> createState() => _EditProductPageState();
+}
+
+class _EditProductPageState extends State<EditProductPage> {
+  late AssetsInitial cState;
+  late AssetsCubit cCubit;
+  late DepartmentsCubit dCubit;
+  late DivisionsCubit diCubit;
+  late RoomsCubit riCubit;
+
+  @override
+  void initState() {
+    cCubit = context.read<AssetsCubit>();
+    cState = cCubit.state;
+    dCubit = context.read<DepartmentsCubit>();
+    diCubit = context.read<DivisionsCubit>();
+    riCubit = context.read<RoomsCubit>();
+    super.initState();
+  }
+
+  void setEntity(Entity entity) {
+    cState.cRequest.entity = entity;
+
+    cState.cRequest.department = Department.fromJson({});
+    dCubit.clear();
+    cState.cRequest.division = Division.fromJson({});
+    diCubit.clear();
+    cState.cRequest.room = Room.fromJson({});
+    riCubit.clear();
+
+    dCubit.getData(id: entity.id);
+  }
+
+  void setDepartment(Department department) {
+    cState.cRequest.department = department;
+    cState.cRequest.division = Division.fromJson({});
+    diCubit.clear();
+    cState.cRequest.room = Room.fromJson({});
+    riCubit.clear();
+    diCubit.getData(id: department.id);
+  }
+
+  void setDivision(Division division) {
+    cState.cRequest.division = division;
+
+    cState.cRequest.room = Room.fromJson({});
+    riCubit.clear();
+
+    riCubit.getData(id: division.id);
+  }
+
+  void setRoom(Room room) {
+    cState.cRequest.room = room;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +110,7 @@ class EditProductPage extends StatelessWidget {
               return RefreshWidget(
                 isLoading: cState.loading,
                 onRefresh: () {
-                  context.read<AssetsCubit>().getData(newData: true);
+                  cCubit.getData(newData: true);
                 },
                 child: Column(
                   children: [
@@ -85,7 +142,8 @@ class EditProductPage extends StatelessWidget {
                                 },
                                 loading: state.loading,
                                 searchable: true,
-                                items: state.getSpinnerItems(selectedId: cState.cRequest.asset.id),
+                                items: state.getSpinnerItems(
+                                    selectedId: cState.cRequest.asset.id),
                                 hintText: S.of(context).assetName,
                                 hintLabel: S.of(context).assetName,
                               );
@@ -95,19 +153,11 @@ class EditProductPage extends StatelessWidget {
                             builder: (context, state) {
                               return SpinnerWidget(
                                 onChanged: (spinnerItem) {
-                                  cState.cRequest.entity = spinnerItem.item;
-
-                                  cState.cRequest.department = Department.fromJson({});
-                                  context.read<DepartmentsCubit>().clear();
-                                  cState.cRequest.division = Division.fromJson({});
-                                  context.read<DivisionsCubit>().clear();
-                                  cState.cRequest.room = Room.fromJson({});
-                                  context.read<RoomsCubit>().clear();
-
-                                  context.read<DepartmentsCubit>().getData(id: spinnerItem.id);
+                                  setEntity(spinnerItem.item);
                                 },
                                 loading: state.loading,
-                                items: state.getSpinnerItems(selectedId: cState.cRequest.entity.id),
+                                items: state.getSpinnerItems(
+                                    selectedId: cState.cRequest.entity.id),
                                 hintText: S.of(context).department,
                                 hintLabel: S.of(context).entity,
                               );
@@ -117,17 +167,11 @@ class EditProductPage extends StatelessWidget {
                             builder: (context, state) {
                               return SpinnerWidget(
                                 onChanged: (spinnerItem) {
-                                  cState.cRequest.department = spinnerItem.item;
-
-                                  cState.cRequest.division = Division.fromJson({});
-                                  context.read<DivisionsCubit>().clear();
-                                  cState.cRequest.room = Room.fromJson({});
-                                  context.read<RoomsCubit>().clear();
-
-                                  context.read<DivisionsCubit>().getData(id: spinnerItem.id);
+                                  setDepartment(spinnerItem.item);
                                 },
                                 loading: state.loading,
-                                items: state.getSpinnerItems(selectedId: cState.cRequest.department.id),
+                                items: state.getSpinnerItems(
+                                    selectedId: cState.cRequest.department.id),
                                 hintText: S.of(context).department,
                                 hintLabel: S.of(context).department,
                               );
@@ -137,15 +181,11 @@ class EditProductPage extends StatelessWidget {
                             builder: (context, state) {
                               return SpinnerWidget(
                                 onChanged: (spinnerItem) {
-                                  cState.cRequest.division = spinnerItem.item;
-
-                                  cState.cRequest.room = Room.fromJson({});
-                                  context.read<RoomsCubit>().clear();
-
-                                  context.read<RoomsCubit>().getData(id: spinnerItem.id);
+                                  setDivision(spinnerItem.item);
                                 },
                                 loading: state.loading,
-                                items: state.getSpinnerItems(selectedId: cState.cRequest.division.id),
+                                items: state.getSpinnerItems(
+                                    selectedId: cState.cRequest.division.id),
                                 hintText: S.of(context).division,
                                 hintLabel: S.of(context).division,
                               );
@@ -155,10 +195,11 @@ class EditProductPage extends StatelessWidget {
                             builder: (context, state) {
                               return SpinnerWidget(
                                 onChanged: (spinnerItem) {
-                                  cState.cRequest.room = spinnerItem.item;
+                                  setRoom(spinnerItem.item);
                                 },
                                 loading: state.loading,
-                                items: state.getSpinnerItems(selectedId: cState.cRequest.room.id),
+                                items: state.getSpinnerItems(
+                                    selectedId: cState.cRequest.room.id),
                                 hintText: S.of(context).room,
                                 hintLabel: S.of(context).room,
                               );
@@ -172,7 +213,7 @@ class EditProductPage extends StatelessWidget {
                         cState.cRequest.labels
                           ..clear()
                           ..add(cState.product.label);
-                        context.read<AssetsCubit>().update(cState.product.id);
+                        cCubit.update(cState.product.id);
                       },
                       text: S.of(context).editProduct,
                     ),

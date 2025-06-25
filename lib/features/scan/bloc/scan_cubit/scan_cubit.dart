@@ -57,14 +57,13 @@ class ScanCubit extends MCubit<ScanInitial> {
     }
   }
 
-  Future<List<String>> getData() async {
+  Future<void> getData() async {
     try {
       final data = await _channel.invokeMethod('getData');
       final l = List<String>.from(data);
-      return l;
+      emit(state.copyWith(result: l));
     } on PlatformException catch (e) {
       loggerObject.e("Failed to get data: '${e.message}'.");
-      return [];
     }
   }
 
