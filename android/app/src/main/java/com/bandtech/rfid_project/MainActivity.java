@@ -3,8 +3,19 @@ package com.bandtech.rfid_project;
 import android.annotation.SuppressLint;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,8 +29,10 @@ import com.util.Helper.Helper_ThreadPool;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
@@ -48,19 +61,16 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
                         result.success(true);
                         break;
                     case "readOrStop":
-                        ReadOrStop();
+                        Read();
                         result.success(true);
                         break;
                     case "getStatus":
                         result.success(isRead);
                         break;
                     case "getData":
+                        List<String> data = GetData();
 
-                        result.success(GetData());
-                    case "clear":
-                        Clear();
-                        result.success(true);
-
+                        result.success(data);
                         break;
                     case "setReadType":
                         if (call.arguments instanceof Integer) {
@@ -87,6 +97,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
     static int _UpDataTime = 0;
 
     boolean isRead = false;
+
     private static boolean isStartPingPong = false;
     private boolean isKeyDown = false;
     private int keyDownCount = 0;
@@ -94,11 +105,22 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
     private static int _ReadType = 0;
     private final HashMap<String, EPCModel> hmList = new HashMap<>();
     private final Object hmList_Lock = new Object();
-
+    private Boolean IsFlushList = true;
     private final Object beep_Lock = new Object();
+    ToneGenerator toneGenerator = new ToneGenerator(AudioManager.STREAM_SYSTEM,
+            ToneGenerator.MAX_VOLUME);
 
     private static final boolean isPowerLowShow = false;
 
+    private final int MSG_RESULT_READ = 0 + 1;
+    private final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == MSG_RESULT_READ) {
+                ShowList();
+            }
+        }
+    };
     private IAsynchronousMessage log = null;
 
     public void UHF_Dispose() {
@@ -139,8 +161,6 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
         var rt = false;
         try {
             if (!_UHFSTATE) {
-                Toast.makeText(this, "Start and waiting 3 sec", Toast.LENGTH_SHORT).show();
-                Thread.sleep(3000);
                 boolean ret = UHFReader.getUHFInstance().OpenConnect(log);
                 if (ret) {
                     rt = true;
@@ -154,9 +174,9 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
         } catch (Exception ex) {
             Log.d("debug", "On the UHF electric abnormal:" + ex.getMessage());
         }
-
         return rt;
     }
+
     protected void UHF_SetTagUpdateParam() {
 
 
@@ -176,41 +196,78 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
     }
 
 
-    public void ReadOrStop() {
-
+    public void Read() {
         if (!isRead) {
             PingPong_Read();
+            isRead = true;
         } else {
             Pingpong_Stop();
+            isRead = false;
         }
     }
 
 
     public void Clear() {
         hmList.clear();
+        ShowList();
     }
+
 
 
     protected void Init() {
         log = this;
-        Toast.makeText(this, "start initial from java", Toast.LENGTH_SHORT).show();
         if (!UHF_Init(log)) {
 
         } else {
             try {
                 UHF_GetReaderProperty();
+                Thread.sleep(20);
                 CLReader.Stop();
+                Thread.sleep(20);
                 UHF_SetTagUpdateParam();
             } catch (Exception ignored) {
+                Toast.makeText(this, "error"+ignored.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
+            Refush();
+
         }
-        Toast.makeText(this, "Done initial from java", Toast.LENGTH_SHORT).show();
     }
+
+
+    protected void Refush() {
+        IsFlushList = true;
+
+        Helper_ThreadPool.ThreadPool_StartSingle(() -> {
+            while (IsFlushList) {
+                try {
+                    handler.sendMessage(handler.obtainMessage(MSG_RESULT_READ, null));
+                    Thread.sleep(1000);
+                } catch (InterruptedException ignored) {
+                }
+            }
+        });
+
+        Helper_ThreadPool.ThreadPool_StartSingle(() -> {
+            while (IsFlushList) {
+                synchronized (beep_Lock) {
+                    try {
+                        beep_Lock.wait();
+                    } catch (InterruptedException ignored) {
+                    }
+                }
+                if (IsFlushList) {
+                    toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
+                }
+
+            }
+        });
+    }
+
 
     protected void Dispose() {
         isStartPingPong = false;
-
+        IsFlushList = false;
         synchronized (beep_Lock) {
             beep_Lock.notifyAll();
         }
@@ -218,27 +275,31 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
     }
 
 
+    protected void ShowList() {
+        if (!isStartPingPong)
+            return;
+
+    }
+
     @SuppressWarnings({"rawtypes", "unused"})
-    protected List<Map<String, String>> GetData() {
-        List<Map<String, String>> rt = new ArrayList<>();
+    protected List<String> GetData() {
+        Set<String> epcSet = new HashSet<>(); // يستخدم لإزالة التكرارات
+        Toast.makeText(this, "getData"+ hmList.size(), Toast.LENGTH_SHORT).show();
         synchronized (hmList_Lock) {
             for (var stringEPCModelEntry : hmList.entrySet()) {
-
                 var val = (EPCModel) ((Map.Entry) stringEPCModelEntry).getValue();
-                var map = new HashMap<String, String>();
+                String epc;
                 if (_ReadType == 0) {
-                    map.put("EPC", val._EPC);
+                    epc = val._EPC;
                 } else if (_ReadType == 1) {
-                    map.put("EPC", val._TID);
+                    epc = val._TID;
                 } else {
-                    map.put("EPC", val._UserData);
+                    epc = val._UserData;
                 }
-                var rc = val._TotalCount;
-                map.put("ReadCount", Long.toString(rc));
-                rt.add(map);
+                epcSet.add(epc); // تُضاف تلقائياً بدون تكرار
             }
         }
-        return rt;
+        return new ArrayList<>(epcSet); // تحويل Set إلى List
     }
 
 
@@ -249,8 +310,9 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
                 || ((Adapt.getSN().startsWith("K3")) && (keyCode == KeyEvent.KEYCODE_F1 || keyCode == KeyEvent.KEYCODE_F5))
                 || ((Adapt.getSN().startsWith("K6")) && (keyCode == KeyEvent.KEYCODE_F1 || keyCode == KeyEvent.KEYCODE_F5))) {
 
-            isRead = false;
+            isRead = true;
             if (!isKeyDown) {
+
                 isKeyDown = true;
                 if (!isStartPingPong) {
                     Clear();
@@ -275,8 +337,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         Log.d("PDADemo", "onKeyUp keyCode = " + keyCode);
-        if ((Adapt.DEVICE_TYPE_HY820 == Adapt.getDeviceType() &&
-                (keyCode == KeyEvent.KEYCODE_F9 /* RFID扳机*/ || keyCode == 285  /* 左快捷*/ || keyCode == 286  /* 右快捷*/))
+        if ((Adapt.DEVICE_TYPE_HY820 == Adapt.getDeviceType() && (keyCode == KeyEvent.KEYCODE_F9 /* RFID扳机*/ || keyCode == 285  /* 左快捷*/ || keyCode == 286  /* 右快捷*/))
                 || ((Adapt.getSN().startsWith("K3")) && (keyCode == KeyEvent.KEYCODE_F1 || keyCode == KeyEvent.KEYCODE_F5))
                 || ((Adapt.getSN().startsWith("K6")) && (keyCode == KeyEvent.KEYCODE_F1 || keyCode == KeyEvent.KEYCODE_F5))) {
 
@@ -284,7 +345,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
             isStartPingPong = false;
             keyDownCount = 0;
             isKeyDown = false;
-            isRead = true;
+            isRead = false;
 
         }
         return super.onKeyUp(keyCode, event);
@@ -312,6 +373,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
                 beep_Lock.notify();
             }
         } catch (Exception ex) {
+            Toast.makeText(this, "error" +ex.getMessage(), Toast.LENGTH_SHORT).show();
             Log.d("Debug", "Tags output exceptions:" + ex.getMessage());
         }
 
@@ -333,6 +395,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
                     }
                 }
             } catch (Exception ignored) {
+                Toast.makeText(this, "error"+ignored.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });

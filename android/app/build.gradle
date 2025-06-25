@@ -65,11 +65,11 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-//        ndk {
-//            // Specifies the ABI configurations of your native
-//            // libraries Gradle should build and package with your app.
-//            abiFilters /*'armeabi-v7a',*/'arm64-v8a'
-//        }
+        ndk {
+            // Specifies the ABI configurations of your native
+            // libraries Gradle should build and package with your app.
+            abiFilters /*'armeabi-v7a',*/'arm64-v8a'
+        }
     }
 
     signingConfigs {
@@ -86,10 +86,15 @@ android {
             minifyEnabled false
             shrinkResources false
             signingConfig signingConfigs.release
-            packaging {
-                jniLibs.keepDebugSymbols += "**/*.so"
-            }
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+
+            			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
