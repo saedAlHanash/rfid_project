@@ -24,4 +24,5 @@ class Assets {
   static const String imagesTestMode = 'assets/images/test_mode.png';
   static const String imagesTransfare = 'assets/images/transfare.png';
   static const String imagesWiteLogo = 'assets/images/wite_logo.png';
+
 }
