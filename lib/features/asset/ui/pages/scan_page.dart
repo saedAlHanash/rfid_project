@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_multi_type/image_multi_type.dart';
-import 'package:m_cubit/abstraction.dart';
 import 'package:rfid_project/core/util/my_style.dart';
+import 'package:rfid_project/core/util/snack_bar_message.dart';
 import 'package:rfid_project/core/widgets/my_button.dart';
 import 'package:rfid_project/features/asset/ui/widgets/add_asset_info.dart';
 import 'package:rfid_project/features/scan/ui/widgets/scan_buttons.dart';
@@ -33,19 +33,11 @@ class _ScanPageState extends State<ScanPage> {
   Timer? t;
 
   @override
-  void dispose() {
-    cubit.clear();
-    cubit.dispose();
-    t?.cancel();
-    super.dispose();
-  }
-
-  @override
   void initState() {
     cubit = context.read<ScanCubit>();
-
+    cubit.init();
     t = Timer.periodic(
-      Duration(seconds: 1),
+      Duration(seconds: 2),
       (timer) => cubit
         ..getStatus()
         ..getData(),
@@ -55,13 +47,22 @@ class _ScanPageState extends State<ScanPage> {
   }
 
   @override
+  void dispose() {
+    cubit.clear();
+    cubit.dispose();
+    t?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
         BlocListener<AssetsCubit, AssetsInitial>(
           listenWhen: (p, c) => c.done,
           listener: (context, state) {
-            context.pushReplacementNamed(RouteName.assets);
+            context.pop();
+            NoteMessage.showSuccessSnackBar(message: 'تم بنجاح', context: context);
           },
         ),
       ],
@@ -85,6 +86,9 @@ class _ScanPageState extends State<ScanPage> {
                   DrawableText.title(text: 'Tag id'),
                   BlocBuilder<ScanCubit, ScanInitial>(
                     builder: (context, state) {
+                      if (state.loading) {
+                        return MyStyle.loadingWidget();
+                      }
                       return Column(
                         children: [
                           ...state.result.map(

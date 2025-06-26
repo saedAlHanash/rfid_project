@@ -64,6 +64,7 @@ class ScanCubit extends MCubit<ScanInitial> {
       emit(state.copyWith(result: l));
     } on PlatformException catch (e) {
       loggerObject.e("Failed to get data: '${e.message}'.");
+      emit(state.copyWith(result: ['error ${e.message}']));
     }
   }
 

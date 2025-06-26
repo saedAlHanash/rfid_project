@@ -42,24 +42,25 @@ class _FinedProductPageState extends State<FinedProductPage> {
   Timer? t;
 
   @override
-  void dispose() {
-    cubit.dispose();
-    t?.cancel();
-    super.dispose();
-  }
-
-  @override
   void initState() {
     cubit = context.read<ScanCubit>();
 
     t = Timer.periodic(
-      Duration(seconds: 1),
+      Duration(seconds: 2),
       (timer) => cubit
         ..getStatus()
         ..getData(),
     );
 
+    cubit.init();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    cubit.dispose();
+    t?.cancel();
+    super.dispose();
   }
 
   @override
@@ -108,6 +109,9 @@ class _FinedProductPageState extends State<FinedProductPage> {
               DrawableText.title(text: 'Tag id'),
               BlocBuilder<ScanCubit, ScanInitial>(
                 builder: (context, state) {
+                  if (state.loading) {
+                    return MyStyle.loadingWidget();
+                  }
                   return Column(
                     children: [
                       ...state.result.map(

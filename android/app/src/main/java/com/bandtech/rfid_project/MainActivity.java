@@ -284,7 +284,6 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
     @SuppressWarnings({"rawtypes", "unused"})
     protected List<String> GetData() {
         Set<String> epcSet = new HashSet<>(); // يستخدم لإزالة التكرارات
-        Toast.makeText(this, "getData"+ hmList.size(), Toast.LENGTH_SHORT).show();
         synchronized (hmList_Lock) {
             for (var stringEPCModelEntry : hmList.entrySet()) {
                 var val = (EPCModel) ((Map.Entry) stringEPCModelEntry).getValue();

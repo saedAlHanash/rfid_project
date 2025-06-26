@@ -3,13 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:rfid_project/features/scan/bloc/scan_cubit/scan_cubit.dart';
-import 'package:rfid_project/features/scan/bloc/scan_cubit/scan_cubit.dart';
 
+import '../../../../core/util/my_style.dart';
 import '../../../../core/widgets/my_button.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
-import '../../../asset/bloc/assets_cubit/assets_cubit.dart';
-import '../../../product/bloc/products_cubit/products_cubit.dart';
 
 class ScanButtons extends StatelessWidget {
   const ScanButtons({super.key, this.search, this.save});
@@ -21,6 +19,9 @@ class ScanButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ScanCubit, ScanInitial>(
       builder: (context, state) {
+        if (state.loading) {
+          return MyStyle.loadingWidget();
+        }
         return Container(
           color: Colors.white,
           padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0).r,
@@ -49,7 +50,9 @@ class ScanButtons extends StatelessWidget {
                     child: MyButton(
                       elevation: 0.0,
                       color: state.isRead ? Colors.red : null,
-                      onTap: () {},
+                      onTap: () {
+                        context.read<ScanCubit>().readOrStop();
+                      },
                       icon: ImageMultiType(
                         url: state.isRead
                             ? Assets.iconsStopCircle

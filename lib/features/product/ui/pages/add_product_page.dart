@@ -60,7 +60,8 @@ class AddProductPage extends StatelessWidget {
                                 },
                                 loading: state.loading,
                                 searchable: true,
-                                items: state.getSpinnerItems(selectedId: cState.cRequest.asset.id),
+                                items: state.getSpinnerItems(
+                                    selectedId: cState.cRequest.asset.id),
                                 hintText: S.of(context).assetName,
                                 hintLabel: S.of(context).assetName,
                               );
@@ -71,10 +72,13 @@ class AddProductPage extends StatelessWidget {
                               return SpinnerWidget(
                                 onChanged: (spinnerItem) {
                                   cState.cRequest.entity = spinnerItem.item;
-                                  context.read<DepartmentsCubit>().getData(id: spinnerItem.id);
+                                  context
+                                      .read<DepartmentsCubit>()
+                                      .getData(id: spinnerItem.id);
                                 },
                                 loading: state.loading,
-                                items: state.getSpinnerItems(selectedId: cState.cRequest.entity.id),
+                                items: state.getSpinnerItems(
+                                    selectedId: cState.cRequest.entity.id),
                                 hintText: S.of(context).department,
                                 hintLabel: S.of(context).entity,
                               );
@@ -85,10 +89,13 @@ class AddProductPage extends StatelessWidget {
                               return SpinnerWidget(
                                 onChanged: (spinnerItem) {
                                   cState.cRequest.department = spinnerItem.item;
-                                  context.read<DivisionsCubit>().getData(id: spinnerItem.id);
+                                  context
+                                      .read<DivisionsCubit>()
+                                      .getData(id: spinnerItem.id);
                                 },
                                 loading: state.loading,
-                                items: state.getSpinnerItems(selectedId: cState.cRequest.department.id),
+                                items: state.getSpinnerItems(
+                                    selectedId: cState.cRequest.department.id),
                                 hintText: S.of(context).department,
                                 hintLabel: S.of(context).department,
                               );
@@ -102,7 +109,8 @@ class AddProductPage extends StatelessWidget {
                                   context.read<RoomsCubit>().getData(id: spinnerItem.id);
                                 },
                                 loading: state.loading,
-                                items: state.getSpinnerItems(selectedId: cState.cRequest.division.id),
+                                items: state.getSpinnerItems(
+                                    selectedId: cState.cRequest.division.id),
                                 hintText: S.of(context).division,
                                 hintLabel: S.of(context).division,
                               );
@@ -115,7 +123,8 @@ class AddProductPage extends StatelessWidget {
                                   cState.cRequest.room = spinnerItem.item;
                                 },
                                 loading: state.loading,
-                                items: state.getSpinnerItems(selectedId: cState.cRequest.room.id),
+                                items: state.getSpinnerItems(
+                                    selectedId: cState.cRequest.room.id),
                                 hintText: S.of(context).room,
                                 hintLabel: S.of(context).room,
                               );
@@ -126,7 +135,7 @@ class AddProductPage extends StatelessWidget {
                     ),
                     MyButton(
                       onTap: () {
-                        context.pushNamed(RouteName.scan);
+                        context.pushReplacementNamed(RouteName.scan);
                       },
                       text: S.of(context).next,
                     ),

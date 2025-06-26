@@ -89,9 +89,9 @@ class _MyAppState extends State<MyApp> {
                 BlocProvider(create: (_) => sl<LoadingCubit>()),
                 BlocProvider(create: (_) => sl<DeleteAccountCubit>()),
                 BlocProvider(create: (_) => sl<UpdateProfileCubit>()),
-                BlocProvider(create: (_) => sl<GetMeCubit>()..getData()),
+                BlocProvider(create: (_) => sl<GetMeCubit>()),
                 BlocProvider(create: (_) => sl<AssetsCubit>()..getData()),
-                BlocProvider(create: (_) => sl<NotificationCubit>()..getData()),
+                BlocProvider(create: (_) => sl<NotificationCubit>()),
                 BlocProvider(create: (_) => sl<EntitiesCubit>()..getData()),
               ],
               child: MediaQuery(
