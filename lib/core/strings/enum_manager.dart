@@ -1,3 +1,9 @@
+import 'package:drawable_text/drawable_text.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_multi_type/image_multi_type.dart';
+
+import '../../generated/assets.dart';
 import '../../generated/l10n.dart';
 import '../util/pair_class.dart';
 
@@ -139,7 +145,8 @@ enum IraqGovernorate {
   }
 
   static IraqGovernorate getByName(String name) {
-    return IraqGovernorate.values.firstWhere((g) => g.name == name, orElse: () => IraqGovernorate.baghdad);
+    return IraqGovernorate.values
+        .firstWhere((g) => g.name == name, orElse: () => IraqGovernorate.baghdad);
   }
   //
   // static IraqGovernorate getByApproximateName(String inputName) {
@@ -323,4 +330,115 @@ enum ActionType {
   move,
   update,
   delete;
+}
+
+enum TagStatus {
+  match,
+  unknown,
+  unsigned;
+
+  String get name {
+    switch (this) {
+      case TagStatus.match:
+        return S().match;
+      case TagStatus.unknown:
+        return S().unknown;
+      case TagStatus.unsigned:
+        return S().unsigned;
+    }
+  }
+
+  dynamic get icon {
+    switch (this) {
+      case TagStatus.match:
+        return Assets.iconsMatch;
+      case TagStatus.unknown:
+        return Assets.iconsUnknown;
+      case TagStatus.unsigned:
+        return Assets.iconsUnsigned;
+    }
+  }
+
+  Widget get getWidget {
+    return Center(
+      child: DrawableText(
+        text: name,
+        drawablePadding: 2.0,
+        size: 10.0.sp,
+        textAlign: TextAlign.center,
+        drawableStart: ImageMultiType(
+          url: icon,
+          height: 12.0.r,
+          width: 12.0.r,
+        ),
+      ),
+    );
+  }
+}
+
+enum AssetStatus {
+  newAsset,
+  damaged,
+  unknown;
+
+  String get name {
+    switch (this) {
+      case AssetStatus.newAsset:
+        return S().new1;
+      case AssetStatus.damaged:
+        return S().damaged;
+      case AssetStatus.unknown:
+        return S().unknown;
+    }
+  }
+
+  String get nameApi {
+    switch (this) {
+      case AssetStatus.newAsset:
+        return 'new';
+      case AssetStatus.damaged:
+        return 'damaged';
+      case AssetStatus.unknown:
+        return 'unknown';
+    }
+  }
+
+  dynamic get icon {
+    switch (this) {
+      case AssetStatus.newAsset:
+        return Assets.iconsMatch;
+      case AssetStatus.damaged:
+        return Assets.iconsDameges;
+      case AssetStatus.unknown:
+        return Assets.iconsUnknown;
+    }
+  }
+
+  static AssetStatus fromName(String name) {
+    switch (name) {
+      case 'new':
+        return AssetStatus.newAsset;
+      case 'damaged':
+        return AssetStatus.damaged;
+      case 'unknown':
+        return AssetStatus.unknown;
+    }
+    return AssetStatus.newAsset;
+  }
+
+  Widget get getWidget {
+    return Center(
+      child: DrawableText(
+        text: name,
+        drawablePadding: 2.0,
+        size: 10.0.sp,
+        textAlign: TextAlign.center,
+        drawableStart: ImageMultiType(
+          url: icon,
+          height: 12.0.r,
+          width: 12.0.r,
+        ),
+      ),
+    );
+  }
 }

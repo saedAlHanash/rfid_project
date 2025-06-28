@@ -326,5 +326,8 @@
     "clear": "clear",
     "stop": "Stop",
     "assetStatus": "Asset status",
-    "moveProduct": "Move product"
+    "moveProduct": "Move product",
+  "assetsScan": "Assets scan",
+  "totalAssets": "Total assets",
+  "dateTime": "Date time"
 }

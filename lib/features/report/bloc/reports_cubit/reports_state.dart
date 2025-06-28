@@ -13,8 +13,9 @@ class ReportsInitial extends AbstractState<List<Report>> {
   });
 
   factory ReportsInitial.initial() {
-    return const ReportsInitial(
+    return ReportsInitial(
       result: [],
+      createUpdateRequest: CreateReportRequest.fromJson({}),
     );
   }
 
@@ -56,4 +57,3 @@ class ReportsInitial extends AbstractState<List<Report>> {
     );
   }
 }
-

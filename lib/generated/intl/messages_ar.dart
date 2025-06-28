@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "assetName": MessageLookupByLibrary.simpleMessage("Asset name"),
     "assetSite": MessageLookupByLibrary.simpleMessage("Asset site"),
     "assetStatus": MessageLookupByLibrary.simpleMessage("Asset status"),
+    "assetsScan": MessageLookupByLibrary.simpleMessage("Assets scan"),
     "at": MessageLookupByLibrary.simpleMessage("عند"),
     "back": MessageLookupByLibrary.simpleMessage("عودة"),
     "bandtech": MessageLookupByLibrary.simpleMessage("الحزمة التقنية"),
@@ -120,6 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "كلمة المرور الحالية",
     ),
     "cvc": MessageLookupByLibrary.simpleMessage("الرقم السري"),
+    "dateTime": MessageLookupByLibrary.simpleMessage("Date time"),
     "day": MessageLookupByLibrary.simpleMessage("يوم"),
     "days": MessageLookupByLibrary.simpleMessage("أيام"),
     "deleteAccount": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
@@ -449,6 +451,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "toGetExamsLessonsAndNotes": MessageLookupByLibrary.simpleMessage(
       "للحصول على الامتحانات، الدروس والملاحظات",
     ),
+    "totalAssets": MessageLookupByLibrary.simpleMessage("Total assets"),
     "trackingOrder": MessageLookupByLibrary.simpleMessage("تتبع الطلب"),
     "transferProduct": MessageLookupByLibrary.simpleMessage("نقل منتج"),
     "trueOrFalse": MessageLookupByLibrary.simpleMessage("صحيح أو خطأ"),

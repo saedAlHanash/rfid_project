@@ -1,26 +1,22 @@
-import '../response/report_response.dart';
-
 class CreateReportRequest {
   CreateReportRequest({
-    required this.id,
+    required this.roomId,
+    required this.labels,
   });
 
-  final String id;
+   int roomId;
+   List<String> labels;
 
-  factory CreateReportRequest.fromJson(Map<String, dynamic> json) {
+  factory CreateReportRequest.fromJson(Map<String, dynamic> json){
     return CreateReportRequest(
-      id: json["id"] ?? "",
-    );
-  }
-
-  factory CreateReportRequest.fromReport(Report report) {
-    return CreateReportRequest(
-      id: report.id,
+      roomId: json["room_id"] ?? 0,
+      labels: json["labels"] == null ? [] : List<String>.from(json["labels"]!.map((x) => x)),
     );
   }
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-      };
-}
+    "room_id": roomId,
+    "labels": labels.map((x) => x).toList(),
+  };
 
+}

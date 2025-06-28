@@ -36,13 +36,13 @@ class ReportsCubit extends MCubit<ReportsInitial> {
 
   Future<Pair<List<Report>?, String?>> _getData() async {
     final response = await APIService().callApi(
-      type: ApiType.post,
+      type: ApiType.get,
       url: PostUrl.reports,
       body: state.filterRequest?.toJson() ?? {},
     );
 
     if (response.statusCode.success) {
-      return Pair(Reports.fromJson(response.jsonBody).items, null);
+      return Pair(Reports.fromJson(response.jsonBody).data, null);
     } else {
       return response.getPairError;
     }
@@ -60,18 +60,6 @@ class ReportsCubit extends MCubit<ReportsInitial> {
       body: state.cRequest.toJson(),
     );
 
-    await _updateState(response);
-  }
-
-  Future<void> update() async {
-    emit(state.copyWith(statuses: CubitStatuses.loading, cubitCrud: CubitCrud.update));
-
-    final response = await APIService().callApi(
-      type: ApiType.put,
-      url: PutUrl.updateReport,
-      query: {'id': state.cRequest.id},
-      body: state.cRequest.toJson(),
-    );
     await _updateState(response);
   }
 
@@ -100,7 +88,7 @@ class ReportsCubit extends MCubit<ReportsInitial> {
     );
 
     if (response.statusCode.success) {
-      await deleteReportFromCache(item.id);
+      await deleteReportFromCache(item.id.toString());
     } else {
       showErrorFromApi(state);
       state.result.insert(index, item);

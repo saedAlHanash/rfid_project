@@ -1,1 +1,58 @@
-{"errors":["البيانات غير صحيح"]}
+{
+
+  "result": {
+    "stats": {
+      "new_count": 5,
+      "found_count": 6,
+      "labels_count": 7,
+      "damaged_count": 1,
+      "unknown_count": 1,
+      "other_room_count": 1
+    },
+    "items_details": [
+      {
+        "label": "EB2HZ3KTC5X1SFEGUEALTZOY",
+        "status": "new",
+        "asset_name": "tyu7tutyutyuty",
+        "in_requested_room": true
+      },
+      {
+        "label": "EB23Z3KTC5X1BAEGUEALTZOY",
+        "status": "damaged",
+        "asset_name": "tyu7tutyutyuty",
+        "in_requested_room": true
+      },
+      {
+        "label": "E282780200000000140AD936",
+        "status": "new",
+        "asset_name": "tyu7tutyutyuty",
+        "in_requested_room": true
+      },
+      {
+        "label": "000000000000000000000019",
+        "status": "new",
+        "asset_name": "tyu7tutyutyuty",
+        "in_requested_room": true
+      },
+      {
+        "label": "00112233445566778899AABB",
+        "status": "new",
+        "asset_name": "tyu7tutyutyuty",
+        "in_requested_room": true
+      },
+      {
+        "label": "E28278020O069101740ADA1F",
+        "status": "unknown",
+        "asset_name": null,
+        "in_requested_room": false
+      },
+      {
+        "label": "ZQXQOYBTVL4R5WGYRD9SDXTS",
+        "status": "new",
+        "asset_name": "tyu7tutyutyuty",
+        "in_requested_room": false
+      }
+    ]
+  },
+  "created_at": "2025-06-27 | 5:00 pm"
+}

@@ -31,6 +31,8 @@ class HomeScreen extends StatelessWidget {
           ListTile(
             leading: ImageMultiType(
               url: Assets.imagesWiteLogo,
+              height: 30.0.r,
+              width: 30.0.r,
             ),
             title: DrawableText(
               text: AppProvider.getMe.entity.name,
@@ -73,7 +75,9 @@ class HomeScreen extends StatelessWidget {
                           onTap: () {
                             context.pushNamed(
                               RouteName.findAsset,
-                              queryParameters: {'actionType': ActionType.update.index.toString()},
+                              queryParameters: {
+                                'actionType': ActionType.update.index.toString()
+                              },
                             );
                           },
                         ),
@@ -90,7 +94,9 @@ class HomeScreen extends StatelessWidget {
                           onTap: () {
                             context.pushNamed(
                               RouteName.findAsset,
-                              queryParameters: {'actionType': ActionType.move.index.toString()},
+                              queryParameters: {
+                                'actionType': ActionType.move.index.toString()
+                              },
                             );
                           },
                         ),
@@ -100,7 +106,9 @@ class HomeScreen extends StatelessWidget {
                           onTap: () {
                             context.pushNamed(
                               RouteName.findAsset,
-                              queryParameters: {'actionType': ActionType.delete.index.toString()},
+                              queryParameters: {
+                                'actionType': ActionType.delete.index.toString()
+                              },
                             );
                           },
                         ),
@@ -114,13 +122,16 @@ class HomeScreen extends StatelessWidget {
                         _Item(
                           image: Assets.imagesReports,
                           title: S.of(context).reports,
-                          onTap: () {},
+                          onTap: () {
+                            context.pushNamed(RouteName.reports);
+
+                          },
                         ),
                         _Item(
                           image: Assets.imagesGetReports,
                           title: S.of(context).assetInventory,
                           onTap: () {
-                            context.pushNamed(RouteName.assets);
+                            context.pushNamed(RouteName.findRoom);
                           },
                         ),
                       ],

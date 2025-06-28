@@ -23,6 +23,7 @@ import '../../features/profile/bloc/delete_my_account_cubit/delete_my_account_cu
 import '../../features/profile/bloc/get_me_cubit/get_me_cubit.dart';
 import '../../features/profile/bloc/update_profile_cubit/update_profile_cubit.dart';
 import '../../features/report/bloc/report_cubit/report_cubit.dart';
+import '../../features/report/bloc/report_scan_cubit/report_scan_cubit.dart';
 import '../../features/report/bloc/reports_cubit/reports_cubit.dart';
 import '../../features/room/bloc/room_cubit/room_cubit.dart';
 import '../../features/room/bloc/rooms_cubit/rooms_cubit.dart';
@@ -33,6 +34,7 @@ import '../app/bloc/loading_cubit.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
+
   //region entity
   sl.registerFactory(() => EntityCubit());
   sl.registerFactory(() => EntitiesCubit());
@@ -61,6 +63,7 @@ Future<void> init() async {
   //region report
   sl.registerFactory(() => ReportCubit());
   sl.registerFactory(() => ReportsCubit());
+  sl.registerFactory(() => ReportScanCubit());
   //endregion
 
   //region asset

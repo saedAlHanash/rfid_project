@@ -331,5 +331,15 @@
     "save": "save",
     "stop": "Stop",
     "assetStatus": "Asset status",
-    "moveProduct": "Move product"
+    "moveProduct": "Move product",
+  "assetsScan": "Assets scan",
+  "totalAssets": "Total assets",
+  "match": "Match",
+  "missing": "Missing",
+  "unsigned": "Unsigned",
+  "unknown": "Unknown",
+  "dateTime": "Date time",
+  "totalTags": "Total tags",
+  "report": "Report",
+  "damaged": "Damaged"
 }

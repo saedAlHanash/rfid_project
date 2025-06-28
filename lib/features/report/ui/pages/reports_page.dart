@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rfid_project/core/strings/app_color_manager.dart';
 
 import '../../../../core/widgets/app_bar/app_bar_widget.dart';
 import '../../../../core/widgets/refresh_widget/refresh_widget.dart';
+import '../../../asset/data/request/create_asset_request.dart';
 import '../../bloc/reports_cubit/reports_cubit.dart';
 import '../widgets/item_report.dart';
 
 class ReportsPage extends StatelessWidget {
   const ReportsPage({super.key});
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColorManager.lightGray,
       appBar: AppBarWidget(),
       body: BlocBuilder<ReportsCubit, ReportsInitial>(
         builder: (context, state) {

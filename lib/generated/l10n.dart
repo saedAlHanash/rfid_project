@@ -2494,6 +2494,61 @@ class S {
       args: [],
     );
   }
+
+  /// `Assets scan`
+  String get assetsScan {
+    return Intl.message('Assets scan', name: 'assetsScan', desc: '', args: []);
+  }
+
+  /// `Total assets`
+  String get totalAssets {
+    return Intl.message(
+      'Total assets',
+      name: 'totalAssets',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Match`
+  String get match {
+    return Intl.message('Match', name: 'match', desc: '', args: []);
+  }
+
+  /// `Missing`
+  String get missing {
+    return Intl.message('Missing', name: 'missing', desc: '', args: []);
+  }
+
+  /// `Unsigned`
+  String get unsigned {
+    return Intl.message('Unsigned', name: 'unsigned', desc: '', args: []);
+  }
+
+  /// `Unknown`
+  String get unknown {
+    return Intl.message('Unknown', name: 'unknown', desc: '', args: []);
+  }
+
+  /// `Date time`
+  String get dateTime {
+    return Intl.message('Date time', name: 'dateTime', desc: '', args: []);
+  }
+
+  /// `Total tags`
+  String get totalTags {
+    return Intl.message('Total tags', name: 'totalTags', desc: '', args: []);
+  }
+
+  /// `Report`
+  String get report {
+    return Intl.message('Report', name: 'report', desc: '', args: []);
+  }
+
+  /// `Damaged`
+  String get damaged {
+    return Intl.message('Damaged', name: 'damaged', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

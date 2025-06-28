@@ -4,7 +4,7 @@ class GetUrl {
   static const division = 'Division/Get';
   static const department = 'Department/Get';
   static const product = 'asset-item';
-  static const report = 'report/Get';
+  static const report = 'report';
   static const asset = 'asset';
   static const assets = 'asset';
 
@@ -42,8 +42,8 @@ class PostUrl {
   static const products = 'asset-item';
   static const createProduct = 'product/Add';
 
-  static const reports = 'report/GetAll';
-  static const createReport = 'report/Add';
+  static const reports = 'report';
+  static const createReport = 'report';
   static const assets = 'asset';
   static const createAsset = 'asset-item';
   static const createExam = 'exam';
