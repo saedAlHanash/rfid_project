@@ -14,6 +14,7 @@ import 'package:rfid_project/core/widgets/my_text_form_widget.dart';
 import 'package:rfid_project/features/asset/ui/widgets/add_asset_info.dart';
 import 'package:rfid_project/features/product/bloc/products_cubit/products_cubit.dart';
 import 'package:rfid_project/features/scan/bloc/scan_cubit/scan_cubit.dart';
+import 'package:rfid_project/features/scan/ui/widgets/scan_buttons.dart';
 import 'package:rfid_project/router/go_router.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
@@ -41,25 +42,25 @@ class _FinedProductPageState extends State<FinedProductPage> {
   Timer? t;
 
   @override
-  void dispose() {
-    cubit.clear();
-    cubit.dispose();
-    t?.cancel();
-    super.dispose();
-  }
-
-  @override
   void initState() {
     cubit = context.read<ScanCubit>();
 
     t = Timer.periodic(
-      Duration(seconds: 1),
+      Duration(seconds: 2),
       (timer) => cubit
         ..getStatus()
         ..getData(),
     );
 
+    cubit.init();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    cubit.dispose();
+    t?.cancel();
+    super.dispose();
   }
 
   @override
@@ -72,11 +73,14 @@ class _FinedProductPageState extends State<FinedProductPage> {
             if (state.result.isNotEmpty) {
               switch (widget.actionType) {
                 case ActionType.move:
-                  context.pushReplacementNamed(RouteName.moveProduct, extra: state.result.first);
+                  context.pushReplacementNamed(RouteName.moveProduct,
+                      extra: state.result.first);
                 case ActionType.update:
-                  context.pushReplacementNamed(RouteName.editAsset, extra: state.result.first);
+                  context.pushReplacementNamed(RouteName.editAsset,
+                      extra: state.result.first);
                 case ActionType.delete:
-                  context.pushReplacementNamed(RouteName.deleteProduct, extra: state.result.first);
+                  context.pushReplacementNamed(RouteName.deleteProduct,
+                      extra: state.result.first);
               }
             }
           },
@@ -103,32 +107,45 @@ class _FinedProductPageState extends State<FinedProductPage> {
               ),
               20.0.verticalSpace,
               DrawableText.title(text: 'Tag id'),
-              ...['EB23Z3KTC5X1BAEGUEALTZOY'].map(
-                (e) {
-                  return BlocBuilder<ProductsCubit, ProductsInitial>(
-                    builder: (context, state) {
-                      return InkWell(
-                        onTap: () {
-                          if (state.loading) return;
-                          controller.text = e;
-                          context.read<ProductsCubit>().getData(tag: e);
+              BlocBuilder<ScanCubit, ScanInitial>(
+                builder: (context, state) {
+                  if (state.loading) {
+                    return MyStyle.loadingWidget();
+                  }
+                  return Column(
+                    children: [
+                      ...state.result.map(
+                        (e) {
+                          return BlocBuilder<ProductsCubit, ProductsInitial>(
+                            builder: (context, state) {
+                              return InkWell(
+                                onTap: () {
+                                  if (state.loading) return;
+                                  controller.text = e;
+                                  context.read<ProductsCubit>().getData(tag: e);
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                          vertical: 12.0, horizontal: 15.0)
+                                      .r,
+                                  margin: EdgeInsets.symmetric(vertical: 7.0).r,
+                                  decoration: MyStyle.outlineBorder,
+                                  child: DrawableText(
+                                    text: e,
+                                    matchParent: true,
+                                    drawableEnd: ImageMultiType(
+                                      url: Icons.send,
+                                      height: 15.0.r,
+                                      width: 15.0.r,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
                         },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 15.0).r,
-                          margin: EdgeInsets.symmetric(vertical: 7.0).r,
-                          decoration: MyStyle.outlineBorder,
-                          child: DrawableText(
-                            text: e,
-                            matchParent: true,
-                            drawableEnd: ImageMultiType(
-                              url: Icons.send,
-                              height: 15.0.r,
-                              width: 15.0.r,
-                            ),
-                          ),
-                        ),
-                      );
-                    },
+                      ),
+                    ],
                   );
                 },
               ),
@@ -138,7 +155,19 @@ class _FinedProductPageState extends State<FinedProductPage> {
             ],
           ),
         ),
-        bottomNavigationBar: ,
+        bottomNavigationBar: ScanButtons(
+          search: BlocBuilder<ProductsCubit, ProductsInitial>(
+            builder: (context, state) {
+              return MyButton(
+                loading: state.loading,
+                text: S.of(context).searchForProduct,
+                onTap: () {
+                  context.read<ProductsCubit>().getData(tag: controller.text);
+                },
+              );
+            },
+          ),
+        ),
       ),
     );
   }

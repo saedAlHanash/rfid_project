@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 import 'package:m_cubit/abstraction.dart';
 import 'package:rfid_project/core/util/snack_bar_message.dart';
 import 'package:rfid_project/core/widgets/my_button.dart';
@@ -62,6 +63,15 @@ class DeleteProduct extends StatelessWidget {
                             padding: EdgeInsets.all(16.0).r,
                             child: Column(
                               children: [
+                                DrawableText(
+                                  matchParent: true,
+                                  text: S.of(context).tag,
+                                  fontWeight: FontWeight.bold,
+                                  drawableEnd: DrawableText(
+                                    text: product.label,
+                                    color: Colors.grey,
+                                  ),
+                                ),
                                 10.0.verticalSpace,
                                 DrawableText(
                                   matchParent: true,
@@ -73,6 +83,24 @@ class DeleteProduct extends StatelessWidget {
                                   ),
                                 ),
                                 10.0.verticalSpace,
+                                DrawableText(
+                                  matchParent: true,
+                                  text: S.of(context).assetStatus,
+                                  fontWeight: FontWeight.bold,
+                                  drawableEnd: DrawableText(
+                                    text: product.status,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          20.0.verticalSpace,
+                          Container(
+                            decoration: MyStyle.outlineBorder,
+                            padding: EdgeInsets.all(16.0).r,
+                            child: Column(
+                              children: [
                                 DrawableText(
                                   matchParent: true,
                                   text: S.of(context).entity,
@@ -112,31 +140,30 @@ class DeleteProduct extends StatelessWidget {
                                     color: Colors.grey,
                                   ),
                                 ),
-                                10.0.verticalSpace,
-                                DrawableText(
-                                  matchParent: true,
-                                  text: S.of(context).room,
-                                  fontWeight: FontWeight.bold,
-                                  drawableEnd: DrawableText(
-                                    text: product.room.name,
-                                    color: Colors.grey,
-                                  ),
-                                ),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
-                    MyButton(
-                      onTap: () {
-                        cState.cRequest.labels
-                          ..clear()
-                          ..add(cState.product.label);
-                        context.read<AssetsCubit>().update(cState.product.id);
-                      },
-                      text: S.of(context).editProduct,
-                    ),
+                    if (product.status != 'damaged')
+                      MyButton(
+                        loading: cState.loading,
+                        onTap: () {
+                          NoteMessage.showCheckDialog(
+                            context,
+                            text: 'Do you want to destroy the Asset?',
+                            textButton: 'Yes',
+                            onConfirm: () {
+                              context.read<AssetsCubit>().delete(id: product.id);
+                            },
+                          );
+                        },
+                        icon: ImageMultiType(
+                            url: Icons.delete_outline, color: Colors.white),
+                        color: Colors.red,
+                        text: S.of(context).removeProduct,
+                      ),
                   ],
                 ),
               );

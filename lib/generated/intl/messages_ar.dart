@@ -43,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "assetInventory": MessageLookupByLibrary.simpleMessage("جرد الأصول"),
     "assetName": MessageLookupByLibrary.simpleMessage("Asset name"),
     "assetSite": MessageLookupByLibrary.simpleMessage("Asset site"),
+    "assetStatus": MessageLookupByLibrary.simpleMessage("Asset status"),
+    "assetsScan": MessageLookupByLibrary.simpleMessage("Assets scan"),
     "at": MessageLookupByLibrary.simpleMessage("عند"),
     "back": MessageLookupByLibrary.simpleMessage("عودة"),
     "bandtech": MessageLookupByLibrary.simpleMessage("الحزمة التقنية"),
@@ -77,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "choosing": MessageLookupByLibrary.simpleMessage("اختر"),
     "city": MessageLookupByLibrary.simpleMessage("المدينة"),
+    "clear": MessageLookupByLibrary.simpleMessage("clear"),
     "clickToUpdate": MessageLookupByLibrary.simpleMessage("انقر للتعديل"),
     "closed": MessageLookupByLibrary.simpleMessage("منتهي"),
     "codeSentToEmail": MessageLookupByLibrary.simpleMessage(
@@ -118,6 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "كلمة المرور الحالية",
     ),
     "cvc": MessageLookupByLibrary.simpleMessage("الرقم السري"),
+    "dateTime": MessageLookupByLibrary.simpleMessage("Date time"),
     "day": MessageLookupByLibrary.simpleMessage("يوم"),
     "days": MessageLookupByLibrary.simpleMessage("أيام"),
     "deleteAccount": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
@@ -261,6 +265,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "minute": MessageLookupByLibrary.simpleMessage("دقيقة"),
     "minutes": MessageLookupByLibrary.simpleMessage("دقائق"),
     "month": MessageLookupByLibrary.simpleMessage("شهر"),
+    "moveProduct": MessageLookupByLibrary.simpleMessage("Move product"),
     "multipleChoice": MessageLookupByLibrary.simpleMessage("اختيار متعدد"),
     "myCourses": MessageLookupByLibrary.simpleMessage("كورساتي"),
     "myInfo": MessageLookupByLibrary.simpleMessage("معلوماتي"),
@@ -408,6 +413,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "startExam": MessageLookupByLibrary.simpleMessage("ابدأ الامتحان"),
     "startLesson": MessageLookupByLibrary.simpleMessage("ابدأ الدرس"),
     "startedAt": MessageLookupByLibrary.simpleMessage("بدأ في:"),
+    "stop": MessageLookupByLibrary.simpleMessage("Stop"),
     "subCategories": MessageLookupByLibrary.simpleMessage("تصنيفات فرعية"),
     "subTitleDeleteAccount": MessageLookupByLibrary.simpleMessage(
       "سوف يتم حذف الحساب بجميع البيانات والكورسات",
@@ -445,6 +451,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "toGetExamsLessonsAndNotes": MessageLookupByLibrary.simpleMessage(
       "للحصول على الامتحانات، الدروس والملاحظات",
     ),
+    "totalAssets": MessageLookupByLibrary.simpleMessage("Total assets"),
     "trackingOrder": MessageLookupByLibrary.simpleMessage("تتبع الطلب"),
     "transferProduct": MessageLookupByLibrary.simpleMessage("نقل منتج"),
     "trueOrFalse": MessageLookupByLibrary.simpleMessage("صحيح أو خطأ"),

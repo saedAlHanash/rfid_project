@@ -131,7 +131,6 @@ class OutLineButton extends StatelessWidget {
               text: toUpper ? text.toUpperCase() : text,
               color: textColor ?? AppColorManager.mainColor,
               fontFamily: FontManager.bold.name,
-              size: 14.0.sp,
               drawableEnd: loading
                   ? SizedBox(
                 height: 15.0.r,
@@ -147,7 +146,7 @@ class OutLineButton extends StatelessWidget {
 
     return SizedBox(
       width: width ?? .9.sw,
-      height: height,
+      height: height ?? 50.0.h,
       child: ElevatedButton(
         style: ButtonStyle(
           surfaceTintColor: WidgetStatePropertyAll(color ?? AppColorManager.whit),

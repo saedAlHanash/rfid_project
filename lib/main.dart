@@ -17,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'core/app/app_widget.dart';
 import 'core/injection/injection_container.dart' as di;
 import 'core/util/shared_preferences.dart';
+import 'features/database/import_db.dart';
 import 'features/home/bloc/home_cubit/home_cubit.dart';
 import 'features/notification/bloc/notification_count_cubit/notification_count_cubit.dart';
 import 'features/scan/bloc/scan_cubit/scan_cubit.dart';
@@ -42,6 +43,7 @@ void main() async {
     );
 
     // await Note.initialize();
+    await importNewDatabaseFromApi();
 
     await AppInfoService.initial();
 

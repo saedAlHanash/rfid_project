@@ -325,5 +325,21 @@
   "entity": "Entity",
   "tag": "Tag",
   "ifYouWishToEnterTheStickerNumberManually": "If you wish to enter the sticker number manually",
-  "searchForProduct": "Search for product"
+  "searchForProduct": "Search for product",
+    "clear": "clear",
+    "start": "Start",
+    "save": "save",
+    "stop": "Stop",
+    "assetStatus": "Asset status",
+    "moveProduct": "Move product",
+  "assetsScan": "Assets scan",
+  "totalAssets": "Total assets",
+  "match": "Match",
+  "missing": "Missing",
+  "unsigned": "Unsigned",
+  "unknown": "Unknown",
+  "dateTime": "Date time",
+  "totalTags": "Total tags",
+  "report": "Report",
+  "damaged": "Damaged"
 }

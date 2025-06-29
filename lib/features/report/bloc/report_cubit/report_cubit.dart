@@ -17,6 +17,9 @@ class ReportCubit extends MCubit<ReportInitial> {
   @override
   String get filter => state.filter;
 
+  @override
+  int get timeInterval => 30000;
+
   Future<void> getData({bool newData = false, String? reportId}) async {
     emit(state.copyWith(request: reportId));
 
@@ -32,7 +35,7 @@ class ReportCubit extends MCubit<ReportInitial> {
     final response = await APIService().callApi(
       type: ApiType.get,
       url: GetUrl.report,
-      query: {'Id': state.request},
+      path: state.request,
     );
 
     if (response.statusCode.success) {

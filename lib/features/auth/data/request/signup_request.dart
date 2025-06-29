@@ -18,8 +18,8 @@ class SignupRequest {
     this.educationalGradeId,
   }) {
     if (AppProvider.isTestMode) {
-      password = '12345678';
-      rePassword = '12345678';
+      password = '123456789';
+      rePassword = '123456789';
     }
   }
 

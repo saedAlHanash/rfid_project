@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rfid_project/core/api_manager/api_service.dart';
+import 'package:rfid_project/features/asset/data/request/create_asset_request.dart';
 import 'package:rfid_project/features/product/ui/pages/add_product_page.dart';
 import 'package:rfid_project/features/product/ui/pages/find_product.dart';
 import 'package:rfid_project/features/auth/ui/pages/splash_screen_page.dart';
@@ -40,8 +41,11 @@ import '../features/product/data/response/product_response.dart';
 import '../features/product/ui/pages/product_page.dart';
 import '../features/product/ui/pages/products_page.dart';
 import '../features/report/bloc/report_cubit/report_cubit.dart';
+import '../features/report/bloc/report_scan_cubit/report_scan_cubit.dart';
 import '../features/report/bloc/reports_cubit/reports_cubit.dart';
+import '../features/report/ui/pages/find_room.dart';
 import '../features/report/ui/pages/report_page.dart';
+import '../features/report/ui/pages/report_scan.dart';
 import '../features/report/ui/pages/reports_page.dart';
 import '../features/room/bloc/room_cubit/room_cubit.dart';
 import '../features/room/bloc/rooms_cubit/rooms_cubit.dart';
@@ -277,7 +281,7 @@ final goRouter = GoRouter(
                 ),
             ),
           ],
-          child: MoveProductPage(),
+          child: MoveProductPage(product: product),
         );
       },
     ),
@@ -330,6 +334,40 @@ final goRouter = GoRouter(
             ),
           ],
           child: ReportsPage(),
+        );
+      },
+    ),
+
+    ///findRoom
+    GoRoute(
+      path: RouteName.findRoom,
+      name: RouteName.findRoom,
+      builder: (_, state) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => sl<DepartmentsCubit>()),
+            BlocProvider(create: (_) => sl<DivisionsCubit>()),
+            BlocProvider(create: (_) => sl<RoomsCubit>()),
+          ],
+          child: FindRoom(),
+        );
+      },
+    ),
+
+    ///reportScan
+    GoRoute(
+      path: RouteName.reportScan,
+      name: RouteName.reportScan,
+      builder: (_, state) {
+        final request = state.extra as CreateAssetRequest;
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => sl<ReportsCubit>()),
+            BlocProvider(
+              create: (_) => sl<ReportScanCubit>()..init(request.room.id.toString()),
+            ),
+          ],
+          child: ReportScan(request: request),
         );
       },
     ),
@@ -579,4 +617,6 @@ class RouteName {
   static const editAsset = '/editAsset';
   static const deleteProduct = '/deleteProduct';
   static const moveProduct = '/moveProduct';
+  static const findRoom = '/findRoom';
+  static const reportScan = '/reportScan';
 }

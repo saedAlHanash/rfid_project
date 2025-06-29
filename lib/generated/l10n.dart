@@ -2454,6 +2454,101 @@ class S {
       args: [],
     );
   }
+
+  /// `clear`
+  String get clear {
+    return Intl.message('clear', name: 'clear', desc: '', args: []);
+  }
+
+  /// `Start`
+  String get start {
+    return Intl.message('Start', name: 'start', desc: '', args: []);
+  }
+
+  /// `save`
+  String get save {
+    return Intl.message('save', name: 'save', desc: '', args: []);
+  }
+
+  /// `Stop`
+  String get stop {
+    return Intl.message('Stop', name: 'stop', desc: '', args: []);
+  }
+
+  /// `Asset status`
+  String get assetStatus {
+    return Intl.message(
+      'Asset status',
+      name: 'assetStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Move product`
+  String get moveProduct {
+    return Intl.message(
+      'Move product',
+      name: 'moveProduct',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assets scan`
+  String get assetsScan {
+    return Intl.message('Assets scan', name: 'assetsScan', desc: '', args: []);
+  }
+
+  /// `Total assets`
+  String get totalAssets {
+    return Intl.message(
+      'Total assets',
+      name: 'totalAssets',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Match`
+  String get match {
+    return Intl.message('Match', name: 'match', desc: '', args: []);
+  }
+
+  /// `Missing`
+  String get missing {
+    return Intl.message('Missing', name: 'missing', desc: '', args: []);
+  }
+
+  /// `Unsigned`
+  String get unsigned {
+    return Intl.message('Unsigned', name: 'unsigned', desc: '', args: []);
+  }
+
+  /// `Unknown`
+  String get unknown {
+    return Intl.message('Unknown', name: 'unknown', desc: '', args: []);
+  }
+
+  /// `Date time`
+  String get dateTime {
+    return Intl.message('Date time', name: 'dateTime', desc: '', args: []);
+  }
+
+  /// `Total tags`
+  String get totalTags {
+    return Intl.message('Total tags', name: 'totalTags', desc: '', args: []);
+  }
+
+  /// `Report`
+  String get report {
+    return Intl.message('Report', name: 'report', desc: '', args: []);
+  }
+
+  /// `Damaged`
+  String get damaged {
+    return Intl.message('Damaged', name: 'damaged', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

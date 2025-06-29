@@ -34,7 +34,8 @@ class MyApp extends StatefulWidget {
     await AppSharedPreference.cashLocal(langCode);
     if (context.mounted) {
       final state = context.findAncestorStateOfType<_MyAppState>();
-      await state?.setLocale(Locale.fromSubtags(languageCode: AppSharedPreference.getLocal));
+      await state
+          ?.setLocale(Locale.fromSubtags(languageCode: AppSharedPreference.getLocal));
     }
   }
 }
@@ -45,7 +46,9 @@ class _MyAppState extends State<MyApp> {
     S.load(Locale(AppSharedPreference.getLocal));
 
     setImageMultiTypeErrorImage(
-      const Opacity(opacity: 0.3, child: ImageMultiType(url: Assets.imagesLogo, height: 30.0, width: 30.0)),
+      const Opacity(
+          opacity: 0.3,
+          child: ImageMultiType(url: Assets.imagesLogo, height: 30.0, width: 30.0)),
     );
     super.initState();
   }
@@ -58,16 +61,17 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    loggerObject.w(AppSharedPreference.getToken);
     return ScreenUtilInit(
-      designSize: MediaQuery.of(context).size,
-      // designSize: const Size(390, 862),
+      // designSize: MediaQuery.of(context).size,
+      designSize: const Size(390, 862),
       // designSize: const Size(14440, 972),
       minTextAdapt: true,
       // splitScreenMode: true,
       builder: (context, child) {
         DrawableText.initial(
           initialHeightText: 1.5.sp,
-          initialSize: 14.0.sp,
+          initialSize: 13.0.sp,
           selectable: false,
           initialFont: FontManager.semeBold.name,
           initialColor: AppColorManager.black,
@@ -89,18 +93,21 @@ class _MyAppState extends State<MyApp> {
                 BlocProvider(create: (_) => sl<LoadingCubit>()),
                 BlocProvider(create: (_) => sl<DeleteAccountCubit>()),
                 BlocProvider(create: (_) => sl<UpdateProfileCubit>()),
-                BlocProvider(create: (_) => sl<GetMeCubit>()..getData()),
+                BlocProvider(create: (_) => sl<GetMeCubit>()),
                 BlocProvider(create: (_) => sl<AssetsCubit>()..getData()),
-                BlocProvider(create: (_) => sl<NotificationCubit>()..getData()),
+                BlocProvider(create: (_) => sl<NotificationCubit>()),
                 BlocProvider(create: (_) => sl<EntitiesCubit>()..getData()),
               ],
               child: MediaQuery(
-                data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(.85)),
+                data: MediaQuery.of(context).copyWith(
+                  textScaler: TextScaler.linear(1),
+                ),
                 child: GestureDetector(
                   onTap: () {
                     final currentFocus = FocusScope.of(context);
 
-                    if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+                    if (!currentFocus.hasPrimaryFocus &&
+                        currentFocus.focusedChild != null) {
                       FocusManager.instance.primaryFocus?.unfocus();
                     }
                   },
@@ -142,7 +149,8 @@ class _MyAppState extends State<MyApp> {
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
   // Override behavior methods and getters like dragDevices
   @override
-  Set<PointerDeviceKind> get dragDevices => {PointerDeviceKind.touch, PointerDeviceKind.mouse};
+  Set<PointerDeviceKind> get dragDevices =>
+      {PointerDeviceKind.touch, PointerDeviceKind.mouse};
 }
 
 BuildContext? get ctx => navigatorKey.currentContext;

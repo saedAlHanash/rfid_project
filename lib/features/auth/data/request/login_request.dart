@@ -11,7 +11,7 @@ class LoginRequest {
     this.code,
   }) {
     phone = '07800000000';
-    password = '12345678';
+    password = '123456789';
   }
 
   LoginRequest copyWith({

@@ -322,5 +322,12 @@
   "department": "department",
   "division": "Division",
     "room": "Room",
-  "assetSite": "Asset site"
+  "assetSite": "Asset site",
+    "clear": "clear",
+    "stop": "Stop",
+    "assetStatus": "Asset status",
+    "moveProduct": "Move product",
+  "assetsScan": "Assets scan",
+  "totalAssets": "Total assets",
+  "dateTime": "Date time"
 }
