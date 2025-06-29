@@ -40,7 +40,9 @@ class ScanCubit extends MCubit<ScanInitial> {
 
   Future<bool> clear() async {
     try {
-      return await _channel.invokeMethod('clear');
+      await _channel.invokeMethod('clear');
+      emit(state.copyWith(result: []));
+      return true;
     } on PlatformException catch (e) {
       loggerObject.e("Failed to clear: '${e.message}'.");
       return false;

@@ -51,6 +51,10 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
                         Dispose();
                         result.success(true);
                         break;
+                    case "clear":
+                        Clear();
+                        result.success(true);
+                        break;
                     case "readOrStop":
                         Read();
                         result.success(true);
@@ -96,22 +100,10 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
     private static int _ReadType = 0;
     private final HashMap<String, EPCModel> hmList = new HashMap<>();
     private final Object hmList_Lock = new Object();
-    private Boolean IsFlushList = true;
-    private final Object beep_Lock = new Object();
-    ToneGenerator toneGenerator = new ToneGenerator(AudioManager.STREAM_SYSTEM,
-            ToneGenerator.MAX_VOLUME);
+
 
     private static final boolean isPowerLowShow = false;
 
-    private final int MSG_RESULT_READ = 0 + 1;
-    private final Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == MSG_RESULT_READ) {
-                ShowList();
-            }
-        }
-    };
     private IAsynchronousMessage log = null;
 
     public void UHF_Dispose() {
@@ -200,7 +192,6 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
 
     public void Clear() {
         hmList.clear();
-        ShowList();
     }
 
 
@@ -220,57 +211,48 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
                 Toast.makeText(this, "error"+ignored.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
-            Refush();
+//            Refush();
 
         }
     }
 
 
-    protected void Refush() {
-        IsFlushList = true;
-
-        Helper_ThreadPool.ThreadPool_StartSingle(() -> {
-            while (IsFlushList) {
-                try {
-                    handler.sendMessage(handler.obtainMessage(MSG_RESULT_READ, null));
-                    Thread.sleep(1000);
-                } catch (InterruptedException ignored) {
-                }
-            }
-        });
-
-        Helper_ThreadPool.ThreadPool_StartSingle(() -> {
-            while (IsFlushList) {
-                synchronized (beep_Lock) {
-                    try {
-                        beep_Lock.wait();
-                    } catch (InterruptedException ignored) {
-                    }
-                }
-                if (IsFlushList) {
-                    toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
-                }
-
-            }
-        });
-    }
+//    protected void Refush() {
+//        IsFlushList = true;
+//
+//        Helper_ThreadPool.ThreadPool_StartSingle(() -> {
+//            while (IsFlushList) {
+//                try {
+//                    handler.sendMessage(handler.obtainMessage(MSG_RESULT_READ, null));
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException ignored) {
+//                }
+//            }
+//        });
+//
+//        Helper_ThreadPool.ThreadPool_StartSingle(() -> {
+//            while (IsFlushList) {
+//                synchronized (beep_Lock) {
+//                    try {
+//                        beep_Lock.wait();
+//                    } catch (InterruptedException ignored) {
+//                    }
+//                }
+//                if (IsFlushList) {
+//                    toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
+//                }
+//
+//            }
+//        });
+//    }
 
 
     protected void Dispose() {
         isStartPingPong = false;
-        IsFlushList = false;
-        synchronized (beep_Lock) {
-            beep_Lock.notifyAll();
-        }
         UHF_Dispose();
     }
 
 
-    protected void ShowList() {
-        if (!isStartPingPong)
-            return;
-
-    }
 
     @SuppressWarnings({"rawtypes", "unused"})
     protected List<String> GetData() {
@@ -305,7 +287,6 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
 
                 isKeyDown = true;
                 if (!isStartPingPong) {
-                    Clear();
                     Pingpong_Stop();
                     isStartPingPong = true;
                     if ("6C".equals("6C")) {
@@ -359,9 +340,6 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
                     hmList.put(model._EPC + model._TID, model);
                 }
             }
-            synchronized (beep_Lock) {
-                beep_Lock.notify();
-            }
         } catch (Exception ex) {
             Toast.makeText(this, "error" +ex.getMessage(), Toast.LENGTH_SHORT).show();
             Log.d("Debug", "Tags output exceptions:" + ex.getMessage());
@@ -374,7 +352,6 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
         if (isStartPingPong)
             return;
         isStartPingPong = true;
-        Clear();
         Helper_ThreadPool.ThreadPool_StartSingle(() -> {
             try {
                 if (!isPowerLowShow) {

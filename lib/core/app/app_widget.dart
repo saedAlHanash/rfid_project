@@ -16,9 +16,11 @@ import '../../features/asset/bloc/assets_cubit/assets_cubit.dart';
 import '../../features/entity/bloc/entities_cubit/entities_cubit.dart';
 import '../../features/notification/bloc/all_notification_cubit/all_notification_cubit.dart';
 import '../../features/profile/bloc/get_me_cubit/get_me_cubit.dart';
+import '../../features/scan/bloc/scan_cubit/scan_cubit.dart';
 import '../../generated/assets.dart';
 import '../../generated/l10n.dart';
 import '../../router/go_router.dart';
+import '../../services/beep_service.dart';
 import '../app_theme.dart';
 import '../injection/injection_container.dart';
 import '../util/shared_preferences.dart';
@@ -34,8 +36,7 @@ class MyApp extends StatefulWidget {
     await AppSharedPreference.cashLocal(langCode);
     if (context.mounted) {
       final state = context.findAncestorStateOfType<_MyAppState>();
-      await state
-          ?.setLocale(Locale.fromSubtags(languageCode: AppSharedPreference.getLocal));
+      await state?.setLocale(Locale.fromSubtags(languageCode: AppSharedPreference.getLocal));
     }
   }
 }
@@ -46,9 +47,7 @@ class _MyAppState extends State<MyApp> {
     S.load(Locale(AppSharedPreference.getLocal));
 
     setImageMultiTypeErrorImage(
-      const Opacity(
-          opacity: 0.3,
-          child: ImageMultiType(url: Assets.imagesLogo, height: 30.0, width: 30.0)),
+      const Opacity(opacity: 0.3, child: ImageMultiType(url: Assets.imagesLogo, height: 30.0, width: 30.0)),
     );
     super.initState();
   }
@@ -102,37 +101,45 @@ class _MyAppState extends State<MyApp> {
                 data: MediaQuery.of(context).copyWith(
                   textScaler: TextScaler.linear(1),
                 ),
-                child: GestureDetector(
-                  onTap: () {
-                    final currentFocus = FocusScope.of(context);
-
-                    if (!currentFocus.hasPrimaryFocus &&
-                        currentFocus.focusedChild != null) {
-                      FocusManager.instance.primaryFocus?.unfocus();
+                child: BlocListener<ScanCubit, ScanInitial>(
+                  listener: (context, state) {
+                    if (state.isRead) {
+                      beepService.startBeeping();
+                    } else {
+                      beepService.stopBeeping();
                     }
                   },
-                  child: AppProvider.isTestMode
-                      ? SafeArea(
-                          bottom: true,
-                          top: false,
-                          left: false,
-                          right: false,
-                          child: Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              child!,
-                              IgnorePointer(
-                                child: ImageMultiType(
-                                  height: 100.0.h,
-                                  width: 100.0.w,
-                                  color: Colors.grey,
-                                  url: Assets.imagesTestMode,
+                  child: GestureDetector(
+                    onTap: () {
+                      final currentFocus = FocusScope.of(context);
+
+                      if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      }
+                    },
+                    child: AppProvider.isTestMode
+                        ? SafeArea(
+                            bottom: true,
+                            top: false,
+                            left: false,
+                            right: false,
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                child!,
+                                IgnorePointer(
+                                  child: ImageMultiType(
+                                    height: 100.0.h,
+                                    width: 100.0.w,
+                                    color: Colors.grey,
+                                    url: Assets.imagesTestMode,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        )
-                      : child!,
+                              ],
+                            ),
+                          )
+                        : child!,
+                  ),
                 ),
               ),
             );
@@ -149,8 +156,7 @@ class _MyAppState extends State<MyApp> {
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
   // Override behavior methods and getters like dragDevices
   @override
-  Set<PointerDeviceKind> get dragDevices =>
-      {PointerDeviceKind.touch, PointerDeviceKind.mouse};
+  Set<PointerDeviceKind> get dragDevices => {PointerDeviceKind.touch, PointerDeviceKind.mouse};
 }
 
 BuildContext? get ctx => navigatorKey.currentContext;

@@ -100,16 +100,18 @@ class _ScanPageState extends State<ScanPage> {
                                 child: DrawableText(
                                   text: e,
                                   matchParent: true,
-                                  drawableEnd: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        cState.cRequest.labels.remove(e);
-                                      });
-                                    },
-                                    icon: ImageMultiType(
-                                      url: Assets.iconsTimes,
-                                    ),
-                                  ),
+                                  drawableEnd: state.isRead
+                                      ? 0.0.verticalSpace
+                                      : IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              cState.cRequest.labels.remove(e);
+                                            });
+                                          },
+                                          icon: ImageMultiType(
+                                            url: Assets.iconsTimes,
+                                          ),
+                                        ),
                                 ),
                               );
                             },
@@ -140,8 +142,7 @@ class _ScanPageState extends State<ScanPage> {
                     ..state.cRequest.labels.addAll(cubit.state.result)
                     ..create();
                 },
-                icon: ImageMultiType(
-                    url: Assets.iconsFloppyDisk, height: 24.0, color: Colors.white),
+                icon: ImageMultiType(url: Assets.iconsFloppyDisk, height: 24.0, color: Colors.white),
                 text: S.of(context).save,
               );
             },

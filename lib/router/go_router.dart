@@ -51,6 +51,7 @@ import '../features/room/bloc/room_cubit/room_cubit.dart';
 import '../features/room/bloc/rooms_cubit/rooms_cubit.dart';
 import '../features/room/ui/pages/room_page.dart';
 import '../features/room/ui/pages/rooms_page.dart';
+import '../services/beep_service.dart';
 import 'go_route_observer.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -512,7 +513,7 @@ final goRouter = GoRouter(
       path: RouteName.splash,
       name: RouteName.splash,
       builder: (_, state) {
-        return SplashScreenPage();
+        return BeepToneManagerPage();
       },
     ),
     //endregion

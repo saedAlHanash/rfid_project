@@ -29,12 +29,12 @@ import '../../features/room/bloc/room_cubit/room_cubit.dart';
 import '../../features/room/bloc/rooms_cubit/rooms_cubit.dart';
 import '../../features/scan/bloc/scan_cubit/scan_cubit.dart';
 import '../../main.dart';
+import '../../services/beep_service.dart';
 import '../app/bloc/loading_cubit.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
-
   //region entity
   sl.registerFactory(() => EntityCubit());
   sl.registerFactory(() => EntitiesCubit());
@@ -77,6 +77,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GlobalKey<NavigatorState>());
 
   sl.registerLazySingleton(() => HomeCubit());
+  // sl.registerSingleton(() => BeepService());
   sl.registerFactory(() => ScanCubit());
 
   //endregion
