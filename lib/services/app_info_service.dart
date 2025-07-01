@@ -1,4 +1,3 @@
-
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../core/api_manager/api_service.dart';
@@ -17,6 +16,5 @@ class AppInfoService {
 
   static PackageInfo get appInfo => _appData!;
 
-  static String get fullVersionName =>
-      'version:( ${appInfo.version} ) | Build:( ${appInfo.buildNumber} )';
+  static String get fullVersionName => 'النسخة:( ${appInfo.version} ) | البنية:( ${appInfo.buildNumber} )';
 }

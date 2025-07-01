@@ -8,11 +8,16 @@ import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:rfid_project/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:rfid_project/core/widgets/my_text_form_widget.dart';
+import 'package:rfid_project/core/widgets/spinner_widget.dart';
+import 'package:rfid_project/services/app_info_service.dart';
 
 import '../../../../../core/strings/app_color_manager.dart';
+import '../../../../../core/strings/app_string_manager.dart';
+import '../../../../../core/util/my_style.dart';
 import '../../../../../generated/assets.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../profile/bloc/get_me_cubit/get_me_cubit.dart';
+import '../../../../scan/bloc/scan_cubit/scan_cubit.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -23,96 +28,119 @@ class MenuScreen extends StatefulWidget {
 
 class _MenuScreenState extends State<MenuScreen> {
   @override
+  void initState() {
+    context.read<ScanCubit>().init();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColorManager.mainColor,
       appBar: AppBarWidget(titleText: S.of(context).settings),
-      body: BlocBuilder<GetMeCubit, GetMeInitial>(
+      body: BlocBuilder<ScanCubit, ScanInitial>(
         builder: (context, state) {
-          return Container(
-            decoration: BoxDecoration(
-              color: AppColorManager.whit,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20.0.r)),
-            ),
-            padding: EdgeInsets.all(20.0).r,
-            child: Column(
-              children: [
-                MyTextFormOutLineWidget(
-                  enable: false,
-                  label: 'تاريخ غلق الحساب',
-                  initialValue: state.result.expiryDate?.formatDate,
+          if (state.loading) {
+            return MyStyle.loadingWidget();
+          }
+          return BlocBuilder<GetMeCubit, GetMeInitial>(
+            builder: (context, pState) {
+              return Container(
+                decoration: BoxDecoration(
+                  color: AppColorManager.whit,
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(20.0.r)),
                 ),
-                MyTextFormOutLineWidget(
-                  enable: false,
-                  initialValue: state.result.name,
-                  label: 'اسم المستخدم',
-                ),
-                MyTextFormOutLineWidget(enable: false, initialValue: state.result.phone, label: 'رقم الهاتف'),
-                Row(
+                padding: EdgeInsets.all(20.0).r,
+                child: Column(
                   children: [
-                    Expanded(
-                      child: MyTextFormOutLineWidget(
-                        enable: false,
-                        initialValue: '10',
-                        label: 'طاقة القراءة',
+                    MyTextFormOutLineWidget(
+                      enable: false,
+                      label: S.of(context).closingAccountDate,
+                      initialValue: pState.result.expiryDate?.formatDate,
+                    ),
+                    MyTextFormOutLineWidget(
+                      enable: false,
+                      initialValue: pState.result.name,
+                      label: S.of(context).userName,
+                    ),
+                    MyTextFormOutLineWidget(
+                        enable: false, initialValue: pState.result.phone, label: S.of(context).phoneNumber),
+                    SpinnerWidget(
+                      hintLabel: S.of(context).readPower,
+                      hintText: S.of(context).readPower,
+                      items: powerList
+                          .map(
+                            (e) => SpinnerItem(id: e, name: e.toString(), isSelected: state.power == e),
+                          )
+                          .toList(),
+                      onChanged: (spinnerItem) {
+                        context.read<ScanCubit>().setPower(spinnerItem.id);
+                      },
+                    ),
+                    20.0.verticalSpace,
+                    // Row(
+                    //   children: [
+                    //     Expanded(
+                    //       child: MyTextFormOutLineWidget(
+                    //         enable: false,
+                    //         initialValue: state.power.toString(),
+                    //         label: S.of(context).readPower,
+                    //       ),
+                    //     ),
+                    //     // 15.0.horizontalSpace,
+                    //     // Expanded(
+                    //     //   child: MyTextFormOutLineWidget(enable: false, initialValue: '30', label: 'طاقة الجرد'),
+                    //     // ),
+                    //   ],
+                    // ),
+                    MyTextFormOutLineWidget(
+                      enable: false,
+                      label: S.of(context).permissions,
+                      iconWidgetLift: Column(
+                        children: [
+                          20.0.verticalSpace,
+                          ListTile(
+                            title: DrawableText(text: S.of(context).entity),
+                            trailing: DrawableText(text: pState.result.entity.name),
+                          ),
+                          ListTile(
+                            title: DrawableText(text: S.of(context).department),
+                            trailing: DrawableText(text: pState.result.departmen.name),
+                          ),
+                          ListTile(
+                            title: DrawableText(text: S.of(context).division),
+                            trailing: DrawableText(text: pState.result.division.name),
+                          ),
+                          20.0.verticalSpace,
+                        ],
                       ),
                     ),
-                    15.0.horizontalSpace,
-                    Expanded(
-                      child: MyTextFormOutLineWidget(enable: false, initialValue: '30', label: 'طاقة الجرد'),
+                    // ItemMenu(
+                    //   onTap: () {
+                    //     AppProvider.logout();
+                    //   },
+                    //   name: S.of(context).logout,
+                    //   subTitle: '',
+                    //   image: Assets.iconsLogout,
+                    // ),
+                    ListTile(
+                      onTap: () {
+                        AppProvider.logout();
+                      },
+                      title: DrawableText(text: S.of(context).logout),
+                      trailing: ImageMultiType(
+                        url: Icons.logout,
+                        height: 15.0.r,
+                        color: AppColorManager.mainColor,
+                      ),
                     ),
+                    Spacer(),
+                    Bandtech(),
+                    20.0.verticalSpace,
                   ],
                 ),
-                MyTextFormOutLineWidget(
-                  enable: false,
-                  label: 'الصلاحيات',
-                  iconWidgetLift: Column(
-                    children: [
-                      20.0.verticalSpace,
-                      ListTile(
-                        title: DrawableText(text: 'القسم'),
-                        trailing: ImageMultiType(url: Icons.arrow_forward_ios, width: 10.0.r),
-                      ),
-                      ListTile(
-                        title: DrawableText(text: 'الهيئة'),
-                        trailing: ImageMultiType(url: Icons.arrow_forward_ios, width: 10.0.r),
-                      ),
-                      ListTile(
-                        title: DrawableText(text: 'الشعبة'),
-                        trailing: ImageMultiType(url: Icons.arrow_forward_ios, width: 10.0.r),
-                      ),
-                      ListTile(
-                        title: DrawableText(text: 'الغرفة '),
-                        trailing: ImageMultiType(url: Icons.arrow_forward_ios, width: 10.0.r),
-                      ),
-                      20.0.verticalSpace,
-                    ],
-                  ),
-                ),
-                // ItemMenu(
-                //   onTap: () {
-                //     AppProvider.logout();
-                //   },
-                //   name: S.of(context).logout,
-                //   subTitle: '',
-                //   image: Assets.iconsLogout,
-                // ),
-                ListTile(
-                  onTap: () {
-                    AppProvider.logout();
-                  },
-                  title: DrawableText(text: S.of(context).logout),
-                  trailing: ImageMultiType(
-                    url: Icons.logout,
-                    height: 15.0.r,
-                    color: AppColorManager.mainColor,
-                  ),
-                ),
-                Spacer(),
-                Bandtech(),
-                20.0.verticalSpace,
-              ],
-            ),
+              );
+            },
           );
         },
       ),
@@ -131,6 +159,10 @@ class Bandtech extends StatelessWidget {
         DrawableText(text: S.of(context).bandtech, size: 24.0.sp, fontFamily: FontManager.bold.name),
         DrawableText(
           text: S.of(context).designProgrammingPropertyRightsAndPublishing,
+          fontFamily: FontManager.bold.name,
+        ),
+        DrawableText(
+          text: AppInfoService.fullVersionName,
           fontFamily: FontManager.bold.name,
         ),
       ],

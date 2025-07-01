@@ -28,7 +28,7 @@ class NotificationPage extends StatefulWidget {
 class _NotificationPageState extends State<NotificationPage> {
   @override
   void initState() {
-    context.read<NotificationCubit>().getData();
+    // context.read<NotificationCubit>().getData();
     AppSharedPreference.clearNotificationCount();
     context.read<NotificationCountCubit>().changeCount();
     super.initState();

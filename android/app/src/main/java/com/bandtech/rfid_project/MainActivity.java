@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,9 +44,15 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
         channel.setMethodCallHandler((call, result) -> {
             try {
                 switch (call.method) {
+                    case "getPower":
+                        result.success(GetPower());
+                        break;
+                    case "setPower":
+                        result.success(setPower(call.arguments == null ? _Max_Power : (int) call.arguments));
+                        break;
                     case "init":
                         Init();
-                        result.success(true);
+                        result.success(GetPower());
                         break;
                     case "dispose":
                         Dispose();
@@ -96,6 +103,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
     private static boolean isStartPingPong = false;
     private boolean isKeyDown = false;
     private int keyDownCount = 0;
+    private int _Max_Power = 30;
 
     private static int _ReadType = 0;
     private final HashMap<String, EPCModel> hmList = new HashMap<>();
@@ -178,6 +186,21 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
         }
     }
 
+    public int GetPower() {
+        return UHFReader._Config.GetANTPowerParam();
+    }
+
+    public boolean setPower(int setParam) {
+
+        int antCount = 1;
+
+        if (_NowAntennaNo == 3) {
+            antCount = 2;
+        }
+        int rt = UHFReader._Config.SetANTPowerParam(antCount, setParam);
+        Log.d("RFID", "SetPower: " + rt);
+        return rt == 0;
+    }
 
     public void Read() {
         if (!isRead) {
@@ -195,7 +218,6 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
     }
 
 
-
     protected void Init() {
         log = this;
         if (!UHF_Init(log)) {
@@ -208,7 +230,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
                 Thread.sleep(20);
                 UHF_SetTagUpdateParam();
             } catch (Exception ignored) {
-                Toast.makeText(this, "error"+ignored.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "error" + ignored.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
 //            Refush();
@@ -251,7 +273,6 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
         isStartPingPong = false;
         UHF_Dispose();
     }
-
 
 
     @SuppressWarnings({"rawtypes", "unused"})
@@ -341,7 +362,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
                 }
             }
         } catch (Exception ex) {
-            Toast.makeText(this, "error" +ex.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "error" + ex.getMessage(), Toast.LENGTH_SHORT).show();
             Log.d("Debug", "Tags output exceptions:" + ex.getMessage());
         }
 
@@ -362,7 +383,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
                     }
                 }
             } catch (Exception ignored) {
-                Toast.makeText(this, "error"+ignored.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "error" + ignored.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });

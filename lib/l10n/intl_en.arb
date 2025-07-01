@@ -341,5 +341,8 @@
   "dateTime": "Date time",
   "totalTags": "Total tags",
   "report": "Report",
-  "damaged": "Damaged"
+  "damaged": "Damaged",
+  "readPower": "Read power",
+  "permissions": "permissions",
+  "closingAccountDate": "Closing account date"
 }

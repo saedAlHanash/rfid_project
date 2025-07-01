@@ -13,8 +13,9 @@ class ScanCubit extends MCubit<ScanInitial> {
   Future<void> init() async {
     emit(state.copyWith(statuses: CubitStatuses.loading));
     try {
-      await _channel.invokeMethod('init');
-      emit(state.copyWith(statuses: CubitStatuses.done));
+      final power = await _channel.invokeMethod('init');
+      loggerObject.w(power);
+      emit(state.copyWith(statuses: CubitStatuses.done, power: power));
     } on PlatformException catch (e) {
       loggerObject.e("Failed to init RFID: '${e.message}'.");
     }
@@ -26,6 +27,28 @@ class ScanCubit extends MCubit<ScanInitial> {
     } on PlatformException catch (e) {
       loggerObject.e("Failed to dispose RFID: '${e.message}'.");
       return false;
+    }
+  }
+
+  Future<bool> setPower(int power) async {
+    try {
+      final b = await _channel.invokeMethod('setPower', power);
+      if (b) {
+        emit(state.copyWith(power: power));
+      }
+      return b;
+    } on PlatformException catch (e) {
+      loggerObject.e("Failed to dispose RFID: '${e.message}'.");
+      return false;
+    }
+  }
+
+  Future<void> getPower() async {
+    try {
+      final power = await _channel.invokeMethod('getPower');
+      emit(state.copyWith(power: power));
+    } on PlatformException catch (e) {
+      loggerObject.e("Failed to dispose RFID: '${e.message}'.");
     }
   }
 

@@ -2549,6 +2549,26 @@ class S {
   String get damaged {
     return Intl.message('Damaged', name: 'damaged', desc: '', args: []);
   }
+
+  /// `Read power`
+  String get readPower {
+    return Intl.message('Read power', name: 'readPower', desc: '', args: []);
+  }
+
+  /// `permissions`
+  String get permissions {
+    return Intl.message('permissions', name: 'permissions', desc: '', args: []);
+  }
+
+  /// `Closing account date`
+  String get closingAccountDate {
+    return Intl.message(
+      'Closing account date',
+      name: 'closingAccountDate',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

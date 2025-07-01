@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void updateData() {
     context.read<GetMeCubit>().getData(newData: true);
-    context.read<NotificationCubit>().getData(newData: true);
+    // context.read<NotificationCubit>().getData(newData: true);
   }
 
   @override

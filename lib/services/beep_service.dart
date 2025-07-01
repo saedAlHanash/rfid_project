@@ -14,13 +14,20 @@ final BeepService beepService = BeepService();
 
 class BeepService {
   final AudioPlayer _player = AudioPlayer();
+
+  BeepService() {
+    _player.setSourceAsset(Assets.soundsBeep.replaceAll('assets/', ''));
+    _player.setPlayerMode(PlayerMode.lowLatency);
+    _player.setReleaseMode(ReleaseMode.loop);
+  }
+
   var _playing = false;
 
   void startBeeping() async {
     _playing = true;
     while (_playing) {
-      await _player.play(AssetSource(Assets.soundsBeep.replaceAll('assets/', '')));
-      await Future.delayed(const Duration(milliseconds: 300));
+      await _player.resume();
+      await Future.delayed(const Duration(seconds: 5));
     }
   }
 

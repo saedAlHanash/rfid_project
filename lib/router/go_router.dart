@@ -513,7 +513,7 @@ final goRouter = GoRouter(
       path: RouteName.splash,
       name: RouteName.splash,
       builder: (_, state) {
-        return BeepToneManagerPage();
+        return SplashScreenPage();
       },
     ),
     //endregion

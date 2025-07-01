@@ -9,6 +9,7 @@ import 'package:rfid_project/features/report/data/request/create_report_request.
 import 'package:rfid_project/features/report/data/response/report_response.dart';
 
 import '../../../../core/error/error_manager.dart';
+import '../../ui/pages/reports_page.dart';
 
 part 'reports_state.dart';
 
@@ -25,7 +26,8 @@ class ReportsCubit extends MCubit<ReportsInitial> {
 
   void getDataFromCache() => getFromCache(fromJson: Report.fromJson, state: state);
 
-  Future<void> getData({bool newData = false}) async {
+  Future<void> getData({bool newData = false, DateRange? request}) async {
+    emit(state.copyWith(request: request));
     await getDataAbstract(
       fromJson: Report.fromJson,
       state: state,
@@ -38,7 +40,7 @@ class ReportsCubit extends MCubit<ReportsInitial> {
     final response = await APIService().callApi(
       type: ApiType.get,
       url: PostUrl.reports,
-      body: state.filterRequest?.toJson() ?? {},
+      query: state.mRequest.toJson(),
     );
 
     if (response.statusCode.success) {

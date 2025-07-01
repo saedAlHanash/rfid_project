@@ -82,6 +82,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "clear": MessageLookupByLibrary.simpleMessage("clear"),
     "clickToUpdate": MessageLookupByLibrary.simpleMessage("Click To Update"),
     "closed": MessageLookupByLibrary.simpleMessage("Closed"),
+    "closingAccountDate": MessageLookupByLibrary.simpleMessage(
+      "Closing account date",
+    ),
     "codeSentToEmail": MessageLookupByLibrary.simpleMessage(
       "Confirmation code sent to email: ",
     ),
@@ -341,6 +344,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentMethod": MessageLookupByLibrary.simpleMessage("Payment Method"),
     "payment_summary": MessageLookupByLibrary.simpleMessage("Payment Summary"),
     "pending": MessageLookupByLibrary.simpleMessage("Pending"),
+    "permissions": MessageLookupByLibrary.simpleMessage("permissions"),
     "phoneCall": MessageLookupByLibrary.simpleMessage("Phone Call"),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
     "phoneNumberCanNotBeChange": MessageLookupByLibrary.simpleMessage(
@@ -371,6 +375,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "question": MessageLookupByLibrary.simpleMessage("Question"),
     "rated": MessageLookupByLibrary.simpleMessage("Rated"),
     "rePassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
+    "readPower": MessageLookupByLibrary.simpleMessage("Read power"),
     "ready": MessageLookupByLibrary.simpleMessage("Ready"),
     "readyToDeliver": MessageLookupByLibrary.simpleMessage("Ready To Deliver"),
     "receiverPhone": MessageLookupByLibrary.simpleMessage("receiverPhone"),

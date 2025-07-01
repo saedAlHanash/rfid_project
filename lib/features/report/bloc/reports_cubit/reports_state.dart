@@ -15,9 +15,12 @@ class ReportsInitial extends AbstractState<List<Report>> {
   factory ReportsInitial.initial() {
     return ReportsInitial(
       result: [],
+      request: DateRange.fromJson({}),
       createUpdateRequest: CreateReportRequest.fromJson({}),
     );
   }
+
+  DateRange get mRequest => request;
 
   CreateReportRequest get cRequest => createUpdateRequest;
 
@@ -41,7 +44,7 @@ class ReportsInitial extends AbstractState<List<Report>> {
     List<Report>? result,
     String? error,
     FilterRequest? filterRequest,
-    dynamic request,
+    DateRange? request,
     dynamic cRequest,
     dynamic id,
   }) {

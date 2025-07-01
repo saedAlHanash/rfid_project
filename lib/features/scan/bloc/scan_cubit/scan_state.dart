@@ -11,14 +11,17 @@ class ScanInitial extends AbstractState<List<String>> {
     super.statuses,
     super.id,
     required this.isRead,
+    required this.power,
   });
 
   final bool isRead;
+  final int power;
 
   factory ScanInitial.initial() {
     return const ScanInitial(
       result: [],
       isRead: false,
+      power: 0,
     );
   }
 
@@ -29,6 +32,7 @@ class ScanInitial extends AbstractState<List<String>> {
         error,
         cubitCrud,
         isRead,
+        power,
         if (id != null) id,
         if (request != null) request,
         if (filterRequest != null) filterRequest!,
@@ -40,6 +44,7 @@ class ScanInitial extends AbstractState<List<String>> {
     CubitCrud? cubitCrud,
     List<String>? result,
     bool? isRead,
+    int? power,
     String? error,
     FilterRequest? filterRequest,
     dynamic request,
@@ -54,6 +59,7 @@ class ScanInitial extends AbstractState<List<String>> {
       filterRequest: filterRequest ?? this.filterRequest,
       request: request ?? this.request,
       isRead: isRead ?? this.isRead,
+      power: power ?? this.power,
       id: id ?? this.id,
     );
   }
