@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:http/http.dart';
 import 'package:m_cubit/abstraction.dart';
+import 'package:rfid_project/core/api_manager/api_service.dart';
 import 'package:rfid_project/core/app/app_provider.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
 

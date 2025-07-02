@@ -249,7 +249,7 @@ extension ResponseHelper on http.Response {
   // Pair<T?, String?> getPairError<T>() {
   //   return Pair(null, ErrorManager.getApiError(this));
   // }
-  get getPairError {
+  dynamic get getPairError {
     return Pair(null, ErrorManager.getApiError(this));
   }
 }

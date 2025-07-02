@@ -120,8 +120,8 @@ class RoomsCubit extends MCubit<RoomsInitial> {
       isDelete ? await deleteRoomFromCache(state.id) : await addOrUpdateRoomToCache(item);
       emit(state.copyWith(statuses: CubitStatuses.done));
     } else {
+      emit(state.copyWith(statuses: CubitStatuses.error, error: response.getPairError.second));
       showErrorFromApi(state);
-      emit(state.copyWith(statuses: CubitStatuses.error));
     }
   }
 

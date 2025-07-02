@@ -146,6 +146,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "doNotHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "لا تمتلك حساب؟",
     ),
+    "doYouWantToDestroyTheAsset": MessageLookupByLibrary.simpleMessage(
+      "هل انت متأكد من إتلاف الأصل؟",
+    ),
     "dollar": MessageLookupByLibrary.simpleMessage("دولار"),
     "done": MessageLookupByLibrary.simpleMessage("تم"),
     "doneCanceled": MessageLookupByLibrary.simpleMessage("تم إلغاؤه"),

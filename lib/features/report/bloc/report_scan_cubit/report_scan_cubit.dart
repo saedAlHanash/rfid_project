@@ -71,16 +71,13 @@ class ReportScanCubit extends MCubit<ReportScanInitial> {
     labelNames.addAll(names);
 
     for (var e in match) {
-      scannedInfo.add(
-          [e, TagStatus.match, labelNames[e]?.firstOrNull ?? '-------', labelNames[e]?.lastOrNull ?? '']);
+      scannedInfo.add([e, TagStatus.match, labelNames[e]?.firstOrNull ?? '-------']);
     }
     for (var e in unknown) {
-      scannedInfo.add(
-          [e, TagStatus.unknown, labelNames[e]?.firstOrNull ?? '-------', labelNames[e]?.lastOrNull ?? '']);
+      scannedInfo.add([e, TagStatus.unknown, labelNames[e]?.firstOrNull ?? '-------']);
     }
     for (var e in unsigned) {
-      scannedInfo.add(
-          [e, TagStatus.unsigned, labelNames[e]?.firstOrNull ?? '-------', labelNames[e]?.lastOrNull ?? '']);
+      scannedInfo.add([e, TagStatus.unsigned, labelNames[e]?.firstOrNull ?? '-------']);
     }
 
     emit(state.copyWith(

@@ -120,8 +120,7 @@ class DivisionsCubit extends MCubit<DivisionsInitial> {
       isDelete ? await deleteDivisionFromCache(state.id) : await addOrUpdateDivisionToCache(item);
       emit(state.copyWith(statuses: CubitStatuses.done));
     } else {
-      showErrorFromApi(state);
-      emit(state.copyWith(statuses: CubitStatuses.error));
+      emit(state.copyWith(statuses: CubitStatuses.error, error: response.getPairError.second));showErrorFromApi(state);
     }
   }
 

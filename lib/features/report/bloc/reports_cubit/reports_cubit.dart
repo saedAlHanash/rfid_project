@@ -104,8 +104,8 @@ class ReportsCubit extends MCubit<ReportsInitial> {
       isDelete ? await deleteReportFromCache(state.id) : await addOrUpdateReportToCache(item);
       emit(state.copyWith(statuses: CubitStatuses.done));
     } else {
+      emit(state.copyWith(statuses: CubitStatuses.error, error: response.getPairError.second));
       showErrorFromApi(state);
-      emit(state.copyWith(statuses: CubitStatuses.error));
     }
   }
 

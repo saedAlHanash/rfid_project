@@ -122,8 +122,8 @@ class ProductsCubit extends MCubit<ProductsInitial> {
       isDelete ? await deleteProductFromCache(state.id) : await addOrUpdateProductToCache(item);
       emit(state.copyWith(statuses: CubitStatuses.done));
     } else {
+      emit(state.copyWith(statuses: CubitStatuses.error, error: response.getPairError.second));
       showErrorFromApi(state);
-      emit(state.copyWith(statuses: CubitStatuses.error));
     }
   }
 

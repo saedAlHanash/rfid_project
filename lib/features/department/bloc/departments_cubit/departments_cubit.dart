@@ -120,8 +120,7 @@ class DepartmentsCubit extends MCubit<DepartmentsInitial> {
       isDelete ? await deleteDepartmentFromCache(state.id) : await addOrUpdateDepartmentToCache(item);
       emit(state.copyWith(statuses: CubitStatuses.done));
     } else {
-      showErrorFromApi(state);
-      emit(state.copyWith(statuses: CubitStatuses.error));
+      emit(state.copyWith(statuses: CubitStatuses.error, error: response.getPairError.second));showErrorFromApi(state);
     }
   }
 

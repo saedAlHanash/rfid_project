@@ -43,7 +43,7 @@ void main() async {
     );
 
     // await Note.initialize();
-    await importNewDatabaseFromApi();
+    importNewDatabaseFromApi();
 
     await AppInfoService.initial();
 
