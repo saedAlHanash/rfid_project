@@ -16,7 +16,7 @@ class AddAssetInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: MyStyle.outlineBorder,
-      padding: EdgeInsets.all(16.0).r,
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 5.0).r,
       child: Column(
         children: [
           10.0.verticalSpace,
@@ -26,16 +26,6 @@ class AddAssetInfo extends StatelessWidget {
             fontWeight: FontWeight.bold,
             drawableEnd: DrawableText(
               text: data.asset.name,
-              color: Colors.grey,
-            ),
-          ),
-          10.0.verticalSpace,
-          DrawableText(
-            matchParent: true,
-            text: S.of(context).department,
-            fontWeight: FontWeight.bold,
-            drawableEnd: DrawableText(
-              text: data.department.name,
               color: Colors.grey,
             ),
           ),
