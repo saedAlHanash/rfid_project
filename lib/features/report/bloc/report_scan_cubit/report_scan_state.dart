@@ -24,7 +24,7 @@ class ReportScanInitial extends AbstractState<List<String>> {
   final List<String> unsigned;
   final List<String> unknown;
   final List<List<dynamic>> scannedInfo;
-  final Map<String, String> labelNames;
+  final Map<String, List<String>> labelNames;
   final bool isRead;
 
   List<String> get allScanned => [...match, ...unsigned, ...unknown];
@@ -70,7 +70,7 @@ class ReportScanInitial extends AbstractState<List<String>> {
     List<String>? unsigned,
     List<String>? unknown,
     List<List<dynamic>>? scannedInfo,
-    Map<String, String>? labelNames,
+    Map<String, List<String>>? labelNames,
     bool? isRead,
     String? error,
     FilterRequest? filterRequest,

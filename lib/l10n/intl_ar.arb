@@ -343,5 +343,6 @@
   "damaged": "تالف",
   "readPower": "قوة القراءة",
   "permissions": "الصلاحيات",
-  "closingAccountDate": "تاريخ إغلاق الحساب"
+  "closingAccountDate": "تاريخ إغلاق الحساب",
+  "doYouWantToDestroyTheAsset": "هل انت متأكد من إتلاف الأصل؟"
 }

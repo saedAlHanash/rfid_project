@@ -17,8 +17,9 @@ import '../../../../core/widgets/app_bar/app_bar_widget.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 import '../../../asset/data/request/create_asset_request.dart';
-import '../../../database/ui/widgets/scan_buttons.dart';
+
 import '../../../scan/bloc/scan_cubit/scan_cubit.dart';
+import '../../../scan/ui/widgets/scan_buttons.dart';
 import '../../bloc/report_scan_cubit/report_scan_cubit.dart';
 import '../../bloc/reports_cubit/reports_cubit.dart';
 
@@ -41,20 +42,19 @@ class _ReportScanState extends State<ReportScan> {
     cubit = context.read<ScanCubit>();
 
     t = Timer.periodic(
-      Duration(seconds: 2),
+      Duration(seconds: 1),
       (timer) => cubit
         ..getStatus()
         ..getData(),
     );
 
-    cubit.init();
     super.initState();
   }
 
   @override
   void dispose() {
-    cubit.dispose();
     t?.cancel();
+    cubit.clear();
     super.dispose();
   }
 
@@ -174,8 +174,7 @@ class _ReportScanState extends State<ReportScan> {
                         ],
                       ),
                       2.0.verticalSpace,
-                      if (state.scannedInfo.isNotEmpty)
-                        ...state.scannedInfo.map((e) => TableItem(e: e)),
+                      if (state.scannedInfo.isNotEmpty) ...state.scannedInfo.map((e) => TableItem(e: e)),
                     ],
                   );
                 },
@@ -196,8 +195,7 @@ class _ReportScanState extends State<ReportScan> {
                     ..state.cRequest.labels.addAll(context.read<ReportScanCubit>().state.allScanned)
                     ..create();
                 },
-                icon:
-                    ImageMultiType(url: Assets.iconsFloppyDisk, height: 24.0, color: Colors.white),
+                icon: ImageMultiType(url: Assets.iconsFloppyDisk, height: 24.0, color: Colors.white),
                 text: S.of(context).save,
               );
             },
@@ -232,7 +230,7 @@ class TableHeaderItem extends StatelessWidget {
 }
 
 class TableItem extends StatelessWidget {
-  const TableItem({required this.e});
+  const TableItem({super.key, required this.e});
 
   final List<dynamic> e;
 

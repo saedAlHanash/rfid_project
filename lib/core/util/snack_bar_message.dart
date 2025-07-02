@@ -202,7 +202,7 @@ class NoteMessage {
               Divider(height: 25.0.h, color: Colors.black),
               TextButton(
                 onPressed: () => context.pop(true),
-                child: const DrawableText(text: 'OK'),
+                child: const DrawableText(text: 'تم'),
               ),
             ],
           ),

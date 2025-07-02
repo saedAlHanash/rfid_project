@@ -2569,6 +2569,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Do you want to destroy the Asset?`
+  String get doYouWantToDestroyTheAsset {
+    return Intl.message(
+      'Do you want to destroy the Asset?',
+      name: 'doYouWantToDestroyTheAsset',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

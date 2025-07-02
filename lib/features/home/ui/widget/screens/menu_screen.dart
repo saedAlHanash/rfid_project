@@ -27,11 +27,6 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-  @override
-  void initState() {
-    context.read<ScanCubit>().init();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -150,6 +150,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "doNotHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "Don\'t Have An Account?",
     ),
+    "doYouWantToDestroyTheAsset": MessageLookupByLibrary.simpleMessage(
+      "Do you want to destroy the Asset?",
+    ),
     "dollar": MessageLookupByLibrary.simpleMessage("Dollar"),
     "done": MessageLookupByLibrary.simpleMessage("Done"),
     "doneCanceled": MessageLookupByLibrary.simpleMessage("Order Canceled"),

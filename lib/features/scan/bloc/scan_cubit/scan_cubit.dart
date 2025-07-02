@@ -2,12 +2,13 @@ import 'package:flutter/services.dart';
 import 'package:m_cubit/m_cubit.dart';
 
 import '../../../../core/api_manager/api_service.dart';
+import '../../../database/import_db.dart';
 
 part 'scan_state.dart';
 
 class ScanCubit extends MCubit<ScanInitial> {
   ScanCubit() : super(ScanInitial.initial());
-
+  final List<String> scannedLabels = [];
   final MethodChannel _channel = MethodChannel('rfid_channel');
 
   Future<void> init() async {
@@ -37,6 +38,16 @@ class ScanCubit extends MCubit<ScanInitial> {
         emit(state.copyWith(power: power));
       }
       return b;
+    } on PlatformException catch (e) {
+      loggerObject.e("Failed to dispose RFID: '${e.message}'.");
+      return false;
+    }
+  }
+
+  Future<bool> setTempPower(int power) async {
+    try {
+      await _channel.invokeMethod('setPower', power);
+      return true;
     } on PlatformException catch (e) {
       loggerObject.e("Failed to dispose RFID: '${e.message}'.");
       return false;
@@ -86,7 +97,7 @@ class ScanCubit extends MCubit<ScanInitial> {
     try {
       final data = await _channel.invokeMethod('getData');
       final l = List<String>.from(data);
-      emit(state.copyWith(result: l));
+      getNamesAndEmit(l);
     } on PlatformException catch (e) {
       loggerObject.e("Failed to get data: '${e.message}'.");
       emit(state.copyWith(result: ['error ${e.message}']));
@@ -100,5 +111,30 @@ class ScanCubit extends MCubit<ScanInitial> {
       loggerObject.e("Failed to set read type: '${e.message}'.");
       return false;
     }
+  }
+
+  Future<void> getNamesAndEmit(List<String> scanList) async {
+    final canScan = scanList.where((label) => !scannedLabels.contains(label)).toList();
+
+    scannedLabels.addAll(canScan);
+
+    if (canScan.isEmpty) return;
+
+    final labelNames = <String, List<String>>{};
+
+    final names = await getProductInfoByLabels(canScan);
+
+    labelNames.addAll(names);
+
+    emit(state.copyWith(
+      labelNames: {...state.labelNames, ...labelNames},
+      result: [...state.result, ...canScan],
+    ));
+  }
+
+  @override
+  Future<void> close() {
+    dispose();
+    return super.close();
   }
 }

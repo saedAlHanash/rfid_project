@@ -83,7 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "clickToUpdate": MessageLookupByLibrary.simpleMessage("انقر للتعديل"),
     "closed": MessageLookupByLibrary.simpleMessage("منتهي"),
     "closingAccountDate": MessageLookupByLibrary.simpleMessage(
-      "Closing account date",
+      "تاريخ إغلاق الحساب",
     ),
     "codeSentToEmail": MessageLookupByLibrary.simpleMessage(
       "سيتم إرسال رمز التأكيد إلى البريد الإلكتروني: ",
@@ -328,7 +328,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "paymentMethod": MessageLookupByLibrary.simpleMessage("طريقة الدفع"),
     "payment_summary": MessageLookupByLibrary.simpleMessage("ملخص الدفع"),
     "pending": MessageLookupByLibrary.simpleMessage("انتظار"),
-    "permissions": MessageLookupByLibrary.simpleMessage("permissions"),
+    "permissions": MessageLookupByLibrary.simpleMessage("الصلاحيات"),
     "phoneCall": MessageLookupByLibrary.simpleMessage("مكالمة هاتفية"),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
     "phoneNumberCanNotBeChange": MessageLookupByLibrary.simpleMessage(
@@ -357,7 +357,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "question": MessageLookupByLibrary.simpleMessage("السؤال"),
     "rated": MessageLookupByLibrary.simpleMessage("تم التقييم"),
     "rePassword": MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
-    "readPower": MessageLookupByLibrary.simpleMessage("Read power"),
+    "readPower": MessageLookupByLibrary.simpleMessage("قوة القراءة"),
     "ready": MessageLookupByLibrary.simpleMessage("جاهز"),
     "readyToDeliver": MessageLookupByLibrary.simpleMessage("جاهز للتسليم"),
     "receiverPhone": MessageLookupByLibrary.simpleMessage("هاتف المستلم"),

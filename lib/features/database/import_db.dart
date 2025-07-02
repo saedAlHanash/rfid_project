@@ -57,7 +57,7 @@ Future<List<Map<String, dynamic>>> getAssetItems({
   return db.query('asset_items', where: whereString, whereArgs: whereArgs);
 }
 
-Future<Map<String, String>> getProductNamesByLabels(List<String> labels) async {
+Future<Map<String, List<String>>> getProductInfoByLabels(List<String> labels) async {
   final db = await openDatabaseFromPath();
 
   if (labels.isEmpty) return {};
@@ -77,30 +77,39 @@ Future<Map<String, String>> getProductNamesByLabels(List<String> labels) async {
   // 3. تجميع asset_ids المطلوبة
   final assetIds = labelToAssetId.values.toSet().toList();
 
-  // 4. استعلام واحد لجلب أسماء المنتجات
+  if (assetIds.isEmpty)
+    return {
+      for (final label in labels) label: ['غير معروف', '']
+    };
+
+  // 4. استعلام واحد لجلب أسماء المنتجات والصور
   final assets = await db.query(
     'assets',
+    columns: ['id', 'name', 'image'],
     where: 'id IN (${List.filled(assetIds.length, '?').join(',')})',
     whereArgs: assetIds,
   );
 
-  // 5. بناء خريطة: asset_id -> name
-  final Map<String, String> assetIdToName = {
-    for (var asset in assets) asset['id'] as String: asset['name'] as String
+  // 5. بناء خريطة: asset_id -> [name, image]
+  final Map<String, List<String>> assetIdToInfo = {
+    for (var asset in assets)
+      asset['id'] as String: [
+        asset['name'] as String? ?? 'غير معروف',
+        asset['image'] as String? ?? '',
+      ]
   };
 
-  // 6. بناء النتيجة كـ Map<label, name>
-  final Map<String, String> result = {};
+  // 6. بناء النتيجة كـ Map<label, [name, image]>
+  final Map<String, List<String>> result = {};
 
   for (final label in labels) {
     final assetId = labelToAssetId[label];
-    final name = assetId != null ? (assetIdToName[assetId] ?? 'غير معروف') : 'غير معروف';
-    result[label] = name;
+    final info = assetId != null ? (assetIdToInfo[assetId] ?? ['غير معروف', '']) : ['غير معروف', ''];
+    result[label] = info;
   }
 
   return result;
 }
-
 
 Future<List<Map<String, dynamic>>> getRooms() async {
   final db = await openDatabaseFromPath();
@@ -139,8 +148,7 @@ Future<List<Map<String, dynamic>>> getDivisionsByDepartment(String deptId) async
   );
 }
 
-Future<List<Map<String, dynamic>>> getReportsInDateRange(
-    String fromDate, String toDate) async {
+Future<List<Map<String, dynamic>>> getReportsInDateRange(String fromDate, String toDate) async {
   final db = await openDatabaseFromPath();
   return db.query(
     'reports',

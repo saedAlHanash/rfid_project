@@ -29,7 +29,7 @@ class ReportScanCubit extends MCubit<ReportScanInitial> {
 
     scannedLabels.addAll(canScan);
 
-    if (scanList.isEmpty) return;
+    if (canScan.isEmpty) return;
 
     final scannedInfo = [[]];
 
@@ -43,7 +43,7 @@ class ReportScanCubit extends MCubit<ReportScanInitial> {
 
     final unsigned = <String>[];
 
-    final labelNames = <String, String>{};
+    final labelNames = <String, List<String>>{};
 
     for (var e in canScan) {
       if (state.result.contains(e)) {
@@ -66,18 +66,21 @@ class ReportScanCubit extends MCubit<ReportScanInitial> {
 
     final allCanFindInDB = [...match, ...unknown];
 
-    final names = await getProductNamesByLabels(allCanFindInDB);
+    final names = await getProductInfoByLabels(allCanFindInDB);
 
     labelNames.addAll(names);
 
     for (var e in match) {
-      scannedInfo.add([e, TagStatus.match, labelNames[e] ?? '-------']);
+      scannedInfo.add(
+          [e, TagStatus.match, labelNames[e]?.firstOrNull ?? '-------', labelNames[e]?.lastOrNull ?? '']);
     }
     for (var e in unknown) {
-      scannedInfo.add([e, TagStatus.unknown, labelNames[e] ?? '-------']);
+      scannedInfo.add(
+          [e, TagStatus.unknown, labelNames[e]?.firstOrNull ?? '-------', labelNames[e]?.lastOrNull ?? '']);
     }
     for (var e in unsigned) {
-      scannedInfo.add([e, TagStatus.unsigned, labelNames[e] ?? '-------']);
+      scannedInfo.add(
+          [e, TagStatus.unsigned, labelNames[e]?.firstOrNull ?? '-------', labelNames[e]?.lastOrNull ?? '']);
     }
 
     emit(state.copyWith(
@@ -91,7 +94,7 @@ class ReportScanCubit extends MCubit<ReportScanInitial> {
   }
 
   Pair<String, String> labelInfo(String label) {
-    final name = state.labelNames[label] ?? '';
+    final name = state.labelNames[label] ?? [];
     var status = '-';
     if (state.match.contains(label)) {
       status = 'match';
@@ -101,7 +104,7 @@ class ReportScanCubit extends MCubit<ReportScanInitial> {
       status = 'unsigned';
     }
 
-    return Pair(name, status);
+    return Pair(name.firstOrNull ?? '', status);
   }
 
   void clear() {

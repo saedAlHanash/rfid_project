@@ -152,8 +152,8 @@ class DeleteProduct extends StatelessWidget {
                         onTap: () {
                           NoteMessage.showCheckDialog(
                             context,
-                            text: 'Do you want to destroy the Asset?',
-                            textButton: 'Yes',
+                            text: S.of(context).doYouWantToDestroyTheAsset,
+                            textButton: S.of(context).yes,
                             onConfirm: () {
                               context.read<AssetsCubit>().delete(id: product.id);
                             },

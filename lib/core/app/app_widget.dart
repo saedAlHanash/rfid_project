@@ -47,9 +47,23 @@ class _MyAppState extends State<MyApp> {
     S.load(Locale(AppSharedPreference.getLocal));
 
     setImageMultiTypeErrorImage(
-      const Opacity(opacity: 0.3, child: ImageMultiType(url: Assets.imagesLogo, height: 30.0, width: 30.0)),
+      const Opacity(
+        opacity: 0.3,
+        child: ImageMultiType(
+          url: Assets.imagesLogo,
+          height: 30.0,
+          width: 30.0,
+        ),
+      ),
     );
+    context.read<ScanCubit>().init();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    context.read<ScanCubit>().dispose();
+    super.dispose();
   }
 
   Future<void> setLocale(Locale locale) async {

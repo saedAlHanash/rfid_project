@@ -35,9 +35,9 @@ class _ScanPageState extends State<ScanPage> {
   @override
   void initState() {
     cubit = context.read<ScanCubit>();
-    cubit.init();
+
     t = Timer.periodic(
-      Duration(seconds: 2),
+      Duration(seconds: 1),
       (timer) => cubit
         ..getStatus()
         ..getData(),
@@ -49,7 +49,7 @@ class _ScanPageState extends State<ScanPage> {
   @override
   void dispose() {
     cubit.clear();
-    cubit.dispose();
+
     t?.cancel();
     super.dispose();
   }
@@ -83,7 +83,7 @@ class _ScanPageState extends State<ScanPage> {
                 children: [
                   AddAssetInfo(data: cState.cRequest),
                   20.0.verticalSpace,
-                  DrawableText.title(text: 'Tag id'),
+                  DrawableText.title(text: S.of(context).tag),
                   BlocBuilder<ScanCubit, ScanInitial>(
                     builder: (context, state) {
                       if (state.loading) {
