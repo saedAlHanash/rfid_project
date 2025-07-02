@@ -4,11 +4,13 @@ import 'package:image_multi_type/round_image_widget.dart';
 import 'package:m_cubit/m_cubit.dart';
 import 'package:rfid_project/core/api_manager/api_service.dart';
 import 'package:rfid_project/core/api_manager/api_url.dart';
+import 'package:rfid_project/core/app/app_provider.dart';
 import 'package:rfid_project/core/extensions/extensions.dart';
 import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:rfid_project/core/util/pair_class.dart';
 import 'package:rfid_project/features/asset/data/request/create_asset_request.dart';
 import 'package:rfid_project/features/asset/data/response/asset_response.dart';
+import 'package:rfid_project/features/database/import_db.dart';
 import 'package:rfid_project/features/entity/data/response/entity_response.dart';
 import 'package:rfid_project/features/product/data/response/product_response.dart';
 
@@ -64,13 +66,26 @@ class AssetsCubit extends MCubit<AssetsInitial> {
       url: PostUrl.createAsset,
       body: state.cRequest.toJson(),
     );
-
+    if (response.statusCode.success) {
+      insertAssetItems(state.cRequest.labels.map(
+        (e) {
+          return AssetItem(
+            assetId: state.cRequest.asset.id.toString(),
+            clientId: AppProvider.myId.toString(),
+            label: e,
+            status: 'new',
+            roomId: state.cRequest.room.id.toString(),
+            createdAt: APIService().serverTime.toIso8601String(),
+            updatedAt: APIService().serverTime.toIso8601String(),
+          );
+        },
+      ).toList());
+    }
     await _updateState(response);
   }
 
   Future<void> update(int id) async {
-    emit(state.copyWith(
-        statuses: CubitStatuses.loading, cubitCrud: CubitCrud.update, id: id));
+    emit(state.copyWith(statuses: CubitStatuses.loading, cubitCrud: CubitCrud.update, id: id));
 
     final response = await APIService().callApi(
       type: ApiType.put,
@@ -78,12 +93,23 @@ class AssetsCubit extends MCubit<AssetsInitial> {
       body: state.cRequest.toJsonUpdate(),
       path: state.mId.toString(),
     );
+    updateAssetItem(
+      AssetItem(
+        id: id,
+        assetId: state.cRequest.asset.id.toString(),
+        clientId: AppProvider.myId.toString(),
+        label: state.cRequest.labels.first,
+        status: 'new',
+        roomId: state.cRequest.room.id.toString(),
+        createdAt: APIService().serverTime.toIso8601String(),
+        updatedAt: APIService().serverTime.toIso8601String(),
+      ),
+    );
     await _updateState(response);
   }
 
   Future<void> delete({required int id}) async {
-    emit(state.copyWith(
-        statuses: CubitStatuses.loading, cubitCrud: CubitCrud.delete, id: id));
+    emit(state.copyWith(statuses: CubitStatuses.loading, cubitCrud: CubitCrud.delete, id: id));
 
     final response = await APIService().callApi(
       type: ApiType.put,
@@ -91,7 +117,18 @@ class AssetsCubit extends MCubit<AssetsInitial> {
       query: {'id': state.id},
       path: state.id.toString(),
     );
-
+    updateAssetItem(
+      AssetItem(
+        id: id,
+        assetId: state.cRequest.asset.id.toString(),
+        clientId: AppProvider.myId.toString(),
+        label: state.cRequest.labels.first,
+        status: 'damaged',
+        roomId: state.cRequest.room.id.toString(),
+        createdAt: APIService().serverTime.toIso8601String(),
+        updatedAt: APIService().serverTime.toIso8601String(),
+      ),
+    );
     await _updateState(response, isDelete: true);
   }
 
@@ -119,9 +156,7 @@ class AssetsCubit extends MCubit<AssetsInitial> {
   Future<void> _updateState(Response response, {bool isDelete = false}) async {
     if (response.statusCode.success) {
       final item = Asset.fromJson(response.jsonBody);
-      isDelete
-          ? await deleteAssetFromCache(state.id.toString())
-          : await addOrUpdateAssetToCache(item);
+      isDelete ? await deleteAssetFromCache(state.id.toString()) : await addOrUpdateAssetToCache(item);
       emit(state.copyWith(statuses: CubitStatuses.done));
     } else {
       emit(state.copyWith(statuses: CubitStatuses.error, error: response.getPairError.second));
@@ -142,9 +177,6 @@ class AssetsCubit extends MCubit<AssetsInitial> {
 
   //endregion
 
-  //region setData
-
-  //endregion
   Future<void> addOrUpdateAssetToCache(Asset item) async {
     final listJson = await addOrUpdateDate([item]);
     if (listJson == null) return;

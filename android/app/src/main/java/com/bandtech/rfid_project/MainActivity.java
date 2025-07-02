@@ -1,13 +1,8 @@
 package com.bandtech.rfid_project;
 
 import android.annotation.SuppressLint;
-import android.media.AudioManager;
-import android.media.ToneGenerator;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,13 +28,12 @@ import io.flutter.plugin.common.MethodChannel;
 @SuppressLint("HandlerLeak")
 public class MainActivity extends FlutterActivity implements IAsynchronousMessage {
     private static final String CHANNEL = "rfid_channel";
-    private MethodChannel channel;
 
     @Override
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
         super.configureFlutterEngine(flutterEngine);
 
-        channel = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL);
+        MethodChannel channel = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL);
 
         channel.setMethodCallHandler((call, result) -> {
             try {
@@ -103,7 +97,7 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
     private static boolean isStartPingPong = false;
     private boolean isKeyDown = false;
     private int keyDownCount = 0;
-    private int _Max_Power = 30;
+    private final int _Max_Power = 30;
 
     private static int _ReadType = 0;
     private final HashMap<String, EPCModel> hmList = new HashMap<>();
@@ -112,7 +106,6 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
 
     private static final boolean isPowerLowShow = false;
 
-    private IAsynchronousMessage log = null;
 
     public void UHF_Dispose() {
         if (_UHFSTATE) {
@@ -122,7 +115,6 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
     }
 
     @SuppressLint("UseSparseArrays")
-    @SuppressWarnings("serial")
     protected void UHF_GetReaderProperty() {
 
         String propertyStr = UHFReader._Config.GetReaderProperty();
@@ -219,22 +211,18 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
 
 
     protected void Init() {
-        log = this;
-        if (!UHF_Init(log)) {
 
-        } else {
+        if (UHF_Init(this)) {
+
             try {
                 UHF_GetReaderProperty();
                 Thread.sleep(20);
                 CLReader.Stop();
                 Thread.sleep(20);
                 UHF_SetTagUpdateParam();
-            } catch (Exception ignored) {
-                Toast.makeText(this, "error" + ignored.getMessage(), Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(this, "error" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
-//            Refush();
-
         }
     }
 
@@ -310,12 +298,13 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
                 if (!isStartPingPong) {
                     Pingpong_Stop();
                     isStartPingPong = true;
-                    if ("6C".equals("6C")) {
-                        GetEPC_6C();
-                    } else {
-                        CLReader.Get6B(_NowAntennaNo + "|1" + "|1" + "|"
-                                + "1,000F");
-                    }
+                    GetEPC_6C();
+//                    if ("6C".equals("6C")) {
+//                        GetEPC_6C();
+//                    } else {
+//                        CLReader.Get6B(_NowAntennaNo + "|1" + "|1" + "|"
+//                                + "1,000F");
+//                    }
                 }
             } else {
                 if (keyDownCount < 10000)
@@ -376,14 +365,15 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
         Helper_ThreadPool.ThreadPool_StartSingle(() -> {
             try {
                 if (!isPowerLowShow) {
-                    if ("6C".equals("6C")) {
-                        GetEPC_6C();
-                    } else {
-                        CLReader.Get6B(_NowAntennaNo + "|1" + "|1" + "|" + "1,000F");
-                    }
+                    GetEPC_6C();
+//                    if ("6C".equals("6C")) {
+//                        GetEPC_6C();
+//                    } else {
+//                        CLReader.Get6B(_NowAntennaNo + "|1" + "|1" + "|" + "1,000F");
+//                    }
                 }
-            } catch (Exception ignored) {
-                Toast.makeText(this, "error" + ignored.getMessage(), Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(this, "error" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -398,11 +388,13 @@ public class MainActivity extends FlutterActivity implements IAsynchronousMessag
 
     private void GetEPC_6C() {
 
-        switch ("EPC") {
-            case "EPC" -> UHFReader._Tag6C.GetEPC(_NowAntennaNo, 1);
-            case "TID" -> UHFReader._Tag6C.GetEPC_TID(_NowAntennaNo, 1);
-            case "UserData" -> UHFReader._Tag6C.GetEPC_TID_UserData(_NowAntennaNo, 1, 0, 6);
-        }
+        UHFReader._Tag6C.GetEPC(_NowAntennaNo, 1);
+
+//        switch ("EPC") {
+//            case "EPC" -> UHFReader._Tag6C.GetEPC(_NowAntennaNo, 1);
+//            case "TID" -> UHFReader._Tag6C.GetEPC_TID(_NowAntennaNo, 1);
+//            case "UserData" -> UHFReader._Tag6C.GetEPC_TID_UserData(_NowAntennaNo, 1, 0, 6);
+//        }
 
     }
 

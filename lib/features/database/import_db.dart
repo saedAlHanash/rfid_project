@@ -247,3 +247,70 @@ Future<File> downloadZipFile(String url) async {
   await zipFile.writeAsBytes(response.bodyBytes);
   return zipFile;
 }
+
+Future<void> insertAssetItems(List<AssetItem> items) async {
+  final Database db = await openDatabase('your_database.db'); // أو استخدم getDatabase()
+
+  Batch batch = db.batch();
+
+  for (final item in items) {
+    batch.insert(
+      'asset_items',
+      item.toJson(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  await batch.commit(noResult: true);
+}
+
+Future<void> updateAssetItem(AssetItem item) async {
+  final Database db = await openDatabase('your_database.db'); // أو getDatabase()
+
+  await db.update(
+    'asset_items',
+    item.toJson(),
+    where: 'id = ?',
+    whereArgs: [item.id],
+  );
+}
+
+class AssetItem {
+  final int? id; // null عند الإدخال الجديد
+  final String assetId;
+  final String clientId;
+  final String label;
+  final String status;
+  final String roomId;
+  final String createdAt;
+  final String updatedAt;
+
+  AssetItem({
+    this.id,
+    required this.assetId,
+    required this.clientId,
+    required this.label,
+    required this.status,
+    required this.roomId,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  Map<String, dynamic> toJson() {
+    final map = {
+      'asset_id': assetId,
+      'client_id': clientId,
+      'label': label,
+      'status': status,
+      'room_id': roomId,
+      'created_at': createdAt,
+      'updated_at': updatedAt,
+    };
+
+    if (id != null) {
+      map['id'] = id.toString();
+    }
+
+    return map;
+  }
+}

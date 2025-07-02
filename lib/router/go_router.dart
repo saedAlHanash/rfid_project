@@ -17,7 +17,7 @@ import '../features/asset/ui/pages/asset_page.dart';
 import '../features/asset/ui/pages/assets_page.dart';
 import '../features/product/ui/pages/delete_product.dart';
 import '../features/product/ui/pages/edit_product_page.dart';
-import '../features/asset/ui/pages/scan_page.dart';
+import '../features/product/ui/pages/scan_page.dart';
 import '../features/auth/bloc/login_cubit/login_cubit.dart';
 import '../features/auth/bloc/signup_cubit/signup_cubit.dart';
 import '../features/auth/ui/pages/login_page.dart';

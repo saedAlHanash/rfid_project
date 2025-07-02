@@ -18,7 +18,7 @@ import '../../../../core/widgets/app_bar/app_bar_widget.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 import '../../../scan/bloc/scan_cubit/scan_cubit.dart';
-import '../../bloc/assets_cubit/assets_cubit.dart';
+import '../../../asset/bloc/assets_cubit/assets_cubit.dart';
 
 class ScanPage extends StatefulWidget {
   const ScanPage({super.key});
