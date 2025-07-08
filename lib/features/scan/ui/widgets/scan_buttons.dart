@@ -30,8 +30,10 @@ class ScanButtons extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  if (save != null) Expanded(flex: 5, child: save!),
-                  if (save != null) 15.0.horizontalSpace,
+                  if (save != null && !state.isRead) ...[
+                    Expanded(flex: 5, child: save!),
+                    15.0.horizontalSpace,
+                  ],
                   Expanded(
                     flex: 5,
                     child: MyButton(
@@ -39,8 +41,7 @@ class ScanButtons extends StatelessWidget {
                       onTap: () {
                         context.read<ScanCubit>().clear();
                       },
-                      icon: ImageMultiType(
-                          url: Assets.iconsTrash, height: 24.0, color: Colors.white),
+                      icon: ImageMultiType(url: Assets.iconsTrash, height: 24.0, color: Colors.white),
                       text: S.of(context).clear,
                     ),
                   ),
@@ -51,12 +52,12 @@ class ScanButtons extends StatelessWidget {
                       elevation: 0.0,
                       color: state.isRead ? Colors.red : null,
                       onTap: () {
-                        context.read<ScanCubit>().readOrStop();
+                        context.read<ScanCubit>()
+                          ..readOrStop()
+                          ..getStatus();
                       },
                       icon: ImageMultiType(
-                        url: state.isRead
-                            ? Assets.iconsStopCircle
-                            : Icons.play_circle_outline_rounded,
+                        url: state.isRead ? Assets.iconsStopCircle : Icons.play_circle_outline_rounded,
                         height: 24.0,
                         color: Colors.white,
                       ),
@@ -65,8 +66,10 @@ class ScanButtons extends StatelessWidget {
                   ),
                 ],
               ),
-              if (search != null) 5.0.verticalSpace,
-              if (search != null) search!,
+              if (search != null && !state.isRead) ...[
+                5.0.verticalSpace,
+                search!,
+              ],
             ],
           ),
         );
