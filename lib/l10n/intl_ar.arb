@@ -344,5 +344,6 @@
   "readPower": "قوة القراءة",
   "permissions": "الصلاحيات",
   "closingAccountDate": "تاريخ إغلاق الحساب",
-  "doYouWantToDestroyTheAsset": "هل انت متأكد من إتلاف الأصل؟"
+  "doYouWantToDestroyTheAsset": "هل انت متأكد من إتلاف الأصل؟",
+  "found": "موجود"
 }

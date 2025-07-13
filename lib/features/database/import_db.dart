@@ -4,16 +4,38 @@ import 'package:archive/archive_io.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:rfid_project/core/api_manager/api_service.dart';
+import 'package:rfid_project/core/app/app_provider.dart';
+import 'package:rfid_project/core/error/error_manager.dart';
+import 'package:rfid_project/core/extensions/extensions.dart';
+import 'package:rfid_project/core/strings/enum_manager.dart';
 import 'package:sqflite/sqflite.dart';
 
-Future<void> importNewDatabaseFromApi() async {
-  final zipUrl = 'https://jaradalasul.com/storage/app_data.zip';
+import '../../core/util/pair_class.dart';
 
+var isImport = false;
+var isImporting = false;
+
+Future<void> importNewDatabaseFromApi({bool fourceImport = false}) async {
   try {
-    final zipFile = await downloadZipFile(zipUrl);
-    final sqliteFile = await extractSqliteFromZip(zipFile);
-    final db = await openNewDatabase();
+    if (fourceImport) isImport = false;
+    if (isImport || !AppProvider.isLogin) return;
+    isImport = true;
+    final response = await APIService().callApi(
+      url: 'export-sqlite',
+      type: ApiType.get,
+    );
 
+    if (!response.statusCode.success) {
+      isImport = false;
+      showErrorFromApiNorma((response.getPairError as Pair).second);
+      return;
+    }
+
+    final zipFile = await downloadZipFile(response.jsonBodyPure['url'] ?? '');
+
+    final sqliteFile = await extractSqliteFromZip(zipFile);
+    await openNewDatabase();
+    isImport = true;
     loggerObject.i('تم استيراد القاعدة بنجاح: ${sqliteFile.path}');
     // يمكنك الآن استخدام db كقاعدة بيانات جديدة
   } catch (e) {
@@ -171,17 +193,15 @@ Future<List<String>> getMissingLabels(List<String> labels) async {
 
   final db = await openDatabaseFromPath();
 
-  // أولًا، نحصل على كل الـ labels الموجودة فعليًا في الجدول
   final placeholders = List.filled(labels.length, '?').join(', ');
+
   final result = await db.rawQuery(
     'SELECT label FROM asset_items WHERE label IN ($placeholders)',
     labels,
   );
 
-  // تحويل النتائج إلى Set لسهولة المقارنة
   final existingLabels = result.map((row) => row['label'] as String).toSet();
 
-  // استخراج الفرق بين الاثنين
   final missing = labels.where((label) => !existingLabels.contains(label)).toList();
 
   return missing;

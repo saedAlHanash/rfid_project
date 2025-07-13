@@ -16,5 +16,5 @@ class AppInfoService {
 
   static PackageInfo get appInfo => _appData!;
 
-  static String get fullVersionName => 'النسخة:( ${appInfo.version} ) | البنية:( ${appInfo.buildNumber} )';
+  static String get fullVersionName => 'V:${appInfo.version}';
 }

@@ -244,6 +244,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "flash_deal": MessageLookupByLibrary.simpleMessage("Flash Deal"),
     "follow": MessageLookupByLibrary.simpleMessage("Follow"),
     "forgetPassword": MessageLookupByLibrary.simpleMessage("Forgot Password?"),
+    "found": MessageLookupByLibrary.simpleMessage("found"),
     "free": MessageLookupByLibrary.simpleMessage("Free"),
     "freeExams": MessageLookupByLibrary.simpleMessage("Free exams"),
     "freeLesson": MessageLookupByLibrary.simpleMessage("Free lessons"),

@@ -47,7 +47,12 @@ class _ReportScanState extends State<ReportScan> {
         ..getStatus()
         ..getData(),
     );
-
+    Future.delayed(Duration(seconds: 1), () {
+      context.read<ReportScanCubit>().calculate([
+        'E28069950000400E8B07986A',
+        'E28069950000500E8B079870',
+      ]);
+    });
     super.initState();
   }
 

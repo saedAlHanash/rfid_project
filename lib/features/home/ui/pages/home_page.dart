@@ -4,6 +4,7 @@ import 'package:rfid_project/core/widgets/app_bar/app_bar_widget.dart';
 
 import '../../../../core/util/my_style.dart';
 import '../../../auth/bloc/delete_account_cubit/delete_account_cubit.dart';
+import '../../../database/import_db.dart';
 import '../../../profile/bloc/get_me_cubit/get_me_cubit.dart';
 import '../../bloc/home_cubit/home_cubit.dart';
 import '../widget/screens/menu_screen.dart';
@@ -28,6 +29,7 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     context.read<GetMeCubit>().getData(newData: true);
+    importNewDatabaseFromApi();
     super.initState();
   }
 

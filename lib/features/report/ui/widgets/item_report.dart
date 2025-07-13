@@ -42,52 +42,54 @@ class ItemReport extends StatelessWidget {
                 DrawableText(
                   text: '${S.of(context).dateTime}:  ${report.createdAt}',
                   color: Colors.grey.shade700,
+                  size: 10.0.sp,
                 ),
                 DrawableText(
                   text: '${S.of(context).totalTags}:  ${report.stats.labelsCount}',
                   color: Colors.grey.shade700,
+                  size: 10.0.sp,
                 ),
               ],
             ),
             16.0.verticalSpace,
             // Row of Chips
-              Row(
-                spacing: 8,
-                children: [
-                  if (report.stats.newCount > 0)
-                    Expanded(
-                      child: StatusBox(
-                        title: 'new:',
-                        color: Colors.green,
-                        count: report.stats.newCount.toString(),
-                      ),
+            Row(
+              spacing: 8,
+              children: [
+                if (report.stats.newCount > 0)
+                  Expanded(
+                    child: StatusBox(
+                      title: S.of(context).new1,
+                      color: Colors.green,
+                      count: report.stats.newCount.toString(),
                     ),
-                  if (report.stats.foundCount > 0)
-                    Expanded(
-                      child: StatusBox(
-                        title: 'found:',
-                        color: Colors.black45,
-                        count: report.stats.foundCount.toString(),
-                      ),
+                  ),
+                if (report.stats.foundCount > 0)
+                  Expanded(
+                    child: StatusBox(
+                      title: S.of(context).found,
+                      color: Colors.black45,
+                      count: report.stats.foundCount.toString(),
                     ),
-                  if (report.stats.damagedCount > 0)
-                    Expanded(
-                      child: StatusBox(
-                        title: 'damaged:',
-                        color: Colors.red,
-                        count: report.stats.damagedCount.toString(),
-                      ),
+                  ),
+                if (report.stats.damagedCount > 0)
+                  Expanded(
+                    child: StatusBox(
+                      title: S.of(context).damaged,
+                      color: Colors.red,
+                      count: report.stats.damagedCount.toString(),
                     ),
-                  if (report.stats.unknownCount > 0)
-                    Expanded(
-                      child: StatusBox(
-                        title: 'unknown:',
-                        color: Colors.amber,
-                        count: report.stats.unknownCount.toString(),
-                      ),
+                  ),
+                if (report.stats.unknownCount > 0)
+                  Expanded(
+                    child: StatusBox(
+                      title: S.of(context).unknown,
+                      color: Colors.amber,
+                      count: report.stats.unknownCount.toString(),
                     ),
-                ],
-              ),
+                  ),
+              ],
+            ),
             16.0.verticalSpace,
             Container(
               decoration: MyStyle.outlineBorder,

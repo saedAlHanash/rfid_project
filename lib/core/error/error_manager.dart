@@ -64,3 +64,9 @@ void showErrorFromApi(AbstractState state) {
     });
   }
 }
+
+void showErrorFromApiNorma(String error) {
+  if (ctx == null) return;
+
+  NoteMessage.showAwesomeError(context: ctx!, message: error);
+}

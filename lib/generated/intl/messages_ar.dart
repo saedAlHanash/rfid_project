@@ -230,6 +230,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "flash_deal": MessageLookupByLibrary.simpleMessage("العروض السريعة"),
     "follow": MessageLookupByLibrary.simpleMessage("متابعة"),
     "forgetPassword": MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور؟"),
+    "found": MessageLookupByLibrary.simpleMessage("موجود"),
     "free": MessageLookupByLibrary.simpleMessage("مجاني"),
     "freeExams": MessageLookupByLibrary.simpleMessage("امتحانات مجانية"),
     "freeLesson": MessageLookupByLibrary.simpleMessage("دروس المجانية"),

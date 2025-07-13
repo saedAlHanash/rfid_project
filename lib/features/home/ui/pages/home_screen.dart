@@ -17,6 +17,8 @@ import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../main.dart';
 import '../../../../router/go_router.dart';
+import '../../../../services/app_info_service.dart';
+import '../widget/screens/menu_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -55,90 +57,91 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               padding: EdgeInsets.only(top: 10.0).r,
-              child: ListView(
+              child: GridView(
+                shrinkWrap: true,
+                padding: EdgeInsets.all(15.0),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 1,
+                  crossAxisSpacing: 15.0,
+                  mainAxisSpacing: 15.0,
+                ),
                 children: [
-                  1.0.horizontalSpace,
-                  Center(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _Item(
-                          image: Assets.imagesAdd,
-                          title: S.of(context).addProduct,
-                          onTap: () {
-                            context.pushNamed(RouteName.addAsset);
-                          },
-                        ),
-                        _Item(
-                          image: Assets.imagesEdit,
-                          title: S.of(context).editProduct,
-                          onTap: () {
-                            context.pushNamed(
-                              RouteName.findAsset,
-                              queryParameters: {
-                                'actionType': ActionType.update.index.toString()
-                              },
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                  _Item(
+                    image: Assets.imagesReports,
+                    title: S.of(context).reports,
+                    onTap: () {
+                      context.pushNamed(RouteName.reports);
+                    },
                   ),
-                  Center(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _Item(
-                          image: Assets.imagesTransfare,
-                          title: S.of(context).transferProduct,
-                          onTap: () {
-                            context.pushNamed(
-                              RouteName.findAsset,
-                              queryParameters: {
-                                'actionType': ActionType.move.index.toString()
-                              },
-                            );
-                          },
-                        ),
-                        _Item(
-                          image: Assets.imagesDelete,
-                          title: S.of(context).removeProduct,
-                          onTap: () {
-                            context.pushNamed(
-                              RouteName.findAsset,
-                              queryParameters: {
-                                'actionType': ActionType.delete.index.toString()
-                              },
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                  _Item(
+                    image: Assets.imagesGetReports,
+                    title: S.of(context).assetInventory,
+                    onTap: () {
+                      context.pushNamed(RouteName.findRoom);
+                    },
                   ),
-                  Center(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _Item(
-                          image: Assets.imagesReports,
-                          title: S.of(context).reports,
-                          onTap: () {
-                            context.pushNamed(RouteName.reports);
-
-                          },
-                        ),
-                        _Item(
-                          image: Assets.imagesGetReports,
-                          title: S.of(context).assetInventory,
-                          onTap: () {
-                            context.pushNamed(RouteName.findRoom);
-                          },
-                        ),
-                      ],
-                    ),
+                  _Item(
+                    image: Assets.imagesAdd,
+                    title: S.of(context).addProduct,
+                    onTap: () {
+                      context.pushNamed(RouteName.addAsset);
+                    },
+                  ),
+                  _Item(
+                    image: Assets.imagesEdit,
+                    title: S.of(context).editProduct,
+                    onTap: () {
+                      context.pushNamed(
+                        RouteName.findAsset,
+                        queryParameters: {'actionType': ActionType.update.index.toString()},
+                      );
+                    },
+                  ),
+                  _Item(
+                    image: Assets.imagesTransfare,
+                    title: S.of(context).transferProduct,
+                    onTap: () {
+                      context.pushNamed(
+                        RouteName.findAsset,
+                        queryParameters: {'actionType': ActionType.move.index.toString()},
+                      );
+                    },
+                  ),
+                  _Item(
+                    image: Assets.imagesDelete,
+                    title: S.of(context).removeProduct,
+                    onTap: () {
+                      context.pushNamed(
+                        RouteName.findAsset,
+                        queryParameters: {'actionType': ActionType.delete.index.toString()},
+                      );
+                    },
                   ),
                 ],
               ),
+            ),
+          ),
+          Container(
+            width: 1.0.sw,
+            padding: EdgeInsets.symmetric(vertical: 5.0),
+            color: AppColorManager.whit,
+            child: Column(
+              children: [
+                ListTile(
+                  leading: ImageMultiType(url: Assets.imagesBandtechCircle, height: 30.0.r, width: 30.0.r),
+                  subtitle: DrawableText(
+                    text: S.of(context).designProgrammingPropertyRightsAndPublishing,
+                    size: 12.0.sp,
+                  ),
+                  title: DrawableText(text: S.of(context).bandtech, fontFamily: FontManager.bold.name),
+                  trailing: DrawableText(
+                    size: 12.0.sp,
+                    color: AppColorManager.gray,
+                    text: AppInfoService.fullVersionName,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -159,9 +162,6 @@ class _Item extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-          height: 176.0.h,
-          width: 146.0.w,
-          margin: EdgeInsets.all(15.0).r,
           padding: EdgeInsets.symmetric(horizontal: 23.0.w, vertical: 16.0).r,
           decoration: BoxDecoration(
             color: AppColorManager.whit,

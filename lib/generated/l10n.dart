@@ -2579,6 +2579,11 @@ class S {
       args: [],
     );
   }
+
+  /// `found`
+  String get found {
+    return Intl.message('found', name: 'found', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

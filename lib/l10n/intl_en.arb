@@ -345,5 +345,6 @@
   "readPower": "Read power",
   "permissions": "permissions",
   "closingAccountDate": "Closing account date",
-  "doYouWantToDestroyTheAsset": "Do you want to destroy the Asset?"
+  "doYouWantToDestroyTheAsset": "Do you want to destroy the Asset?",
+  "found": "found"
 }

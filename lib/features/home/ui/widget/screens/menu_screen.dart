@@ -27,7 +27,6 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,8 +44,8 @@ class _MenuScreenState extends State<MenuScreen> {
                   color: AppColorManager.whit,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(20.0.r)),
                 ),
-                padding: EdgeInsets.all(20.0).r,
-                child: Column(
+                child: ListView(
+                  padding: EdgeInsets.all(20.0).r,
                   children: [
                     MyTextFormOutLineWidget(
                       enable: false,
@@ -129,7 +128,6 @@ class _MenuScreenState extends State<MenuScreen> {
                         color: AppColorManager.mainColor,
                       ),
                     ),
-                    Spacer(),
                     Bandtech(),
                     20.0.verticalSpace,
                   ],
